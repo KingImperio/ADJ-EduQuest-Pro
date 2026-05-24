@@ -41,12 +41,12 @@ export default function LandingHeroDemo() {
   const { scrollYProgress } = useScroll()
   const scaleX = useTransform(scrollYProgress, [0, 1], [0, 1])
   const [currentCardVariant, setCurrentCardVariant] = useState(0)
-  const [isAutoPlaying, setIsAutoPlaying] = useState(true)
+  const [isAutoPlaying, _setIsAutoPlaying] = useState(true)
   
   // Hero text rotation state
   const [currentWriteup, setCurrentWriteup] = useState(0)
   const [currentSubVariation, setCurrentSubVariation] = useState(0)
-  const [isTextAnimating, setIsTextAnimating] = useState(false)
+  const [_isTextAnimating, setIsTextAnimating] = useState(false)
 
   // Rotate hero text - sub-variations within each writeup, then switch writeup
   useEffect(() => {
@@ -222,15 +222,6 @@ export default function LandingHeroDemo() {
     return () => clearInterval(interval)
   }, [isAutoPlaying])
 
-  const nextVariant = () => {
-    setCurrentCardVariant((prev) => (prev + 1) % cardVariants.length)
-    setIsAutoPlaying(false)
-  }
-
-  const prevVariant = () => {
-    setCurrentCardVariant((prev) => (prev - 1 + cardVariants.length) % cardVariants.length)
-    setIsAutoPlaying(false)
-  }
   return (
     <div className="min-h-screen bg-deep relative z-0">
       {/* Scroll Progress Indicator */}

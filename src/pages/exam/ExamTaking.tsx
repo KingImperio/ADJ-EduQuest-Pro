@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { Icon } from '../../components/Icon'
 
 interface Question {
@@ -64,7 +64,7 @@ export default function ExamTaking() {
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [showSubmitConfirm, setShowSubmitConfirm] = useState(false)
   const [isPaused, setIsPaused] = useState(false)
-  const timerRef = useRef<NodeJS.Timeout | null>(null)
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   const currentQuestion = questions[currentQuestionIndex]
   const progress = ((currentQuestionIndex + 1) / questions.length) * 100

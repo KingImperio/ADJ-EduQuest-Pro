@@ -96,7 +96,7 @@ export default function LandingHeroDemo() {
                   </div>
                 </div>
                 <div className="w-8 h-8 rounded bg-deepest flex items-center justify-center">
-                  <Icon name="notifications" className="w-4 h-4 text-text-secondary" />
+                  <Icon name="bell" className="w-4 h-4 text-text-secondary" />
                 </div>
               </div>
 
@@ -104,7 +104,7 @@ export default function LandingHeroDemo() {
               <div className="bg-deepest rounded-lg p-4 flex-grow border border-border flex flex-col justify-center items-center relative overflow-hidden">
                 <div className="absolute inset-0 bg-primary/10 blur-xl rounded-full"></div>
                 <div className="text-center relative z-10">
-                  <Icon name="timer" className="w-12 h-12 text-primary mb-2" />
+                  <Icon name="clock" className="w-12 h-12 text-primary mb-2" />
                   <h4 className="font-bold text-text-primary mb-1">JAMB Mock Exam</h4>
                   <p className="text-text-secondary text-sm mb-4">Physics & Chemistry</p>
                   <button className="bg-primary hover:bg-primary-hover text-white px-6 py-2 rounded-full font-medium text-sm transition-colors">
@@ -185,7 +185,7 @@ export default function LandingHeroDemo() {
               }}
             >
               <div className="w-8 h-8 rounded-full bg-gold/20 flex items-center justify-center text-gold-500">
-                <Icon name="bolt" className="w-4 h-4" />
+                <Icon name="zap" className="w-4 h-4" />
               </div>
               <div>
                 <div className="font-bold text-text-primary text-sm">Quest Complete!</div>

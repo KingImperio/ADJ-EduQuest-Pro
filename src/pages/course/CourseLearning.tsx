@@ -56,7 +56,7 @@ export default function CourseLearning() {
   const [playbackTime, setPlaybackTime] = useState(0)
   const [showNotes, setShowNotes] = useState(false)
   const [notes, setNotes] = useState('')
-  const playbackTimerRef = useRef<NodeJS.Timeout | null>(null)
+  const playbackTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   // Find current lesson based on URL params
   useEffect(() => {

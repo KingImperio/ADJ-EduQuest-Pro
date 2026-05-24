@@ -1,0 +1,1 @@
+redo the auth and onboarding screens and the features screens. also the four different size cards in landing page plus footer and header. more geometric styles too.

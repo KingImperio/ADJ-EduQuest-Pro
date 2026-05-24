@@ -1,0 +1,1388 @@
+ONBOARDING STEP 1
+
+<!doctype html>
+
+<html class="dark" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>ADJ EduQuest - Onboarding</title>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@600;700&amp;family=JetBrains+Mono:wght@400&amp;family=Plus+Jakarta+Sans:wght@400;600&amp;display=swap"
+      rel="stylesheet"
+    />
+    <!-- Material Symbols -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-primary-fixed-variant": "#0832c2",
+              "surface-container-high": "#282932",
+              "on-secondary-fixed-variant": "#653e00",
+              "coral-500": "#F4622A",
+              "gold-500": "#F59E0B",
+              surface: "#12131b",
+              "on-primary": "#00208e",
+              "surface-tint": "#bac3ff",
+              "on-surface-variant": "#c5c5d7",
+              "bg-deep": "#0F1117",
+              "inverse-on-surface": "#2f3039",
+              "primary-500": "#2D52E8",
+              outline: "#8e8fa0",
+              secondary: "#ffb95f",
+              error: "#ffb4ab",
+              "primary-fixed": "#dee0ff",
+              "on-secondary": "#472a00",
+              "primary-600": "#1E3FCC",
+              "tertiary-fixed-dim": "#ffb59f",
+              "surface-container": "#1e1f27",
+              "secondary-fixed-dim": "#ffb95f",
+              "inverse-surface": "#e2e1ed",
+              "on-error": "#690005",
+              tertiary: "#ffb59f",
+              "bg-raised": "#1A2038",
+              "bg-deepest": "#080B14",
+              "on-secondary-fixed": "#2a1700",
+              success: "#10B981",
+              "bg-surface": "#141827",
+              "bg-border": "#2A3354",
+              "on-tertiary-fixed-variant": "#852300",
+              "on-primary-fixed": "#00115a",
+              "inverse-primary": "#314fda",
+              "secondary-fixed": "#ffddb8",
+              "primary-900": "#0D1E6B",
+              "on-secondary-container": "#5b3800",
+              "surface-container-low": "#1a1b23",
+              "surface-container-lowest": "#0c0e16",
+              "tertiary-fixed": "#ffdbd1",
+              "primary-container": "#1e3fcc",
+              "outline-variant": "#444655",
+              "tertiary-container": "#972900",
+              "on-tertiary": "#5e1600",
+              "on-surface": "#e2e1ed",
+              primary: "#bac3ff",
+              "text-muted": "#5A6490",
+              "on-tertiary-fixed": "#3a0a00",
+              "surface-dim": "#12131b",
+              "text-primary": "#F0F2FF",
+              background: "#12131b",
+              "text-secondary": "#9AA3C4",
+              "primary-fixed-dim": "#bac3ff",
+              "surface-container-highest": "#33343d",
+              "surface-bright": "#383942",
+              "on-tertiary-container": "#ffb19a",
+              "on-error-container": "#ffdad6",
+              "error-container": "#93000a",
+              "on-background": "#e2e1ed",
+              "on-primary-container": "#b7c0ff",
+              "surface-variant": "#33343d",
+              "secondary-container": "#ee9800",
+              "bg-overlay": "#212840",
+            },
+            borderRadius: {
+              DEFAULT: "0.25rem",
+              lg: "0.5rem",
+              xl: "0.75rem",
+              full: "9999px",
+            },
+            spacing: {
+              md: "16px",
+              xl: "40px",
+              sm: "8px",
+              lg: "24px",
+              "margin-desktop": "32px",
+              "2xl": "64px",
+              xs: "4px",
+              gutter: "16px",
+              base: "4px",
+              "margin-mobile": "16px",
+            },
+            fontFamily: {
+              "body-lg": ["Plus Jakarta Sans"],
+              "body-md": ["Plus Jakarta Sans"],
+              "mono-sm": ["JetBrains Mono"],
+              "label-md": ["Plus Jakarta Sans"],
+              "headline-lg": ["Clash Display"],
+              "display-xl": ["Clash Display"],
+              "headline-md": ["Clash Display"],
+            },
+            fontSize: {
+              "body-lg": ["18px", { lineHeight: "1.6", fontWeight: "400" }],
+              "body-md": ["16px", { lineHeight: "1.6", fontWeight: "400" }],
+              "mono-sm": ["13px", { lineHeight: "1.5", fontWeight: "400" }],
+              "label-md": [
+                "14px",
+                {
+                  lineHeight: "1.4",
+                  letterSpacing: "0.02em",
+                  fontWeight: "600",
+                },
+              ],
+              "headline-lg": ["32px", { lineHeight: "1.2", fontWeight: "600" }],
+              "display-xl": ["48px", { lineHeight: "1.1", fontWeight: "700" }],
+              "headline-md": ["24px", { lineHeight: "1.3", fontWeight: "600" }],
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      .radial-glow {
+        background: radial-gradient(
+          circle at 50% 0%,
+          rgba(45, 82, 232, 0.15) 0%,
+          rgba(15, 17, 23, 0) 70%
+        );
+      }
+    </style>
+  </head>
+  <body
+    class="bg-deep text-text-primary min-h-screen flex flex-col font-body-md relative overflow-hidden"
+  >
+    <!-- Subtle Radial Glow Background -->
+    <div class="absolute inset-0 radial-glow pointer-events-none z-0"></div>
+    <!-- Main Content Container -->
+    <main
+      class="flex-grow flex flex-col items-center justify-center px-6 py-12 md:py-24 relative z-10 w-full max-w-7xl mx-auto"
+    >
+      <!-- Progress Indicator -->
+      <div class="w-full max-w-md mx-auto mb-12 flex flex-col items-center">
+        <div class="flex items-center justify-center gap-4 mb-4">
+          <!-- Step 1 (Active) -->
+          <div
+            class="w-10 h-10 rounded-full bg-primary-500 flex items-center justify-center shadow-lg"
+          >
+            <span class="font-label-md text-label-md text-text-primary">1</span>
+          </div>
+          <!-- Connector -->
+          <div class="h-px w-8 bg-bg-border"></div>
+          <!-- Step 2 -->
+          <div
+            class="w-10 h-10 rounded-full bg-transparent border-2 border-bg-border flex items-center justify-center"
+          >
+            <span class="font-label-md text-label-md text-text-muted">2</span>
+          </div>
+          <!-- Connector -->
+          <div class="h-px w-8 bg-bg-border"></div>
+          <!-- Step 3 -->
+          <div
+            class="w-10 h-10 rounded-full bg-transparent border-2 border-bg-border flex items-center justify-center"
+          >
+            <span class="font-label-md text-label-md text-text-muted">3</span>
+          </div>
+        </div>
+        <p
+          class="font-label-md text-label-md text-primary-500 uppercase tracking-widest"
+        >
+          Step 1 of 3 — Your Role
+        </p>
+      </div>
+      <!-- Headline -->
+      <h1
+        class="font-display-xl text-display-xl text-text-primary text-center mb-16"
+      >
+        Who are you joining as?
+      </h1>
+      <!-- Selection Cards Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-5xl mb-16">
+        <!-- Student Card (Selected) -->
+        <label
+          class="group relative bg-surface rounded-xl p-8 border-2 border-primary-500 cursor-pointer overflow-hidden transition-all duration-300"
+        >
+          <input
+            checked=""
+            class="sr-only"
+            name="role"
+            type="radio"
+            value="student"
+          />
+          <!-- Subtle bg tint -->
+          <div
+            class="absolute inset-0 bg-primary-500/5 pointer-events-none"
+          ></div>
+          <!-- Gold Checkmark Badge -->
+          <div
+            class="absolute top-4 right-4 w-8 h-8 bg-gold-500 rounded-full flex items-center justify-center shadow-lg"
+          >
+            <span
+              class="material-symbols-outlined text-[20px] text-bg-deepest"
+              style="font-variation-settings: &quot;FILL&quot; 1"
+              >check</span
+            >
+          </div>
+          <div class="relative z-10">
+            <div
+              class="w-16 h-16 rounded-xl bg-primary-900/50 flex items-center justify-center mb-6 border border-primary-600/30"
+            >
+              <span
+                class="material-symbols-outlined text-display-xl text-primary-500"
+                style="font-variation-settings: &quot;FILL&quot; 1"
+                >school</span
+              >
+            </div>
+            <h2
+              class="font-headline-md text-headline-md text-text-primary mb-3"
+            >
+              Student
+            </h2>
+            <p class="font-body-md text-body-md text-text-secondary">
+              Join to access quests, track your progress, and earn rewards as
+              you master new subjects.
+            </p>
+          </div>
+        </label>
+        <!-- Teacher Card (Unselected) -->
+        <label
+          class="group relative bg-surface rounded-xl p-8 border-2 border-bg-border cursor-pointer hover:border-outline-variant transition-all duration-300"
+        >
+          <input class="sr-only" name="role" type="radio" value="teacher" />
+          <div
+            class="relative z-10 opacity-70 group-hover:opacity-100 transition-opacity"
+          >
+            <div
+              class="w-16 h-16 rounded-xl bg-bg-raised flex items-center justify-center mb-6 border border-bg-border"
+            >
+              <span
+                class="material-symbols-outlined text-display-xl text-text-muted"
+                style="font-variation-settings: &quot;FILL&quot; 0"
+                >local_library</span
+              >
+            </div>
+            <h2
+              class="font-headline-md text-headline-md text-text-primary mb-3"
+            >
+              Teacher
+            </h2>
+            <p class="font-body-md text-body-md text-text-secondary">
+              Create assignments, monitor student performance, and manage your
+              classroom leaderboard.
+            </p>
+          </div>
+        </label>
+        <!-- Centre Admin Card (Unselected) -->
+        <label
+          class="group relative bg-surface rounded-xl p-8 border-2 border-bg-border cursor-pointer hover:border-outline-variant transition-all duration-300"
+        >
+          <input class="sr-only" name="role" type="radio" value="admin" />
+          <div
+            class="relative z-10 opacity-70 group-hover:opacity-100 transition-opacity"
+          >
+            <div
+              class="w-16 h-16 rounded-xl bg-bg-raised flex items-center justify-center mb-6 border border-bg-border"
+            >
+              <span
+                class="material-symbols-outlined text-display-xl text-text-muted"
+                style="font-variation-settings: &quot;FILL&quot; 0"
+                >admin_panel_settings</span
+              >
+            </div>
+            <h2
+              class="font-headline-md text-headline-md text-text-primary mb-3"
+            >
+              Centre Admin
+            </h2>
+            <p class="font-body-md text-body-md text-text-secondary">
+              Oversee multiple classes, manage curriculum structure, and view
+              institution-wide analytics.
+            </p>
+          </div>
+        </label>
+      </div>
+      <!-- Navigation Actions -->
+      <div
+        class="w-full max-w-5xl flex justify-between items-center mt-auto border-t border-bg-border pt-8"
+      >
+        <button
+          class="px-8 py-4 rounded-lg border border-outline-variant bg-transparent text-text-secondary font-label-md text-label-md hover:text-text-primary hover:bg-surface-bright transition-colors flex items-center gap-2"
+          type="button"
+        >
+          Back
+        </button>
+        <button
+          class="px-8 py-4 rounded-lg bg-primary-600 text-text-primary font-label-md text-label-md shadow-lg hover:bg-primary-500 transition-colors flex items-center gap-2"
+          type="button"
+        >
+          Continue
+          <span class="material-symbols-outlined text-[20px]"
+            >arrow_forward</span
+          >
+        </button>
+      </div>
+    </main>
+  </body>
+</html>
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+ONBOARDING STEP 2
+<!doctype html>
+
+<html class="dark" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>ADJ EduQuest - Onboarding Step 2</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@600;700&amp;family=Plus+Jakarta+Sans:wght@400;600&amp;family=JetBrains+Mono:wght@400&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-primary-fixed-variant": "#0832c2",
+              "surface-container-high": "#282932",
+              "on-secondary-fixed-variant": "#653e00",
+              "coral-500": "#F4622A",
+              "gold-500": "#F59E0B",
+              surface: "#12131b",
+              "on-primary": "#00208e",
+              "surface-tint": "#bac3ff",
+              "on-surface-variant": "#c5c5d7",
+              "bg-deep": "#0F1117",
+              "inverse-on-surface": "#2f3039",
+              "primary-500": "#2D52E8",
+              outline: "#8e8fa0",
+              secondary: "#ffb95f",
+              error: "#ffb4ab",
+              "primary-fixed": "#dee0ff",
+              "on-secondary": "#472a00",
+              "primary-600": "#1E3FCC",
+              "tertiary-fixed-dim": "#ffb59f",
+              "surface-container": "#1e1f27",
+              "secondary-fixed-dim": "#ffb95f",
+              "inverse-surface": "#e2e1ed",
+              "on-error": "#690005",
+              tertiary: "#ffb59f",
+              "bg-raised": "#1A2038",
+              "bg-deepest": "#080B14",
+              "on-secondary-fixed": "#2a1700",
+              success: "#10B981",
+              "bg-surface": "#141827",
+              "bg-border": "#2A3354",
+              "on-tertiary-fixed-variant": "#852300",
+              "on-primary-fixed": "#00115a",
+              "inverse-primary": "#314fda",
+              "secondary-fixed": "#ffddb8",
+              "primary-900": "#0D1E6B",
+              "on-secondary-container": "#5b3800",
+              "surface-container-low": "#1a1b23",
+              "surface-container-lowest": "#0c0e16",
+              "tertiary-fixed": "#ffdbd1",
+              "primary-container": "#1e3fcc",
+              "outline-variant": "#444655",
+              "tertiary-container": "#972900",
+              "on-tertiary": "#5e1600",
+              "on-surface": "#e2e1ed",
+              primary: "#bac3ff",
+              "text-muted": "#5A6490",
+              "on-tertiary-fixed": "#3a0a00",
+              "surface-dim": "#12131b",
+              "text-primary": "#F0F2FF",
+              background: "#12131b",
+              "text-secondary": "#9AA3C4",
+              "primary-fixed-dim": "#bac3ff",
+              "surface-container-highest": "#33343d",
+              "surface-bright": "#383942",
+              "on-tertiary-container": "#ffb19a",
+              "on-error-container": "#ffdad6",
+              "error-container": "#93000a",
+              "on-background": "#e2e1ed",
+              "on-primary-container": "#b7c0ff",
+              "surface-variant": "#33343d",
+              "secondary-container": "#ee9800",
+              "bg-overlay": "#212840",
+            },
+            borderRadius: {
+              DEFAULT: "0.25rem",
+              lg: "0.5rem",
+              xl: "0.75rem",
+              full: "9999px",
+            },
+            spacing: {
+              md: "16px",
+              xl: "40px",
+              sm: "8px",
+              lg: "24px",
+              "margin-desktop": "32px",
+              "2xl": "64px",
+              xs: "4px",
+              gutter: "16px",
+              base: "4px",
+              "margin-mobile": "16px",
+            },
+            fontFamily: {
+              "body-lg": ["Plus Jakarta Sans"],
+              "body-md": ["Plus Jakarta Sans"],
+              "mono-sm": ["JetBrains Mono"],
+              "label-md": ["Plus Jakarta Sans"],
+              "headline-lg": ["Clash Display"],
+              "display-xl": ["Clash Display"],
+              "headline-md": ["Clash Display"],
+            },
+            fontSize: {
+              "body-lg": ["18px", { lineHeight: "1.6", fontWeight: "400" }],
+              "body-md": ["16px", { lineHeight: "1.6", fontWeight: "400" }],
+              "mono-sm": ["13px", { lineHeight: "1.5", fontWeight: "400" }],
+              "label-md": [
+                "14px",
+                {
+                  lineHeight: "1.4",
+                  letterSpacing: "0.02em",
+                  fontWeight: "600",
+                },
+              ],
+              "headline-lg": ["32px", { lineHeight: "1.2", fontWeight: "600" }],
+              "display-xl": ["48px", { lineHeight: "1.1", fontWeight: "700" }],
+              "headline-md": ["24px", { lineHeight: "1.3", fontWeight: "600" }],
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+  <body
+    class="bg-bg-deep text-text-primary min-h-screen flex flex-col font-body-md text-body-md"
+  >
+    <!-- Top AppBar (Brand Only for Onboarding) -->
+    <header
+      class="fixed top-0 w-full z-50 bg-slate-950/80 backdrop-blur-md border-b border-blue-900/30 shadow-[0_4px_20px_rgba(30,63,204,0.16)] flex justify-center items-center h-16"
+    >
+      <div
+        class="text-xl font-black text-blue-600 uppercase tracking-wider font-headline-md text-headline-md"
+      >
+        ADJ EduQuest
+      </div>
+    </header>
+    <!-- Main Content Area -->
+    <main
+      class="flex-grow flex flex-col items-center justify-center pt-24 pb-12 px-margin-mobile md:px-margin-desktop w-full max-w-[1440px] mx-auto"
+    >
+      <div
+        class="w-full max-w-2xl bg-bg-surface rounded-xl border border-bg-border shadow-lg p-lg md:p-xl flex flex-col gap-lg relative"
+      >
+        <!-- Progress Header -->
+        <div class="flex flex-col gap-sm items-center mb-md w-full">
+          <span
+            class="font-label-md text-label-md text-text-muted uppercase tracking-widest"
+            >Step 2 of 3 — Your Details</span
+          >
+          <div class="flex items-center w-full justify-center gap-sm">
+            <!-- Step 1: Completed -->
+            <div
+              class="h-2 w-16 bg-success rounded-full shadow-[0_0_8px_rgba(16,185,129,0.4)]"
+            ></div>
+            <!-- Step 2: Active -->
+            <div
+              class="h-2 w-16 bg-primary-500 rounded-full shadow-[0_0_8px_rgba(45,82,232,0.6)]"
+            ></div>
+            <!-- Step 3: Pending -->
+            <div class="h-2 w-16 bg-bg-border rounded-full"></div>
+          </div>
+        </div>
+        <!-- Headline -->
+        <div class="text-center mb-md">
+          <h1 class="font-headline-lg text-headline-lg text-text-primary mb-2">
+            Tell us about your studies
+          </h1>
+          <p class="font-body-md text-body-md text-text-secondary">
+            This helps us tailor your quest and rank you appropriately.
+          </p>
+        </div>
+        <!-- Form Area -->
+        <form class="flex flex-col gap-lg w-full">
+          <!-- Class Selection -->
+          <div class="flex flex-col gap-xs">
+            <label class="font-label-md text-label-md text-text-primary"
+              >Current Class</label
+            >
+            <div class="relative w-full">
+              <select
+                class="w-full bg-bg-deepest border border-bg-border rounded-lg py-3 px-4 font-body-md text-body-md text-text-primary focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 focus:shadow-[0_0_12px_rgba(45,82,232,0.3)] transition-all appearance-none"
+              >
+                <option disabled="" selected="" value="">
+                  Select your class level
+                </option>
+                <optgroup class="bg-bg-surface" label="Senior Secondary">
+                  <option value="SS3">SS3</option>
+                  <option value="SS2">SS2</option>
+                  <option value="SS1">SS1</option>
+                </optgroup>
+                <optgroup class="bg-bg-surface" label="Junior Secondary">
+                  <option value="JSS3">JSS3</option>
+                  <option value="JSS2">JSS2</option>
+                  <option value="JSS1">JSS1</option>
+                </optgroup>
+              </select>
+              <span
+                class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-text-muted pointer-events-none"
+                >arrow_drop_down</span
+              >
+            </div>
+          </div>
+          <!-- Department Selection (Single Select Pills) -->
+          <div class="flex flex-col gap-sm">
+            <label class="font-label-md text-label-md text-text-primary"
+              >Department / Stream</label
+            >
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-sm">
+              <!-- Active Pill -->
+              <button
+                class="py-2 px-4 rounded-lg bg-primary-500 text-white font-label-md text-label-md shadow-[0_0_12px_rgba(45,82,232,0.4)] border border-primary-500 transition-all text-center"
+                type="button"
+              >
+                Science
+              </button>
+              <!-- Inactive Pills -->
+              <button
+                class="py-2 px-4 rounded-lg bg-transparent text-text-secondary font-label-md text-label-md border border-bg-border hover:border-primary-500/50 hover:text-text-primary transition-all text-center"
+                type="button"
+              >
+                Arts
+              </button>
+              <button
+                class="py-2 px-4 rounded-lg bg-transparent text-text-secondary font-label-md text-label-md border border-bg-border hover:border-primary-500/50 hover:text-text-primary transition-all text-center"
+                type="button"
+              >
+                Commercial
+              </button>
+              <button
+                class="py-2 px-4 rounded-lg bg-transparent text-text-secondary font-label-md text-label-md border border-bg-border hover:border-primary-500/50 hover:text-text-primary transition-all text-center"
+                type="button"
+              >
+                General
+              </button>
+            </div>
+          </div>
+          <!-- Target Exams (Multi Select Pills) -->
+          <div class="flex flex-col gap-sm">
+            <label
+              class="font-label-md text-label-md text-text-primary flex items-center justify-between"
+            >
+              Target Exams
+              <span class="font-mono-sm text-mono-sm text-text-muted"
+                >(Select all that apply)</span
+              >
+            </label>
+            <div class="flex flex-wrap gap-sm">
+              <!-- Active Multi-Pill -->
+              <button
+                class="flex items-center gap-2 py-2 px-4 rounded-full bg-primary-500/20 text-primary-fixed font-label-md text-label-md border border-primary-500 shadow-[0_0_8px_rgba(45,82,232,0.2)] transition-all"
+                type="button"
+              >
+                <span class="material-symbols-outlined text-[18px]">check</span>
+                WAEC
+              </button>
+              <button
+                class="flex items-center gap-2 py-2 px-4 rounded-full bg-primary-500/20 text-primary-fixed font-label-md text-label-md border border-primary-500 shadow-[0_0_8px_rgba(45,82,232,0.2)] transition-all"
+                type="button"
+              >
+                <span class="material-symbols-outlined text-[18px]">check</span>
+                JAMB
+              </button>
+              <!-- Inactive Multi-Pill -->
+              <button
+                class="flex items-center gap-2 py-2 px-4 rounded-full bg-transparent text-text-secondary font-label-md text-label-md border border-bg-border hover:border-primary-500/50 hover:text-text-primary transition-all"
+                type="button"
+              >
+                <span
+                  class="material-symbols-outlined text-[18px] opacity-0 w-0 overflow-hidden transition-all group-hover:w-auto group-hover:opacity-100"
+                  >add</span
+                >
+                NECO
+              </button>
+              <button
+                class="flex items-center gap-2 py-2 px-4 rounded-full bg-transparent text-text-secondary font-label-md text-label-md border border-bg-border hover:border-primary-500/50 hover:text-text-primary transition-all"
+                type="button"
+              >
+                <span
+                  class="material-symbols-outlined text-[18px] opacity-0 w-0 overflow-hidden transition-all group-hover:w-auto group-hover:opacity-100"
+                  >add</span
+                >
+                GCE
+              </button>
+            </div>
+          </div>
+          <!-- Divider -->
+          <hr class="border-bg-border my-md" />
+          <!-- Actions -->
+          <div class="flex justify-between items-center w-full mt-sm">
+            <button
+              class="flex items-center justify-center gap-2 px-6 py-3 rounded-lg font-label-md text-label-md text-text-primary border border-bg-border hover:bg-bg-raised transition-colors"
+              type="button"
+            >
+              <span class="material-symbols-outlined text-[20px]"
+                >arrow_back</span
+              >
+              Back
+            </button>
+            <button
+              class="flex items-center justify-center gap-2 px-8 py-3 rounded-lg font-label-md text-label-md text-white bg-primary-500 hover:bg-primary-600 shadow-[0_0_15px_rgba(45,82,232,0.4)] transition-all"
+              type="button"
+            >
+              Continue
+              <span class="material-symbols-outlined text-[20px]"
+                >arrow_forward</span
+              >
+            </button>
+          </div>
+        </form>
+      </div>
+    </main>
+  </body>
+</html>
+
+--------------------------------------------------------------------------------------------------------------------
+ONBOARDING STEP 3
+<!doctype html>
+
+<html class="dark" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>ADJ EduQuest - Onboarding Step 3</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&amp;family=Clash+Display:wght@600;700&amp;family=JetBrains+Mono:wght@400&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-primary-fixed-variant": "#0832c2",
+              "surface-container-high": "#282932",
+              "on-secondary-fixed-variant": "#653e00",
+              "coral-500": "#F4622A",
+              "gold-500": "#F59E0B",
+              surface: "#12131b",
+              "on-primary": "#00208e",
+              "surface-tint": "#bac3ff",
+              "on-surface-variant": "#c5c5d7",
+              "bg-deep": "#0F1117",
+              "inverse-on-surface": "#2f3039",
+              "primary-500": "#2D52E8",
+              outline: "#8e8fa0",
+              secondary: "#ffb95f",
+              error: "#ffb4ab",
+              "primary-fixed": "#dee0ff",
+              "on-secondary": "#472a00",
+              "primary-600": "#1E3FCC",
+              "tertiary-fixed-dim": "#ffb59f",
+              "surface-container": "#1e1f27",
+              "secondary-fixed-dim": "#ffb95f",
+              "inverse-surface": "#e2e1ed",
+              "on-error": "#690005",
+              tertiary: "#ffb59f",
+              "bg-raised": "#1A2038",
+              "bg-deepest": "#080B14",
+              "on-secondary-fixed": "#2a1700",
+              success: "#10B981",
+              "bg-surface": "#141827",
+              "bg-border": "#2A3354",
+              "on-tertiary-fixed-variant": "#852300",
+              "on-primary-fixed": "#00115a",
+              "inverse-primary": "#314fda",
+              "secondary-fixed": "#ffddb8",
+              "primary-900": "#0D1E6B",
+              "on-secondary-container": "#5b3800",
+              "surface-container-low": "#1a1b23",
+              "surface-container-lowest": "#0c0e16",
+              "tertiary-fixed": "#ffdbd1",
+              "primary-container": "#1e3fcc",
+              "outline-variant": "#444655",
+              "tertiary-container": "#972900",
+              "on-tertiary": "#5e1600",
+              "on-surface": "#e2e1ed",
+              primary: "#bac3ff",
+              "text-muted": "#5A6490",
+              "on-tertiary-fixed": "#3a0a00",
+              "surface-dim": "#12131b",
+              "text-primary": "#F0F2FF",
+              background: "#12131b",
+              "text-secondary": "#9AA3C4",
+              "primary-fixed-dim": "#bac3ff",
+              "surface-container-highest": "#33343d",
+              "surface-bright": "#383942",
+              "on-tertiary-container": "#ffb19a",
+              "on-error-container": "#ffdad6",
+              "error-container": "#93000a",
+              "on-background": "#e2e1ed",
+              "on-primary-container": "#b7c0ff",
+              "surface-variant": "#33343d",
+              "secondary-container": "#ee9800",
+              "bg-overlay": "#212840",
+            },
+            borderRadius: {
+              DEFAULT: "0.25rem",
+              lg: "0.5rem",
+              xl: "0.75rem",
+              full: "9999px",
+            },
+            spacing: {
+              md: "16px",
+              xl: "40px",
+              sm: "8px",
+              lg: "24px",
+              "margin-desktop": "32px",
+              "2xl": "64px",
+              xs: "4px",
+              gutter: "16px",
+              base: "4px",
+              "margin-mobile": "16px",
+            },
+            fontFamily: {
+              "body-lg": ["Plus Jakarta Sans"],
+              "body-md": ["Plus Jakarta Sans"],
+              "mono-sm": ["JetBrains Mono"],
+              "label-md": ["Plus Jakarta Sans"],
+              "headline-lg": ["Clash Display"],
+              "display-xl": ["Clash Display"],
+              "headline-md": ["Clash Display"],
+            },
+            fontSize: {
+              "body-lg": [
+                "18px",
+                {
+                  lineHeight: "1.6",
+                  fontWeight: "400",
+                },
+              ],
+              "body-md": [
+                "16px",
+                {
+                  lineHeight: "1.6",
+                  fontWeight: "400",
+                },
+              ],
+              "mono-sm": [
+                "13px",
+                {
+                  lineHeight: "1.5",
+                  fontWeight: "400",
+                },
+              ],
+              "label-md": [
+                "14px",
+                {
+                  lineHeight: "1.4",
+                  letterSpacing: "0.02em",
+                  fontWeight: "600",
+                },
+              ],
+              "headline-lg": [
+                "32px",
+                {
+                  lineHeight: "1.2",
+                  fontWeight: "600",
+                },
+              ],
+              "display-xl": [
+                "48px",
+                {
+                  lineHeight: "1.1",
+                  fontWeight: "700",
+                },
+              ],
+              "headline-md": [
+                "24px",
+                {
+                  lineHeight: "1.3",
+                  fontWeight: "600",
+                },
+              ],
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+  <body
+    class="bg-bg-deep text-text-primary min-h-screen flex flex-col font-body-md text-body-md antialiased selection:bg-primary-500/30"
+  >
+    <!-- Top Navigation (Suppressed - Transactional Page) -->
+    <!-- Content Canvas -->
+    <main
+      class="flex-grow flex items-center justify-center p-md md:p-lg lg:p-margin-desktop relative"
+    >
+      <!-- Abstract Background Glows -->
+      <div
+        class="absolute top-0 left-1/4 w-[500px] h-[500px] bg-primary-600/10 rounded-full blur-[120px] pointer-events-none -translate-y-1/2"
+      ></div>
+      <div
+        class="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-primary-container/10 rounded-full blur-[100px] pointer-events-none translate-y-1/2"
+      ></div>
+      <div class="w-full max-w-[800px] relative z-10">
+        <!-- Progress Bar Indicator -->
+        <div class="mb-lg">
+          <div class="flex justify-between items-end mb-sm">
+            <span
+              class="font-label-md text-label-md text-text-secondary uppercase tracking-wider"
+              >Step 3 of 3</span
+            >
+            <span class="font-label-md text-label-md text-primary-500"
+              >Final Touches</span
+            >
+          </div>
+          <div
+            class="w-full h-1 bg-surface-container-high rounded-full overflow-hidden flex gap-1"
+          >
+            <div class="h-full w-1/3 bg-success"></div>
+            <div class="h-full w-1/3 bg-success"></div>
+            <div class="h-full w-1/3 bg-primary-500 relative overflow-hidden">
+              <div class="absolute inset-0 bg-white/20 animate-pulse"></div>
+            </div>
+          </div>
+        </div>
+        <!-- Main Card -->
+        <div
+          class="bg-bg-surface rounded-xl border border-bg-border shadow-[0_4px_20px_rgba(30,63,204,0.16)] p-lg md:p-xl relative overflow-hidden"
+        >
+          <!-- Gold Accent Line -->
+          <div
+            class="absolute top-0 left-0 w-1 h-full bg-primary-500 shadow-[0_0_15px_rgba(45,82,232,0.6)]"
+          ></div>
+          <div class="flex flex-col h-full">
+            <!-- Header -->
+            <div class="mb-xl">
+              <h1
+                class="font-headline-lg text-headline-lg mb-sm text-text-primary"
+              >
+                Which subjects are you focused on?
+              </h1>
+              <p class="font-body-lg text-body-lg text-text-secondary">
+                Select the areas you want to master. We'll tailor your quests
+                accordingly.
+              </p>
+            </div>
+            <!-- Actions -->
+            <div class="flex justify-between items-center mb-md">
+              <span class="font-label-md text-label-md text-text-muted"
+                >Select at least one</span
+              >
+              <div class="flex gap-md">
+                <button
+                  class="font-label-md text-label-md text-primary-500 hover:text-primary-400 transition-colors"
+                >
+                  Select All
+                </button>
+                <button
+                  class="font-label-md text-label-md text-text-muted hover:text-text-primary transition-colors"
+                >
+                  Clear
+                </button>
+              </div>
+            </div>
+            <!-- Subject Grid -->
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-md mb-2xl">
+              <!-- Selected Chip -->
+              <label class="cursor-pointer group">
+                <input checked="" class="peer hidden" type="checkbox" />
+                <div
+                  class="bg-primary-600 border border-primary-500 rounded-lg p-md flex flex-col items-center justify-center gap-sm transition-all shadow-[0_0_15px_rgba(45,82,232,0.4)] peer-checked:bg-primary-600 peer-checked:border-primary-500 peer-checked:text-white"
+                >
+                  <span
+                    class="material-symbols-outlined text-3xl mb-xs"
+                    style="font-variation-settings: &quot;FILL&quot; 1"
+                    >functions</span
+                  >
+                  <span class="font-label-md text-label-md">Mathematics</span>
+                </div>
+              </label>
+              <!-- Selected Chip -->
+              <label class="cursor-pointer group">
+                <input checked="" class="peer hidden" type="checkbox" />
+                <div
+                  class="bg-primary-600 border border-primary-500 rounded-lg p-md flex flex-col items-center justify-center gap-sm transition-all shadow-[0_0_15px_rgba(45,82,232,0.4)] peer-checked:bg-primary-600 peer-checked:border-primary-500 peer-checked:text-white"
+                >
+                  <span
+                    class="material-symbols-outlined text-3xl mb-xs"
+                    style="font-variation-settings: &quot;FILL&quot; 1"
+                    >science</span
+                  >
+                  <span class="font-label-md text-label-md">Physics</span>
+                </div>
+              </label>
+              <!-- Unselected Chip -->
+              <label class="cursor-pointer group">
+                <input class="peer hidden" type="checkbox" />
+                <div
+                  class="bg-bg-deepest border border-bg-border rounded-lg p-md flex flex-col items-center justify-center gap-sm transition-all hover:bg-bg-raised hover:border-primary-500/50 text-text-muted hover:text-text-primary"
+                >
+                  <span
+                    class="material-symbols-outlined text-3xl mb-xs"
+                    style="font-variation-settings: &quot;FILL&quot; 0"
+                    >biotech</span
+                  >
+                  <span class="font-label-md text-label-md">Biology</span>
+                </div>
+              </label>
+              <!-- Unselected Chip -->
+              <label class="cursor-pointer group">
+                <input class="peer hidden" type="checkbox" />
+                <div
+                  class="bg-bg-deepest border border-bg-border rounded-lg p-md flex flex-col items-center justify-center gap-sm transition-all hover:bg-bg-raised hover:border-primary-500/50 text-text-muted hover:text-text-primary"
+                >
+                  <span
+                    class="material-symbols-outlined text-3xl mb-xs"
+                    style="font-variation-settings: &quot;FILL&quot; 0"
+                    >experiment</span
+                  >
+                  <span class="font-label-md text-label-md">Chemistry</span>
+                </div>
+              </label>
+              <!-- Unselected Chip -->
+              <label class="cursor-pointer group">
+                <input class="peer hidden" type="checkbox" />
+                <div
+                  class="bg-bg-deepest border border-bg-border rounded-lg p-md flex flex-col items-center justify-center gap-sm transition-all hover:bg-bg-raised hover:border-primary-500/50 text-text-muted hover:text-text-primary"
+                >
+                  <span
+                    class="material-symbols-outlined text-3xl mb-xs"
+                    style="font-variation-settings: &quot;FILL&quot; 0"
+                    >book</span
+                  >
+                  <span class="font-label-md text-label-md">English</span>
+                </div>
+              </label>
+              <!-- Unselected Chip -->
+              <label class="cursor-pointer group">
+                <input class="peer hidden" type="checkbox" />
+                <div
+                  class="bg-bg-deepest border border-bg-border rounded-lg p-md flex flex-col items-center justify-center gap-sm transition-all hover:bg-bg-raised hover:border-primary-500/50 text-text-muted hover:text-text-primary"
+                >
+                  <span
+                    class="material-symbols-outlined text-3xl mb-xs"
+                    style="font-variation-settings: &quot;FILL&quot; 0"
+                    >trending_up</span
+                  >
+                  <span class="font-label-md text-label-md">Economics</span>
+                </div>
+              </label>
+            </div>
+            <!-- Footer Actions -->
+            <div
+              class="flex items-center justify-between mt-auto border-t border-bg-border pt-lg"
+            >
+              <button
+                class="px-lg py-sm rounded-lg border border-bg-border text-text-primary font-label-md text-label-md hover:bg-bg-raised transition-colors flex items-center gap-sm"
+              >
+                <span class="material-symbols-outlined">arrow_back</span>
+                Back
+              </button>
+              <div class="flex items-center gap-lg">
+                <a
+                  class="font-label-md text-label-md text-text-muted hover:text-text-primary transition-colors"
+                  href="#"
+                  >Skip for now</a
+                >
+                <button
+                  class="px-xl py-sm rounded-lg bg-primary-600 text-white font-label-md text-label-md hover:bg-primary-500 transition-colors shadow-[0_0_15px_rgba(45,82,232,0.4)] flex items-center gap-sm group"
+                >
+                  Complete Setup
+                  <span
+                    class="material-symbols-outlined group-hover:translate-x-1 transition-transform"
+                    >check_circle</span
+                  >
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+ONBOARDING STEP 2B [Teacher]
+<!doctype html>
+
+<html class="dark" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Onboarding Wizard Step 2B - Teacher Details</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600&amp;family=Clash+Display:wght@600;700&amp;family=JetBrains+Mono:wght@400&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-primary-fixed-variant": "#0832c2",
+              "surface-container-high": "#282932",
+              "on-secondary-fixed-variant": "#653e00",
+              "coral-500": "#F4622A",
+              "gold-500": "#F59E0B",
+              surface: "#12131b",
+              "on-primary": "#00208e",
+              "surface-tint": "#bac3ff",
+              "on-surface-variant": "#c5c5d7",
+              "bg-deep": "#0F1117",
+              "inverse-on-surface": "#2f3039",
+              "primary-500": "#2D52E8",
+              outline: "#8e8fa0",
+              secondary: "#ffb95f",
+              error: "#ffb4ab",
+              "primary-fixed": "#dee0ff",
+              "on-secondary": "#472a00",
+              "primary-600": "#1E3FCC",
+              "tertiary-fixed-dim": "#ffb59f",
+              "surface-container": "#1e1f27",
+              "secondary-fixed-dim": "#ffb95f",
+              "inverse-surface": "#e2e1ed",
+              "on-error": "#690005",
+              tertiary: "#ffb59f",
+              "bg-raised": "#1A2038",
+              "bg-deepest": "#080B14",
+              "on-secondary-fixed": "#2a1700",
+              success: "#10B981",
+              "bg-surface": "#141827",
+              "bg-border": "#2A3354",
+              "on-tertiary-fixed-variant": "#852300",
+              "on-primary-fixed": "#00115a",
+              "inverse-primary": "#314fda",
+              "secondary-fixed": "#ffddb8",
+              "primary-900": "#0D1E6B",
+              "on-secondary-container": "#5b3800",
+              "surface-container-low": "#1a1b23",
+              "surface-container-lowest": "#0c0e16",
+              "tertiary-fixed": "#ffdbd1",
+              "primary-container": "#1e3fcc",
+              "outline-variant": "#444655",
+              "tertiary-container": "#972900",
+              "on-tertiary": "#5e1600",
+              "on-surface": "#e2e1ed",
+              primary: "#bac3ff",
+              "text-muted": "#5A6490",
+              "on-tertiary-fixed": "#3a0a00",
+              "surface-dim": "#12131b",
+              "text-primary": "#F0F2FF",
+              background: "#12131b",
+              "text-secondary": "#9AA3C4",
+              "primary-fixed-dim": "#bac3ff",
+              "surface-container-highest": "#33343d",
+              "surface-bright": "#383942",
+              "on-tertiary-container": "#ffb19a",
+              "on-error-container": "#ffdad6",
+              "error-container": "#93000a",
+              "on-background": "#e2e1ed",
+              "on-primary-container": "#b7c0ff",
+              "surface-variant": "#33343d",
+              "secondary-container": "#ee9800",
+              "bg-overlay": "#212840",
+            },
+            borderRadius: {
+              DEFAULT: "0.25rem",
+              lg: "0.5rem",
+              xl: "0.75rem",
+              full: "9999px",
+            },
+            spacing: {
+              md: "16px",
+              xl: "40px",
+              sm: "8px",
+              lg: "24px",
+              "margin-desktop": "32px",
+              "2xl": "64px",
+              xs: "4px",
+              gutter: "16px",
+              base: "4px",
+              "margin-mobile": "16px",
+            },
+            fontFamily: {
+              "body-lg": ["Plus Jakarta Sans"],
+              "body-md": ["Plus Jakarta Sans"],
+              "mono-sm": ["JetBrains Mono"],
+              "label-md": ["Plus Jakarta Sans"],
+              "headline-lg": ["Clash Display"],
+              "display-xl": ["Clash Display"],
+              "headline-md": ["Clash Display"],
+            },
+            fontSize: {
+              "body-lg": ["18px", { lineHeight: "1.6", fontWeight: "400" }],
+              "body-md": ["16px", { lineHeight: "1.6", fontWeight: "400" }],
+              "mono-sm": ["13px", { lineHeight: "1.5", fontWeight: "400" }],
+              "label-md": [
+                "14px",
+                {
+                  lineHeight: "1.4",
+                  letterSpacing: "0.02em",
+                  fontWeight: "600",
+                },
+              ],
+              "headline-lg": ["32px", { lineHeight: "1.2", fontWeight: "600" }],
+              "display-xl": ["48px", { lineHeight: "1.1", fontWeight: "700" }],
+              "headline-md": ["24px", { lineHeight: "1.3", fontWeight: "600" }],
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      .shadow-glow {
+        box-shadow: 0 0 20px rgba(45, 82, 232, 0.4);
+      }
+      .shadow-ambient {
+        box-shadow: 0 4px 20px rgba(30, 63, 204, 0.16);
+      }
+    </style>
+  </head>
+  <body
+    class="bg-bg-deep text-text-primary font-body-md min-h-screen flex flex-col items-center justify-center p-4 md:p-margin-desktop"
+  >
+    <!-- Main Container -->
+    <main
+      class="w-full max-w-3xl bg-bg-surface rounded-xl shadow-ambient border border-bg-border overflow-hidden"
+    >
+      <!-- Progress Header -->
+      <header class="px-8 pt-8 pb-6 border-b border-bg-border bg-bg-surface">
+        <div class="flex items-center justify-between mb-4">
+          <div
+            class="font-label-md text-text-secondary uppercase tracking-wider"
+          >
+            Step 2 of 3 — Your Details
+          </div>
+        </div>
+        <!-- Progress Bar -->
+        <div class="flex items-center gap-4">
+          <!-- Step 1: Completed -->
+          <div class="flex-1 flex flex-col gap-2">
+            <div
+              class="h-2 w-full bg-success rounded-full shadow-[0_0_10px_rgba(16,185,129,0.3)]"
+            ></div>
+          </div>
+          <!-- Step 2: Active -->
+          <div class="flex-1 flex flex-col gap-2">
+            <div
+              class="h-2 w-full bg-primary-500 rounded-full shadow-glow"
+            ></div>
+          </div>
+          <!-- Step 3: Pending -->
+          <div class="flex-1 flex flex-col gap-2">
+            <div
+              class="h-2 w-full bg-bg-raised border border-bg-border rounded-full"
+            ></div>
+          </div>
+        </div>
+      </header>
+      <!-- Form Content -->
+      <div class="p-8 md:p-12">
+        <h1 class="font-headline-lg text-text-primary mb-8">
+          Tell us about your expertise
+        </h1>
+        <!-- Form -->
+        <form class="space-y-10">
+          <!-- Subjects Taught Section -->
+          <section>
+            <label class="block font-label-md text-text-primary mb-4"
+              >Subjects taught
+              <span class="text-text-muted font-body-sm font-normal"
+                >(Select all that apply)</span
+              ></label
+            >
+            <div class="flex flex-wrap gap-3">
+              <!-- Pill: Selected -->
+              <button
+                class="px-5 py-2.5 rounded-full border border-primary-500 bg-primary-900/30 text-primary-500 font-label-md shadow-glow transition-all"
+                type="button"
+              >
+                Mathematics
+              </button>
+              <!-- Pill: Unselected -->
+              <button
+                class="px-5 py-2.5 rounded-full border border-bg-border bg-bg-raised text-text-secondary font-label-md hover:border-text-muted transition-all"
+                type="button"
+              >
+                Physics
+              </button>
+              <button
+                class="px-5 py-2.5 rounded-full border border-bg-border bg-bg-raised text-text-secondary font-label-md hover:border-text-muted transition-all"
+                type="button"
+              >
+                Chemistry
+              </button>
+              <button
+                class="px-5 py-2.5 rounded-full border border-primary-500 bg-primary-900/30 text-primary-500 font-label-md shadow-glow transition-all"
+                type="button"
+              >
+                Computer Science
+              </button>
+              <button
+                class="px-5 py-2.5 rounded-full border border-bg-border bg-bg-raised text-text-secondary font-label-md hover:border-text-muted transition-all"
+                type="button"
+              >
+                Biology
+              </button>
+              <button
+                class="px-5 py-2.5 rounded-full border border-bg-border bg-bg-raised text-text-secondary font-label-md hover:border-text-muted transition-all"
+                type="button"
+              >
+                English Literature
+              </button>
+              <button
+                class="px-5 py-2.5 rounded-full border border-bg-border bg-bg-raised text-text-secondary font-label-md hover:border-text-muted transition-all"
+                type="button"
+              >
+                History
+              </button>
+            </div>
+          </section>
+          <hr class="border-bg-border" />
+          <!-- Invite Code Section -->
+          <section class="space-y-6">
+            <!-- Toggle -->
+            <div
+              class="flex items-center justify-between p-4 rounded-lg bg-bg-raised border border-bg-border"
+            >
+              <div class="flex items-center gap-3">
+                <span
+                  class="material-symbols-outlined text-primary-500"
+                  data-icon="corporate_fare"
+                  >corporate_fare</span
+                >
+                <div>
+                  <h3 class="font-label-md text-text-primary">
+                    I have a centre invite code
+                  </h3>
+                  <p class="font-body-md text-text-muted text-sm mt-1">
+                    Join an existing educational institution
+                  </p>
+                </div>
+              </div>
+              <!-- Toggle Switch (ON State) -->
+              <button
+                aria-checked="true"
+                class="relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent bg-primary-500 transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 focus:ring-offset-bg-deep shadow-glow"
+                role="switch"
+                type="button"
+              >
+                <span
+                  class="translate-x-5 pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out"
+                ></span>
+              </button>
+            </div>
+            <!-- Input Field (Revealed by Toggle) -->
+            <div class="space-y-2 relative">
+              <label
+                class="block font-label-md text-text-primary"
+                for="invite-code"
+                >Centre Invite Code</label
+              >
+              <div class="relative">
+                <input
+                  class="w-full bg-bg-deepest border border-primary-500 rounded-lg px-4 py-3 text-text-primary font-mono-sm focus:outline-none focus:ring-1 focus:ring-primary-500 shadow-[0_0_15px_rgba(45,82,232,0.15)] placeholder:text-text-muted transition-all uppercase tracking-widest"
+                  id="invite-code"
+                  placeholder="e.g. ADJ-2024-XYZ"
+                  type="text"
+                />
+                <div
+                  class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none"
+                >
+                  <span
+                    class="material-symbols-outlined text-success text-lg"
+                    data-icon="check_circle"
+                    >check_circle</span
+                  >
+                </div>
+              </div>
+              <p
+                class="font-body-md text-success text-sm flex items-center gap-1 mt-1"
+              >
+                <span
+                  class="material-symbols-outlined text-[16px]"
+                  data-icon="verified"
+                  >verified</span
+                >
+                Valid code for <strong>Lagos Elite Academy</strong>
+              </p>
+            </div>
+          </section>
+        </form>
+      </div>
+      <!-- Footer Actions -->
+      <footer
+        class="p-8 border-t border-bg-border bg-bg-surface flex items-center justify-between mt-auto"
+      >
+        <button
+          class="px-6 py-3 rounded-lg border border-bg-border text-text-secondary font-label-md hover:bg-bg-raised hover:text-text-primary transition-colors flex items-center gap-2"
+          type="button"
+        >
+          <span
+            class="material-symbols-outlined text-[20px]"
+            data-icon="arrow_back"
+            >arrow_back</span
+          >
+          Back
+        </button>
+        <button
+          class="px-8 py-3 rounded-lg bg-primary-600 text-white font-label-md hover:bg-primary-500 transition-colors flex items-center gap-2 shadow-glow group"
+          type="button"
+        >
+          Continue
+          <span
+            class="material-symbols-outlined text-[20px] group-hover:translate-x-1 transition-transform"
+            data-icon="arrow_forward"
+            >arrow_forward</span
+          >
+        </button>
+      </footer>
+    </main>
+  </body>
+</html>
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+ONBOARDING STEP 3B [Teacher] do this one yourself note that there will be much
+more verbose subject list. plus no teacher is alloed more than a maximum of
+three subject with one being main and two being supplementary. also the tracking
+bars in the onboading 2 and 3 for students versus that of teacher are quite
+different. many a few things are quite different about them in terms of
+continuous conistency and as such we must endeavour to achieve the best standard
+merge that will be what we use for conssitent visual

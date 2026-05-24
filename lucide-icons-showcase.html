@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lucide Icons - Dashboard Reference</title>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: #0F1117;
+      color: #F0F2FF;
+      padding: 40px 20px;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 10px;
+      color: #1E3FCC;
+    }
+    .subtitle {
+      text-align: center;
+      color: #9AA3C4;
+      margin-bottom: 40px;
+    }
+    .section {
+      max-width: 1200px;
+      margin: 0 auto 50px;
+    }
+    .section-title {
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #5A6490;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #2A3354;
+    }
+    .icons-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 15px;
+    }
+    .icon-card {
+      background: #141827;
+      border: 1px solid #2A3354;
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+      transition: all 0.2s;
+    }
+    .icon-card:hover {
+      border-color: #1E3FCC;
+      background: #1A2038;
+    }
+    .icon-card i {
+      width: 32px;
+      height: 32px;
+      color: #F0F2FF;
+    }
+    .icon-card:hover i {
+      color: #1E3FCC;
+    }
+    .icon-name {
+      font-size: 12px;
+      color: #9AA3C4;
+      margin-top: 12px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .use-case {
+      font-size: 10px;
+      color: #5A6490;
+      margin-top: 4px;
+    }
+    .highlight {
+      background: rgba(30, 63, 204, 0.1);
+      border-color: #1E3FCC;
+    }
+    .highlight i {
+      color: #1E3FCC;
+    }
+    .color-gold { color: #F59E0B !important; }
+    .color-coral { color: #F4622A !important; }
+    .color-success { color: #10B981 !important; }
+  </style>
+</head>
+<body>
+  <h1>Lucide Icons Reference</h1>
+  <p class="subtitle">Icons available in lucide-react v1.8.0 for your dashboard design</p>
+
+  <!-- Dashboard / Assessment Icons -->
+  <div class="section">
+    <div class="section-title">Dashboard & Assessment (From Your Screenshot)</div>
+    <div class="icons-grid">
+      <div class="icon-card highlight">
+        <i data-lucide="flame" class="color-coral"></i>
+        <div class="icon-name">Flame</div>
+        <div class="use-case">Streak counter</div>
+      </div>
+      <div class="icon-card highlight">
+        <i data-lucide="clock" class="color-gold"></i>
+        <div class="icon-name">Clock</div>
+        <div class="use-case">Time left (45:00)</div>
+      </div>
+      <div class="icon-card highlight">
+        <i data-lucide="check-circle-2" class="color-success"></i>
+        <div class="icon-name">CheckCircle2</div>
+        <div class="use-case">Progress (24/50)</div>
+      </div>
+      <div class="icon-card highlight">
+        <i data-lucide="book-open"></i>
+        <div class="icon-name">BookOpen</div>
+        <div class="use-case">Active assessment</div>
+      </div>
+      <div class="icon-card highlight">
+        <i data-lucide="trophy" class="color-gold"></i>
+        <div class="icon-name">Trophy</div>
+        <div class="use-case">Top 5% ranking</div>
+      </div>
+      <div class="icon-card highlight">
+        <i data-lucide="award"></i>
+        <div class="icon-name">Award</div>
+        <div class="use-case">Achievements</div>
+      </div>
+      <div class="icon-card highlight">
+        <i data-lucide="file-text"></i>
+        <div class="icon-name">FileText</div>
+        <div class="use-case">Exam/JAMB mock</div>
+      </div>
+      <div class="icon-card highlight">
+        <i data-lucide="play-circle"></i>
+        <div class="icon-name">PlayCircle</div>
+        <div class="use-case">Resume exam</div>
+      </div>
+      <div class="icon-card highlight">
+        <i data-lucide="more-horizontal"></i>
+        <div class="icon-name">MoreHorizontal</div>
+        <div class="use-case">Card menu (...)</div>
+      </div>
+      <div class="icon-card highlight">
+        <i data-lucide="folder"></i>
+        <div class="icon-name">Folder</div>
+        <div class="use-case">Current focus</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quests & Gamification -->
+  <div class="section">
+    <div class="section-title">Quests & Gamification</div>
+    <div class="icons-grid">
+      <div class="icon-card">
+        <i data-lucide="target"></i>
+        <div class="icon-name">Target</div>
+        <div class="use-case">Daily goals</div>
+      </div>
+      <div class="icon-card">
+        <i data-lucide="zap" class="color-gold"></i>
+        <div class="icon-name">Zap</div>
+        <div class="use-case">Quick actions</div>
+      </div>
+      <div class="icon-card">
+        <i data-lucide="star" class="color-gold"></i>
+        <div class="icon-name">Star</div>
+        <div class="use-case">Favorites/rating</div>
+      </div>
+      <div class="icon-card">
+        <i data-lucide="flag"></i>
+        <div class="icon-name">Flag</div>
+        <div class="use-case">Milestones</div>
+      </div>
+      <div class="icon-card">
+        <i data-lucide="medal" class="color-gold"></i>
+        <div class="icon-name">Medal</div>
+        <div class="use-case">Badges</div>
+      </div>
+      <div class="icon-card">
+        <i data-lucide="crown" class="color-gold"></i>
+        <div class="icon-name">Crown</div>
+        <div class="use-case">Premium/rank</div>
+      </div>
+      <div class="icon-card">
+        <i data-lucide="gift"></i>
+        <div class="icon-name">Gift</div>
+        <div class="use-case">Rewards</div>
+      </div>
+      <div class="icon-card">
+        <i data-lucide="dices"></i>
+        <div class="icon-name">Dices</div>
+        <div class="use-case">Random quiz</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Progress & Stats -->
+  <div class="section">
+    <div class="section-title">Progress & Statistics</div>
+    <div class="icons-grid">
+      <div class="icon-card">
+        <i data-lucide="bar-chart-3"></i>
+        <div class="icon-name">BarChart3</div>
+        <div class="use-case">Weekly performance</div>
+      </div>
+      <div class="icon-card">
+        <i data-lucide="trending-up" class="color-success"></i>
+        <div class="icon-name">TrendingUp</div>
+        <div class="use-case">85% avg</div>
+      </div>
+      <div class="icon-card">
+        <i data-lucide="activity"></i>
+        <div class="icon-name">Activity</div>
+        <div class="use-case">Live stats</div>
+      </div>
+      <div class="icon-card">
+        <i data-lucide="pie-chart"></i>
+        <div class="icon-name">PieChart</div>
+        <div class="use-case">Subject breakdown</div>
+      </div>
+      <div class="icon-card">
+        <i data-lucide="percent"></i>
+        <div class="icon-name">Percent</div>
+        <div class="use-case">Scores (78%)</div>
+      </div>
+      <div class="icon-card">
+        <i data-lucide="gauge"></i>
+        <div class="icon-name">Gauge</div>
+        <div class="use-case">Speed/progress</div>
+      </div>
+      <div class="icon-card">
+        <i data-lucide="line-chart"></i>
+        <div class="icon-name">LineChart</div>
+        <div class="use-case">Progress over time</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Education & Chemistry -->
+  <div class="section">
+    <div class="section-title">Education & Chemistry Specific</div>
+    <div class="icons-grid">
+      <div class="icon-card">
+        <i data-lucide="graduation-cap"></i>
+        <div class="icon-name">GraduationCap</div>
+        <div class="use-case">Logo/main nav</div>
+      </div>
+      <div class="icon-card">
+        <i data-lucide="atom"></i>
+        <div class="icon-name">Atom</div>
+        <div class="use-case">Chemistry/Science</div>
+      </div>
+      <div class="icon-card">
+        <i data-lucide="flask-conical" class="color-success"></i>
+        <div class="icon-name">FlaskConical</div>
+        <div class="use-case">Organic chemistry</div>
+      </div>
+      <div class="icon-card">
+        <i data-lucide="microscope"></i>
+        <div class="icon-name">Microscope</div>
+        <div class="use-case">Laboratory</div>
+      </div>
+      <div class="icon-card">
+        <i data-lucide="calculator"></i>
+        <div class="icon-name">Calculator</div>
+        <div class="use-case">Math subjects</div>
+      </div>
+      <div class="icon-card">
+        <i data-lucide="sigma"></i>
+        <div class="icon-name">Sigma</div>
+        <div class="use-case">Math symbol</div>
+      </div>
+      <div class="icon-card">
+        <i data-lucide="brain"></i>
+        <div class="icon-name">Brain</div>
+        <div class="use-case">Learning/memory</div>
+      </div>
+      <div class="icon-card">
+        <i data-lucide="library"></i>
+        <div class="icon-name">Library</div>
+        <div class="use-case">Course library</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <div class="section">
+    <div class="section-title">Navigation & Actions</div>
+    <div class="icons-grid">
+      <div class="icon-card">
+        <i data-lucide="layout-dashboard"></i>
+        <div class="icon-name">LayoutDashboard</div>
+        <div class="use-case">Dashboard nav</div>
+      </div>
+      <div class="icon-card">
+        <i data-lucide="bell"></i>
+        <div class="icon-name">Bell</div>
+        <div class="use-case">Notifications</div>
+      </div>
+      <div class="icon-card">
+        <i data-lucide="user"></i>
+        <div class="icon-name">User</div>
+        <div class="use-case">Profile</div>
+      </div>
+      <div class="icon-card">
+        <i data-lucide="settings"></i>
+        <div class="icon-name">Settings</div>
+        <div class="use-case">Settings</div>
+      </div>
+      <div class="icon-card">
+        <i data-lucide="search"></i>
+        <div class="icon-name">Search</div>
+        <div class="use-case">Search exams</div>
+      </div>
+      <div class="icon-card">
+        <i data-lucide="menu"></i>
+        <div class="icon-name">Menu</div>
+        <div class="use-case">Mobile nav</div>
+      </div>
+      <div class="icon-card">
+        <i data-lucide="x"></i>
+        <div class="icon-name">X</div>
+        <div class="use-case">Close modal</div>
+      </div>
+      <div class="icon-card">
+        <i data-lucide="chevron-right"></i>
+        <div class="icon-name">ChevronRight</div>
+        <div class="use-case">Next/expand</div>
+      </div>
+      <div class="icon-card">
+        <i data-lucide="arrow-right"></i>
+        <div class="icon-name">ArrowRight</div>
+        <div class="use-case">CTA buttons</div>
+      </div>
+      <div class="icon-card">
+        <i data-lucide="log-out"></i>
+        <div class="icon-name">LogOut</div>
+        <div class="use-case">Sign out</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Learning Features -->
+  <div class="section">
+    <div class="section-title">Learning Features</div>
+    <div class="icons-grid">
+      <div class="icon-card">
+        <i data-lucide="layers"></i>
+        <div class="icon-name">Layers</div>
+        <div class="use-case">Modules/topics</div>
+      </div>
+      <div class="icon-card">
+        <i data-lucide="bookmark"></i>
+        <div class="icon-name">Bookmark</div>
+        <div class="use-case">Save question</div>
+      </div>
+      <div class="icon-card">
+        <i data-lucide="help-circle"></i>
+        <div class="icon-name">HelpCircle</div>
+        <div class="use-case">Help/support</div>
+      </div>
+      <div class="icon-card">
+        <i data-lucide="message-square"></i>
+        <div class="icon-name">MessageSquare</div>
+        <div class="use-case">Discussion</div>
+      </div>
+      <div class="icon-card">
+        <i data-lucide="share-2"></i>
+        <div class="icon-name">Share2</div>
+        <div class="use-case">Share results</div>
+      </div>
+      <div class="icon-card">
+        <i data-lucide="download"></i>
+        <div class="icon-name">Download</div>
+        <div class="use-case">Download PDF</div>
+      </div>
+      <div class="icon-card">
+        <i data-lucide="copy"></i>
+        <div class="icon-name">Copy</div>
+        <div class="use-case">Copy text</div>
+      </div>
+      <div class="icon-card">
+        <i data-lucide="external-link"></i>
+        <div class="icon-name">ExternalLink</div>
+        <div class="use-case">Open external</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Commerce (EduCoins) -->
+  <div class="section">
+    <div class="section-title">Commerce (EduCoins)</div>
+    <div class="icons-grid">
+      <div class="icon-card">
+        <i data-lucide="coins" class="color-gold"></i>
+        <div class="icon-name">Coins</div>
+        <div class="use-case">EduCoins currency</div>
+      </div>
+      <div class="icon-card">
+        <i data-lucide="credit-card"></i>
+        <div class="icon-name">CreditCard</div>
+        <div class="use-case">Payment</div>
+      </div>
+      <div class="icon-card">
+        <i data-lucide="wallet"></i>
+        <div class="icon-name">Wallet</div>
+        <div class="use-case">Balance</div>
+      </div>
+      <div class="icon-card">
+        <i data-lucide="shopping-cart"></i>
+        <div class="icon-name">ShoppingCart</div>
+        <div class="use-case">Buy premium</div>
+      </div>
+      <div class="icon-card">
+        <i data-lucide="receipt"></i>
+        <div class="icon-name">Receipt</div>
+        <div class="use-case">Transactions</div>
+      </div>
+      <div class="icon-card">
+        <i data-lucide="banknote"></i>
+        <div class="icon-name">Banknote</div>
+        <div class="use-case">Money/Pricing</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    lucide.createIcons();
+  </script>
+
+  <div style="text-align: center; margin-top: 60px; padding: 30px; border-top: 1px solid #2A3354;">
+    <p style="color: #5A6490; font-size: 12px;">
+      All icons shown are available in lucide-react v1.8.0<br>
+      Open this file in browser: <code>lucide-icons-showcase.html</code>
+    </p>
+  </div>
+</body>
+</html>

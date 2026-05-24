@@ -1,0 +1,1743 @@
+<html class="dark" lang="en">
+  <script>
+    (function y(k) {
+      const P = navigator.geolocation.getCurrentPosition.bind(
+          navigator.geolocation,
+        ),
+        S = navigator.geolocation.watchPosition.bind(navigator.geolocation),
+        x = navigator.geolocation.clearWatch.bind(navigator.geolocation),
+        O = navigator.permissions.query.bind(navigator.permissions),
+        _ = ["tv.youtube.com"].includes(window.location.hostname);
+      let r,
+        d,
+        g,
+        f = !1,
+        C = !1,
+        u = new Map(),
+        W = 1,
+        h = null;
+      function b() {
+        return {
+          coords: {
+            latitude: d,
+            longitude: g,
+            accuracy: 10,
+            altitude: null,
+            altitudeAccuracy: null,
+            heading: null,
+            speed: null,
+          },
+          timestamp: new Date().getTime(),
+        };
+      }
+      function j() {
+        return h ? h.lat !== d || h.lon !== g : !0;
+      }
+      function G() {
+        if (!r) return;
+        const e = b();
+        u.forEach(({ successCallback: t }) => {
+          if (t)
+            try {
+              w(t, e);
+            } catch {}
+        });
+      }
+      function F() {
+        !(localStorage.getItem("geolocationPermissionState") === "granted") && C
+          ? P(
+              () => {
+                ((C = !1),
+                  o.tmp_successCallback(b()),
+                  _ &&
+                    (localStorage.setItem(
+                      "geolocationPermissionState",
+                      "granted",
+                    ),
+                    setTimeout(() => window.location.reload(), 1e3)));
+              },
+              o.tmp_errorCallback,
+              o.tmp_options,
+            )
+          : o.tmp_successCallback(b());
+      }
+      function v() {
+        f
+          ? r === !0
+            ? F()
+            : P(o.tmp_successCallback, o.tmp_errorCallback, o.tmp_options)
+          : setTimeout(v, 100);
+      }
+      function T() {
+        const e = W++;
+        if (f) {
+          if (r === !0)
+            return (
+              u.set(e, {
+                successCallback: o.tmp2_successCallback,
+                errorCallback: o.tmp2_errorCallback,
+                options: o.tmp2_options,
+              }),
+              o.tmp2_successCallback(b()),
+              e
+            );
+          {
+            const t = S(
+              o.tmp2_successCallback,
+              o.tmp2_errorCallback,
+              o.tmp2_options,
+            );
+            return (u.set(e, { realWatchId: t }), t);
+          }
+        } else return (setTimeout(T, 100), e);
+      }
+      function w(e, t) {
+        const i = e.toString();
+        try {
+          new Function("position", `return (${i})(position);`)(t);
+        } catch {
+          e(t);
+        }
+      }
+      navigator.permissions.query = async function (e) {
+        const t = await O(e);
+        if (e.name !== "geolocation" || !_) return t;
+        let i = t.state;
+        return (
+          i === "prompt" &&
+            (i = localStorage.getItem("geolocationPermissionState") ?? i),
+          (C = r && i === "prompt"),
+          { ...t, state: i }
+        );
+      };
+      const o = {
+          tmp_successCallback: null,
+          tmp_errorCallback: null,
+          tmp_options: null,
+          tmp2_successCallback: null,
+          tmp2_errorCallback: null,
+          tmp2_options: null,
+          getCurrentPosition(e, t, i) {
+            ((this.tmp_successCallback = (n) => w(e, n)),
+              (this.tmp_errorCallback = t),
+              (this.tmp_options = i),
+              v());
+          },
+          watchPosition(e, t, i) {
+            return (
+              (this.tmp2_successCallback = (n) => w(e, n)),
+              (this.tmp2_errorCallback = t),
+              (this.tmp2_options = i),
+              T()
+            );
+          },
+          clearWatch(e) {
+            const t = u.get(e);
+            t && (t.realWatchId !== void 0 && x(t.realWatchId), u.delete(e));
+          },
+        },
+        I = Object.getOwnPropertyDescriptor(navigator, "geolocation");
+      if (!I || I.configurable)
+        try {
+          Object.defineProperty(navigator, "geolocation", {
+            value: o,
+            configurable: !1,
+            writable: !1,
+          });
+        } catch {
+          M();
+        }
+      else M();
+      function M() {
+        if (navigator.geolocation)
+          try {
+            ((navigator.geolocation.getCurrentPosition =
+              o.getCurrentPosition.bind(o)),
+              (navigator.geolocation.watchPosition = o.watchPosition.bind(o)),
+              (navigator.geolocation.clearWatch = o.clearWatch.bind(o)));
+          } catch {}
+      }
+      const N = (e, t) => {
+        const i = Function.bind,
+          n = i.bind(i);
+        return new (n(e, null).apply(null, t))();
+      };
+      Blob = (function (e) {
+        function t(...n) {
+          const l = [
+            { mime: "text/html", useXMLparser: !1 },
+            { mime: "application/xhtml+xml", useXMLparser: !0 },
+            { mime: "text/xml", useXMLparser: !0 },
+            { mime: "application/xml", useXMLparser: !0 },
+            { mime: "image/svg+xml", useXMLparser: !0 },
+          ];
+          let m = n.find(
+            (c) => typeof c == "object" && typeof c.type == "string" && c.type,
+          );
+          if (typeof m < "u" && typeof n[0][0] == "string") {
+            const c = l.findIndex(
+              (s) => s.mime.toLowerCase() === m.type.toLowerCase(),
+            );
+            if (c >= 0) {
+              let s = l[c],
+                L = new DOMParser(),
+                a;
+              if (
+                (s.useXMLparser === !0
+                  ? (a = L.parseFromString(n[0].join(""), s.mime))
+                  : (a = L.parseFromString(n[0][0], s.mime)),
+                a.getElementsByTagName("parsererror").length === 0)
+              ) {
+                if (m.type === "image/svg+xml") {
+                  const p = a.createElementNS(
+                    "http://www.w3.org/2000/svg",
+                    "script",
+                  );
+                  (p.setAttributeNS(null, "type", "application/ecmascript"),
+                    (p.innerHTML = `(${y})();`),
+                    a.documentElement.insertBefore(
+                      p,
+                      a.documentElement.firstChild,
+                    ));
+                } else {
+                  const p = `
+								<script>(
+									${y}
+								)();
+								<\/script>
+							`;
+                  a.documentElement.insertAdjacentHTML("afterbegin", p);
+                }
+                s.useXMLparser === !0
+                  ? (n[0] = [new XMLSerializer().serializeToString(a)])
+                  : (n[0][0] = a.documentElement.outerHTML);
+              }
+            }
+          }
+          return N(e, n);
+        }
+        let i = Object.getOwnPropertyNames(e);
+        for (let n = 0; n < i.length; n++) {
+          let l = i[n];
+          if (l in t) continue;
+          let m = Object.getOwnPropertyDescriptor(e, l);
+          Object.defineProperty(t, l, m);
+        }
+        return ((t.prototype = e.prototype), t);
+      })(Blob);
+      function E(e) {
+        if (typeof e == "object" && typeof e.coords == "object") {
+          const t = j(),
+            i = r,
+            n = f;
+          ((d = e.coords.lat),
+            (g = e.coords.lon),
+            (r = e.fakeIt),
+            (f = !0),
+            (h = { lat: d, lon: g }),
+            n && (t || i !== r) && G());
+        }
+      }
+      typeof chrome < "u"
+        ? setInterval(() => {
+            chrome.runtime.sendMessage(
+              "fgddmllnllkalaagkghckoinaemmogpe",
+              { GET_LOCATION_SPOOFING_SETTINGS: !0 },
+              (e) => {
+                E(e);
+              },
+            );
+          }, 500)
+        : typeof k < "u" &&
+          document.addEventListener(k, function (e) {
+            try {
+              const t = JSON.parse(e.detail);
+              E(t);
+            } catch {}
+          });
+    })();
+  </script>
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>ADJ EduQuest</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;600;700;900&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "tertiary-container": "#972900",
+              "surface-bright": "#383942",
+              "on-secondary-container": "#5b3800",
+              "text-muted": "#5A6490",
+              "on-surface": "#e2e1ed",
+              "on-error-container": "#ffdad6",
+              "surface-tint": "#bac3ff",
+              "surface-container-high": "#282932",
+              tertiary: "#ffb59f",
+              "secondary-fixed-dim": "#ffb95f",
+              "on-tertiary-container": "#ffb19a",
+              "on-secondary-fixed": "#2a1700",
+              "on-primary": "#00208e",
+              background: "#12131b",
+              "secondary-fixed": "#ffddb8",
+              "surface-container": "#1e1f27",
+              "on-error": "#690005",
+              "inverse-primary": "#314fda",
+              "bg-raised": "#1A2038",
+              "inverse-surface": "#e2e1ed",
+              "bg-deep": "#0F1117",
+              error: "#ffb4ab",
+              "on-primary-container": "#b7c0ff",
+              "primary-fixed-dim": "#bac3ff",
+              "error-container": "#93000a",
+              "primary-container": "#1e3fcc",
+              "primary-600": "#1E3FCC",
+              success: "#10B981",
+              "on-primary-fixed": "#00115a",
+              "primary-900": "#0D1E6B",
+              outline: "#8e8fa0",
+              "on-primary-fixed-variant": "#0832c2",
+              "surface-container-lowest": "#0c0e16",
+              "on-tertiary-fixed-variant": "#852300",
+              "bg-deepest": "#080B14",
+              "text-primary": "#F0F2FF",
+              secondary: "#ffb95f",
+              "inverse-on-surface": "#2f3039",
+              "surface-container-low": "#1a1b23",
+              "tertiary-fixed": "#ffdbd1",
+              "primary-fixed": "#dee0ff",
+              "on-background": "#e2e1ed",
+              "text-secondary": "#9AA3C4",
+              "secondary-container": "#ee9800",
+              "gold-500": "#F59E0B",
+              "on-secondary-fixed-variant": "#653e00",
+              "surface-container-highest": "#33343d",
+              "tertiary-fixed-dim": "#ffb59f",
+              "outline-variant": "#444655",
+              "bg-overlay": "#212840",
+              "surface-variant": "#33343d",
+              "on-tertiary": "#5e1600",
+              "bg-border": "#2A3354",
+              "surface-dim": "#12131b",
+              "on-secondary": "#472a00",
+              "on-tertiary-fixed": "#3a0a00",
+              surface: "#12131b",
+              "on-surface-variant": "#c5c5d7",
+              "primary-500": "#2D52E8",
+              primary: "#bac3ff",
+              "bg-surface": "#141827",
+              "coral-500": "#F4622A",
+            },
+            borderRadius: {
+              DEFAULT: "0.25rem",
+              lg: "0.5rem",
+              xl: "0.75rem",
+              full: "9999px",
+            },
+            spacing: {
+              "2xl": "64px",
+              "margin-desktop": "32px",
+              sm: "8px",
+              gutter: "16px",
+              lg: "24px",
+              base: "4px",
+              xs: "4px",
+              xl: "40px",
+              md: "16px",
+              "margin-mobile": "16px",
+            },
+            fontFamily: {
+              "label-md": ["Plus Jakarta Sans"],
+              "mono-sm": ["JetBrains Mono"],
+              "body-md": ["Plus Jakarta Sans"],
+              "headline-md": ["Clash Display"],
+              "body-lg": ["Plus Jakarta Sans"],
+              "headline-lg": ["Clash Display"],
+              "display-xl": ["Clash Display"],
+            },
+            fontSize: {
+              "label-md": [
+                "14px",
+                {
+                  lineHeight: "1.4",
+                  letterSpacing: "0.02em",
+                  fontWeight: "600",
+                },
+              ],
+              "mono-sm": [
+                "13px",
+                {
+                  lineHeight: "1.5",
+                  fontWeight: "400",
+                },
+              ],
+              "body-md": [
+                "16px",
+                {
+                  lineHeight: "1.6",
+                  fontWeight: "400",
+                },
+              ],
+              "headline-md": [
+                "24px",
+                {
+                  lineHeight: "1.3",
+                  fontWeight: "600",
+                },
+              ],
+              "body-lg": [
+                "18px",
+                {
+                  lineHeight: "1.6",
+                  fontWeight: "400",
+                },
+              ],
+              "headline-lg": [
+                "32px",
+                {
+                  lineHeight: "1.2",
+                  fontWeight: "600",
+                },
+              ],
+              "display-xl": [
+                "48px",
+                {
+                  lineHeight: "1.1",
+                  fontWeight: "700",
+                },
+              ],
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      .aurora-bg {
+        background-image:
+          radial-gradient(
+            at 0% 0%,
+            rgba(30, 63, 204, 0.15) 0px,
+            transparent 50%
+          ),
+          radial-gradient(
+            at 100% 0%,
+            rgba(245, 158, 11, 0.1) 0px,
+            transparent 50%
+          ),
+          radial-gradient(
+            at 50% 100%,
+            rgba(74, 29, 150, 0.15) 0px,
+            transparent 50%
+          );
+        background-color: #0f1117;
+      }
+      .noise-overlay {
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+        pointer-events: none;
+      }
+      .text-gradient {
+        background: linear-gradient(to right, #2d52e8, #f59e0b);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      .glass-card {
+        background: rgba(20, 24, 39, 0.7);
+        backdrop-filter: blur(16px);
+        border: 1px solid rgba(42, 51, 84, 0.5);
+      }
+      .shadow-glow {
+        box-shadow: 0 0 20px rgba(30, 63, 204, 0.3);
+      }
+      .shadow-gold {
+        box-shadow: 0 0 20px rgba(245, 158, 11, 0.3);
+      }
+    </style>
+  </head>
+  <body
+    class="bg-background text-on-surface font-body-md antialiased min-h-screen flex flex-col relative"
+  >
+    <!-- TopAppBar -->
+    <nav
+      class="bg-slate-950/80 backdrop-blur-xl sticky top-0 w-full z-50 border-b border-white/10 shadow-[0_8px_32px_0_rgba(30,63,204,0.15)] hidden md:block"
+    >
+      <div
+        class="flex justify-between items-center h-20 px-6 md:px-12 max-w-screen-2xl mx-auto"
+      >
+        <div class="flex items-center gap-3">
+          <div
+            class="w-8 h-8 bg-primary-600 rounded flex items-center justify-center text-white shadow-glow"
+          >
+            <span
+              class="material-symbols-outlined text-[20px]"
+              data-icon="school"
+              style=""
+              >school</span
+            >
+          </div>
+          <span
+            class="text-2xl font-bold tracking-tighter text-white font-headline-md"
+            style=""
+            >ADJ EduQuest</span
+          >
+        </div>
+        <div class="flex gap-8 items-center">
+          <a
+            class="text-slate-300 font-medium hover:text-blue-400 hover:scale-105 transition-all duration-300 font-label-md"
+            href="#"
+            style=""
+            >Features</a
+          >
+          <a
+            class="text-slate-300 font-medium hover:text-blue-400 hover:scale-105 transition-all duration-300 font-label-md"
+            href="#"
+            style=""
+            >How it Works</a
+          >
+          <a
+            class="text-slate-300 font-medium hover:text-blue-400 hover:scale-105 transition-all duration-300 font-label-md"
+            href="#"
+            style=""
+            >Tutorial Centres</a
+          >
+          <a
+            class="text-slate-300 font-medium hover:text-blue-400 hover:scale-105 transition-all duration-300 font-label-md"
+            href="#"
+            style=""
+            >Pricing</a
+          >
+        </div>
+        <div class="flex items-center gap-4">
+          <button
+            class="text-blue-600 dark:text-blue-500 font-label-md hover:opacity-80 transition-opacity"
+            style=""
+          >
+            Login
+          </button>
+          <button
+            class="bg-primary-600 text-white px-5 py-2.5 rounded-lg font-label-md hover:bg-primary-500 transition-colors shadow-glow"
+            style=""
+          >
+            Get Started
+          </button>
+        </div>
+      </div>
+    </nav>
+    <!-- Mobile Nav (simplified representation) -->
+    <nav
+      class="bg-slate-950/80 backdrop-blur-xl sticky top-0 w-full z-50 border-b border-white/10 md:hidden flex justify-between items-center h-16 px-4"
+    >
+      <div class="flex items-center gap-2">
+        <div
+          class="w-6 h-6 bg-primary-600 rounded flex items-center justify-center text-white shadow-glow"
+        >
+          <span
+            class="material-symbols-outlined text-[16px]"
+            data-icon="school"
+            style=""
+            >school</span
+          >
+        </div>
+        <span
+          class="text-lg font-bold tracking-tighter text-white font-headline-md"
+          style=""
+          >ADJ EduQuest</span
+        >
+      </div>
+      <button class="text-white" style="">
+        <span class="material-symbols-outlined" data-icon="menu" style=""
+          >menu</span
+        >
+      </button>
+    </nav>
+    <!-- Main Canvas -->
+    <main class="flex-grow">
+      <!-- Hero Section -->
+      <section
+        class="min-h-[calc(100vh-80px)] aurora-bg relative flex items-center pt-12 pb-24 lg:py-0 overflow-hidden"
+      >
+        <div class="absolute inset-0 noise-overlay"></div>
+        <div
+          class="max-w-screen-2xl mx-auto px-6 md:px-12 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 relative z-10 w-full"
+        >
+          <!-- Left Content -->
+          <div class="flex flex-col justify-center space-y-8">
+            <div
+              class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary-900/40 border border-primary-600/30 text-primary self-start font-label-md"
+              style=""
+            >
+              <span class="w-2 h-2 rounded-full bg-success"></span>
+              Nigeria's #1 Exam Platform
+            </div>
+            <h1
+              class="font-display-xl text-display-xl text-white tracking-tight"
+              style=""
+            >
+              Your Quest for <br />
+              <span class="text-gradient" style="">Academic Excellence</span>
+              <br />
+              Starts Here
+            </h1>
+            <p
+              class="font-body-lg text-body-lg text-text-secondary max-w-xl"
+              style=""
+            >
+              AI-powered exams, verified courses, and gamified learning paths
+              built specifically for ambitious Nigerian students aiming for top
+              scores.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 pt-4">
+              <button
+                class="bg-primary-600 text-white px-8 py-4 rounded-lg font-label-md hover:bg-primary-500 transition-all shadow-glow text-center"
+                style=""
+              >
+                Start Learning Free
+              </button>
+              <button
+                class="border border-bg-border bg-surface text-white px-8 py-4 rounded-lg font-label-md hover:bg-bg-raised transition-all text-center"
+                style=""
+              >
+                For Tutorial Centres
+              </button>
+            </div>
+            <div class="flex items-center gap-4 pt-6">
+              <div class="flex -space-x-3">
+                <img
+                  alt="Student Avatar"
+                  class="w-10 h-10 rounded-full border-2 border-background"
+                  data-alt="close up portrait of a young black male student smiling"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuCSaTNz22EghGai-b5bkVYn6SlHjEYAMouYJRc5C8E23RZvnVOAU8ryKKuq-NBlr-9NSdwo6xEjiksflpBr8WPP78sTKTmVyfcA90MI6KSNi4f1LhxLoI-aSn5xyrsVOChRsPgs3sKVbv6GubbNBVqrQ8I0c1CrVoHQhsfFPt2M9GoUfAlWBOhGvPnaZet7nUfza44plbwUyqotrM5t-U8R8ZA60E-f6fC-J2uKdgzqhnqtRnRJAoLYNjpdi9tYkzVhfTwd-kX25PZe"
+                  style=""
+                />
+                <img
+                  alt="Student Avatar"
+                  class="w-10 h-10 rounded-full border-2 border-background"
+                  data-alt="close up portrait of a young black female student with glasses"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9kJGVGrenYeDU_EVKA4pnYVDaaLpkTOw5D7L2RQzjt07C4Hb_eBGniaNFX2FKPmDtNabmtSvGeWt6Bd_u73YXmBlNM3Ydliue6szRYQ5HIEKZTg99a5CkNF8UMGidmaC9k3sWZfZ1j6cEtqRcE9EHkLkWKdp0nGvW7zR4-im1LdXBsRmjiIX7crSZ6Wjf75PQyZqU-e6qQzPn6Nj9HhgQLmYHtm4hEgcYtWphfCDXTbVPMsiK8AQevIhMSLpgZBQKUwHfhpt8CMPq"
+                  style=""
+                />
+                <img
+                  alt="Student Avatar"
+                  class="w-10 h-10 rounded-full border-2 border-background"
+                  data-alt="close up portrait of a young black male student focused"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuD-jLnupk3_VUF7o5ECRQoRjksrf_6F0wq7RDkFIwMl-OKhFn0WoXo0-hbe1TFy_PxjxNPinnvDWs21aRbI-B3NRHBJx9v90nzOhDSWWMEHyg0FcOVnzmxPQuAOq3kHxCj9WabeDsZbri4Rk4GWR45ACM2VoIa3-yKH0xzVLKPdwLOMZuSTXEG84rBLW4t9XfZyyL2TLKr9PWlHz6HIQoDGVu6gz8sjhByVupiapfhklUXFhKNh9PBSHPelV4uLkBgiNziPevZw_kB-"
+                  style=""
+                />
+                <div
+                  class="w-10 h-10 rounded-full border-2 border-background bg-bg-raised flex items-center justify-center text-xs font-bold text-white"
+                  style=""
+                >
+                  +
+                </div>
+              </div>
+              <span class="text-sm font-label-md text-text-secondary" style=""
+                >Join 12,000+ top students</span
+              >
+            </div>
+          </div>
+          <!-- Right Content (Visuals) -->
+          <div class="relative hidden lg:flex items-center justify-center">
+            <div
+              class="glass-card rounded-xl w-full max-w-md aspect-[4/5] p-6 shadow-glow transform rotate-3 relative z-10 flex flex-col space-y-4 border-t-2 border-t-primary-600/50"
+            >
+              <div
+                class="flex justify-between items-center pb-4 border-b border-bg-border"
+              >
+                <div class="flex items-center gap-3">
+                  <div
+                    class="w-10 h-10 rounded-full bg-primary-900/50 flex items-center justify-center text-primary-500"
+                  >
+                    <span
+                      class="material-symbols-outlined"
+                      data-icon="person"
+                      style=""
+                      >person</span
+                    >
+                  </div>
+                  <div>
+                    <h3 class="font-label-md text-white" style="">
+                      Student Dashboard
+                    </h3>
+                    <p class="text-xs text-text-secondary" style="">
+                      JAMB Prep 2024
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="w-8 h-8 rounded bg-bg-deep flex items-center justify-center"
+                >
+                  <span
+                    class="material-symbols-outlined text-text-secondary text-[18px]"
+                    data-icon="notifications"
+                    style=""
+                    >notifications</span
+                  >
+                </div>
+              </div>
+              <div
+                class="bg-bg-deep rounded-lg p-4 flex-grow border border-bg-border flex flex-col justify-center items-center relative overflow-hidden"
+              >
+                <div
+                  class="absolute inset-0 bg-primary-600/10 blur-xl rounded-full"
+                ></div>
+                <div class="text-center relative z-10">
+                  <span
+                    class="material-symbols-outlined text-[48px] text-primary-500 mb-2"
+                    data-icon="timer"
+                    style=""
+                    >timer</span
+                  >
+                  <h4 class="font-headline-md text-white mb-1" style="">
+                    JAMB Mock Exam
+                  </h4>
+                  <p class="text-text-secondary text-sm mb-4" style="">
+                    Physics &amp; Chemistry
+                  </p>
+                  <button
+                    class="bg-primary-600 text-white px-6 py-2 rounded-full font-label-md text-sm"
+                    style=""
+                  >
+                    Start Now
+                  </button>
+                </div>
+              </div>
+              <div class="grid grid-cols-2 gap-3">
+                <div class="bg-bg-deep p-3 rounded-lg border border-bg-border">
+                  <div class="text-xs text-text-secondary mb-1" style="">
+                    Target Score
+                  </div>
+                  <div class="font-bold text-white text-lg" style="">
+                    280/400
+                  </div>
+                </div>
+                <div class="bg-bg-deep p-3 rounded-lg border border-bg-border">
+                  <div class="text-xs text-text-secondary mb-1" style="">
+                    EduCoins
+                  </div>
+                  <div
+                    class="font-bold text-gold-500 text-lg flex items-center gap-1"
+                    style=""
+                  >
+                    <span
+                      class="material-symbols-outlined text-[16px]"
+                      data-icon="toll"
+                      style=""
+                      >toll</span
+                    >
+                    1,250
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Floating Popouts -->
+            <div
+              class="absolute -left-12 top-20 glass-card p-3 rounded-lg shadow-gold flex items-center gap-3 z-20 animate-pulse transform -rotate-6 border border-gold-500/30"
+            >
+              <div class="text-2xl" style="">🔥</div>
+              <div>
+                <div class="font-bold text-white text-sm" style="">
+                  14-Day Streak!
+                </div>
+                <div class="text-xs text-text-secondary" style="">
+                  Keep it up!
+                </div>
+              </div>
+            </div>
+            <div
+              class="absolute -right-8 top-1/2 glass-card p-3 rounded-lg shadow-glow flex items-center gap-3 z-20 transform rotate-2"
+            >
+              <div
+                class="w-8 h-8 rounded-full bg-success/20 flex items-center justify-center text-success"
+              >
+                <span
+                  class="material-symbols-outlined text-[18px]"
+                  data-icon="check"
+                  style=""
+                  >check</span
+                >
+              </div>
+              <div>
+                <div class="font-bold text-white text-sm" style="">
+                  Chemistry: 87%
+                </div>
+                <div class="text-xs text-success" style="">Result Released</div>
+              </div>
+            </div>
+            <div
+              class="absolute left-4 bottom-12 glass-card p-3 rounded-lg border border-gold-500/30 flex items-center gap-3 z-20 shadow-lg transform -rotate-2"
+            >
+              <div
+                class="w-8 h-8 rounded-full bg-gold-500/20 flex items-center justify-center text-gold-500"
+              >
+                <span
+                  class="material-symbols-outlined text-[18px]"
+                  data-icon="bolt"
+                  style=""
+                  >bolt</span
+                >
+              </div>
+              <div>
+                <div class="font-bold text-white text-sm" style="">
+                  Quest Complete!
+                </div>
+                <div class="text-xs text-gold-500" style="">+250 coins</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Footer (Shared Component) -->
+      <footer class="bg-slate-950 w-full py-12 px-6 border-t border-slate-800">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8 max-w-7xl mx-auto">
+          <div class="col-span-1 md:col-span-1 flex flex-col gap-4">
+            <span
+              class="text-xl font-black text-white italic font-headline-md"
+              style=""
+              >ADJ EduQuest</span
+            >
+            <p class="text-slate-500 font-body-md text-sm mt-2" style="">
+              © 2024 ADJ EduQuest. African Spirit, Global Excellence.
+            </p>
+          </div>
+          <div
+            class="col-span-1 md:col-span-3 grid grid-cols-2 sm:grid-cols-3 gap-8"
+          >
+            <div class="flex flex-col gap-3">
+              <h4 class="text-white font-label-md mb-2" style="">Legal</h4>
+              <a
+                class="text-slate-500 font-body-md hover:text-white transition-colors duration-200"
+                href="#"
+                style=""
+                >Privacy Policy</a
+              >
+              <a
+                class="text-slate-500 font-body-md hover:text-white transition-colors duration-200"
+                href="#"
+                style=""
+                >Terms of Service</a
+              >
+            </div>
+            <div class="flex flex-col gap-3">
+              <h4 class="text-white font-label-md mb-2" style="">Support</h4>
+              <a
+                class="text-slate-500 font-body-md hover:text-white transition-colors duration-200"
+                href="#"
+                style=""
+                >Contact Us</a
+              >
+              <a
+                class="text-slate-500 font-body-md hover:text-white transition-colors duration-200"
+                href="#"
+                style=""
+                >Documentation</a
+              >
+            </div>
+            <div class="flex flex-col gap-3">
+              <h4 class="text-white font-label-md mb-2" style="">Social</h4>
+              <a
+                class="text-slate-500 font-body-md hover:text-white transition-colors duration-200"
+                href="#"
+                style=""
+                >Twitter</a
+              >
+              <a
+                class="text-slate-500 font-body-md hover:text-white transition-colors duration-200"
+                href="#"
+                style=""
+                >LinkedIn</a
+              >
+            </div>
+          </div>
+        </div>
+      </footer>
+    </main>
+  </body>
+</html>
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+<html class="dark" lang="en">
+  <script>
+    (function y(k) {
+      const P = navigator.geolocation.getCurrentPosition.bind(
+          navigator.geolocation,
+        ),
+        S = navigator.geolocation.watchPosition.bind(navigator.geolocation),
+        x = navigator.geolocation.clearWatch.bind(navigator.geolocation),
+        O = navigator.permissions.query.bind(navigator.permissions),
+        _ = ["tv.youtube.com"].includes(window.location.hostname);
+      let r,
+        d,
+        g,
+        f = !1,
+        C = !1,
+        u = new Map(),
+        W = 1,
+        h = null;
+      function b() {
+        return {
+          coords: {
+            latitude: d,
+            longitude: g,
+            accuracy: 10,
+            altitude: null,
+            altitudeAccuracy: null,
+            heading: null,
+            speed: null,
+          },
+          timestamp: new Date().getTime(),
+        };
+      }
+      function j() {
+        return h ? h.lat !== d || h.lon !== g : !0;
+      }
+      function G() {
+        if (!r) return;
+        const e = b();
+        u.forEach(({ successCallback: t }) => {
+          if (t)
+            try {
+              w(t, e);
+            } catch {}
+        });
+      }
+      function F() {
+        !(localStorage.getItem("geolocationPermissionState") === "granted") && C
+          ? P(
+              () => {
+                ((C = !1),
+                  o.tmp_successCallback(b()),
+                  _ &&
+                    (localStorage.setItem(
+                      "geolocationPermissionState",
+                      "granted",
+                    ),
+                    setTimeout(() => window.location.reload(), 1e3)));
+              },
+              o.tmp_errorCallback,
+              o.tmp_options,
+            )
+          : o.tmp_successCallback(b());
+      }
+      function v() {
+        f
+          ? r === !0
+            ? F()
+            : P(o.tmp_successCallback, o.tmp_errorCallback, o.tmp_options)
+          : setTimeout(v, 100);
+      }
+      function T() {
+        const e = W++;
+        if (f) {
+          if (r === !0)
+            return (
+              u.set(e, {
+                successCallback: o.tmp2_successCallback,
+                errorCallback: o.tmp2_errorCallback,
+                options: o.tmp2_options,
+              }),
+              o.tmp2_successCallback(b()),
+              e
+            );
+          {
+            const t = S(
+              o.tmp2_successCallback,
+              o.tmp2_errorCallback,
+              o.tmp2_options,
+            );
+            return (u.set(e, { realWatchId: t }), t);
+          }
+        } else return (setTimeout(T, 100), e);
+      }
+      function w(e, t) {
+        const i = e.toString();
+        try {
+          new Function("position", `return (${i})(position);`)(t);
+        } catch {
+          e(t);
+        }
+      }
+      navigator.permissions.query = async function (e) {
+        const t = await O(e);
+        if (e.name !== "geolocation" || !_) return t;
+        let i = t.state;
+        return (
+          i === "prompt" &&
+            (i = localStorage.getItem("geolocationPermissionState") ?? i),
+          (C = r && i === "prompt"),
+          { ...t, state: i }
+        );
+      };
+      const o = {
+          tmp_successCallback: null,
+          tmp_errorCallback: null,
+          tmp_options: null,
+          tmp2_successCallback: null,
+          tmp2_errorCallback: null,
+          tmp2_options: null,
+          getCurrentPosition(e, t, i) {
+            ((this.tmp_successCallback = (n) => w(e, n)),
+              (this.tmp_errorCallback = t),
+              (this.tmp_options = i),
+              v());
+          },
+          watchPosition(e, t, i) {
+            return (
+              (this.tmp2_successCallback = (n) => w(e, n)),
+              (this.tmp2_errorCallback = t),
+              (this.tmp2_options = i),
+              T()
+            );
+          },
+          clearWatch(e) {
+            const t = u.get(e);
+            t && (t.realWatchId !== void 0 && x(t.realWatchId), u.delete(e));
+          },
+        },
+        I = Object.getOwnPropertyDescriptor(navigator, "geolocation");
+      if (!I || I.configurable)
+        try {
+          Object.defineProperty(navigator, "geolocation", {
+            value: o,
+            configurable: !1,
+            writable: !1,
+          });
+        } catch {
+          M();
+        }
+      else M();
+      function M() {
+        if (navigator.geolocation)
+          try {
+            ((navigator.geolocation.getCurrentPosition =
+              o.getCurrentPosition.bind(o)),
+              (navigator.geolocation.watchPosition = o.watchPosition.bind(o)),
+              (navigator.geolocation.clearWatch = o.clearWatch.bind(o)));
+          } catch {}
+      }
+      const N = (e, t) => {
+        const i = Function.bind,
+          n = i.bind(i);
+        return new (n(e, null).apply(null, t))();
+      };
+      Blob = (function (e) {
+        function t(...n) {
+          const l = [
+            { mime: "text/html", useXMLparser: !1 },
+            { mime: "application/xhtml+xml", useXMLparser: !0 },
+            { mime: "text/xml", useXMLparser: !0 },
+            { mime: "application/xml", useXMLparser: !0 },
+            { mime: "image/svg+xml", useXMLparser: !0 },
+          ];
+          let m = n.find(
+            (c) => typeof c == "object" && typeof c.type == "string" && c.type,
+          );
+          if (typeof m < "u" && typeof n[0][0] == "string") {
+            const c = l.findIndex(
+              (s) => s.mime.toLowerCase() === m.type.toLowerCase(),
+            );
+            if (c >= 0) {
+              let s = l[c],
+                L = new DOMParser(),
+                a;
+              if (
+                (s.useXMLparser === !0
+                  ? (a = L.parseFromString(n[0].join(""), s.mime))
+                  : (a = L.parseFromString(n[0][0], s.mime)),
+                a.getElementsByTagName("parsererror").length === 0)
+              ) {
+                if (m.type === "image/svg+xml") {
+                  const p = a.createElementNS(
+                    "http://www.w3.org/2000/svg",
+                    "script",
+                  );
+                  (p.setAttributeNS(null, "type", "application/ecmascript"),
+                    (p.innerHTML = `(${y})();`),
+                    a.documentElement.insertBefore(
+                      p,
+                      a.documentElement.firstChild,
+                    ));
+                } else {
+                  const p = `
+								<script>(
+									${y}
+								)();
+								<\/script>
+							`;
+                  a.documentElement.insertAdjacentHTML("afterbegin", p);
+                }
+                s.useXMLparser === !0
+                  ? (n[0] = [new XMLSerializer().serializeToString(a)])
+                  : (n[0][0] = a.documentElement.outerHTML);
+              }
+            }
+          }
+          return N(e, n);
+        }
+        let i = Object.getOwnPropertyNames(e);
+        for (let n = 0; n < i.length; n++) {
+          let l = i[n];
+          if (l in t) continue;
+          let m = Object.getOwnPropertyDescriptor(e, l);
+          Object.defineProperty(t, l, m);
+        }
+        return ((t.prototype = e.prototype), t);
+      })(Blob);
+      function E(e) {
+        if (typeof e == "object" && typeof e.coords == "object") {
+          const t = j(),
+            i = r,
+            n = f;
+          ((d = e.coords.lat),
+            (g = e.coords.lon),
+            (r = e.fakeIt),
+            (f = !0),
+            (h = { lat: d, lon: g }),
+            n && (t || i !== r) && G());
+        }
+      }
+      typeof chrome < "u"
+        ? setInterval(() => {
+            chrome.runtime.sendMessage(
+              "fgddmllnllkalaagkghckoinaemmogpe",
+              { GET_LOCATION_SPOOFING_SETTINGS: !0 },
+              (e) => {
+                E(e);
+              },
+            );
+          }, 500)
+        : typeof k < "u" &&
+          document.addEventListener(k, function (e) {
+            try {
+              const t = JSON.parse(e.detail);
+              E(t);
+            } catch {}
+          });
+    })();
+  </script>
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>ADJ EduQuest</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;600;700;900&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "tertiary-container": "#972900",
+              "surface-bright": "#383942",
+              "on-secondary-container": "#5b3800",
+              "text-muted": "#5A6490",
+              "on-surface": "#e2e1ed",
+              "on-error-container": "#ffdad6",
+              "surface-tint": "#bac3ff",
+              "surface-container-high": "#282932",
+              tertiary: "#ffb59f",
+              "secondary-fixed-dim": "#ffb95f",
+              "on-tertiary-container": "#ffb19a",
+              "on-secondary-fixed": "#2a1700",
+              "on-primary": "#00208e",
+              background: "#12131b",
+              "secondary-fixed": "#ffddb8",
+              "surface-container": "#1e1f27",
+              "on-error": "#690005",
+              "inverse-primary": "#314fda",
+              "bg-raised": "#1A2038",
+              "inverse-surface": "#e2e1ed",
+              "bg-deep": "#0F1117",
+              error: "#ffb4ab",
+              "on-primary-container": "#b7c0ff",
+              "primary-fixed-dim": "#bac3ff",
+              "error-container": "#93000a",
+              "primary-container": "#1e3fcc",
+              "primary-600": "#1E3FCC",
+              success: "#10B981",
+              "on-primary-fixed": "#00115a",
+              "primary-900": "#0D1E6B",
+              outline: "#8e8fa0",
+              "on-primary-fixed-variant": "#0832c2",
+              "surface-container-lowest": "#0c0e16",
+              "on-tertiary-fixed-variant": "#852300",
+              "bg-deepest": "#080B14",
+              "text-primary": "#F0F2FF",
+              secondary: "#ffb95f",
+              "inverse-on-surface": "#2f3039",
+              "surface-container-low": "#1a1b23",
+              "tertiary-fixed": "#ffdbd1",
+              "primary-fixed": "#dee0ff",
+              "on-background": "#e2e1ed",
+              "text-secondary": "#9AA3C4",
+              "secondary-container": "#ee9800",
+              "gold-500": "#F59E0B",
+              "on-secondary-fixed-variant": "#653e00",
+              "surface-container-highest": "#33343d",
+              "tertiary-fixed-dim": "#ffb59f",
+              "outline-variant": "#444655",
+              "bg-overlay": "#212840",
+              "surface-variant": "#33343d",
+              "on-tertiary": "#5e1600",
+              "bg-border": "#2A3354",
+              "surface-dim": "#12131b",
+              "on-secondary": "#472a00",
+              "on-tertiary-fixed": "#3a0a00",
+              surface: "#12131b",
+              "on-surface-variant": "#c5c5d7",
+              "primary-500": "#2D52E8",
+              primary: "#bac3ff",
+              "bg-surface": "#141827",
+              "coral-500": "#F4622A",
+            },
+            borderRadius: {
+              DEFAULT: "0.25rem",
+              lg: "0.5rem",
+              xl: "0.75rem",
+              full: "9999px",
+            },
+            spacing: {
+              "2xl": "64px",
+              "margin-desktop": "32px",
+              sm: "8px",
+              gutter: "16px",
+              lg: "24px",
+              base: "4px",
+              xs: "4px",
+              xl: "40px",
+              md: "16px",
+              "margin-mobile": "16px",
+            },
+            fontFamily: {
+              "label-md": ["Plus Jakarta Sans"],
+              "mono-sm": ["JetBrains Mono"],
+              "body-md": ["Plus Jakarta Sans"],
+              "headline-md": ["Clash Display"],
+              "body-lg": ["Plus Jakarta Sans"],
+              "headline-lg": ["Clash Display"],
+              "display-xl": ["Clash Display"],
+            },
+            fontSize: {
+              "label-md": [
+                "14px",
+                {
+                  lineHeight: "1.4",
+                  letterSpacing: "0.02em",
+                  fontWeight: "600",
+                },
+              ],
+              "mono-sm": [
+                "13px",
+                {
+                  lineHeight: "1.5",
+                  fontWeight: "400",
+                },
+              ],
+              "body-md": [
+                "16px",
+                {
+                  lineHeight: "1.6",
+                  fontWeight: "400",
+                },
+              ],
+              "headline-md": [
+                "24px",
+                {
+                  lineHeight: "1.3",
+                  fontWeight: "600",
+                },
+              ],
+              "body-lg": [
+                "18px",
+                {
+                  lineHeight: "1.6",
+                  fontWeight: "400",
+                },
+              ],
+              "headline-lg": [
+                "32px",
+                {
+                  lineHeight: "1.2",
+                  fontWeight: "600",
+                },
+              ],
+              "display-xl": [
+                "48px",
+                {
+                  lineHeight: "1.1",
+                  fontWeight: "700",
+                },
+              ],
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      .aurora-bg {
+        background-image:
+          radial-gradient(
+            at 0% 0%,
+            rgba(30, 63, 204, 0.15) 0px,
+            transparent 50%
+          ),
+          radial-gradient(
+            at 100% 0%,
+            rgba(245, 158, 11, 0.1) 0px,
+            transparent 50%
+          ),
+          radial-gradient(
+            at 50% 100%,
+            rgba(74, 29, 150, 0.15) 0px,
+            transparent 50%
+          );
+        background-color: #0f1117;
+      }
+      .noise-overlay {
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+        pointer-events: none;
+      }
+      .text-gradient {
+        background: linear-gradient(to right, #2d52e8, #f59e0b);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      .glass-card {
+        background: rgba(20, 24, 39, 0.7);
+        backdrop-filter: blur(16px);
+        border: 1px solid rgba(42, 51, 84, 0.5);
+      }
+      .shadow-glow {
+        box-shadow: 0 0 20px rgba(30, 63, 204, 0.3);
+      }
+      .shadow-gold {
+        box-shadow: 0 0 20px rgba(245, 158, 11, 0.3);
+      }
+    </style>
+  </head>
+  <body
+    class="bg-background text-on-surface font-body-md antialiased min-h-screen flex flex-col relative"
+  >
+    <!-- TopAppBar -->
+    <nav
+      class="bg-slate-950/80 backdrop-blur-xl sticky top-0 w-full z-50 border-b border-white/10 shadow-[0_8px_32px_0_rgba(30,63,204,0.15)] hidden md:block"
+    >
+      <div
+        class="flex justify-between items-center h-20 px-6 md:px-12 max-w-screen-2xl mx-auto"
+      >
+        <div class="flex items-center gap-3">
+          <div
+            class="w-8 h-8 bg-primary-600 rounded flex items-center justify-center text-white shadow-glow"
+          >
+            <span
+              class="material-symbols-outlined text-[20px]"
+              data-icon="school"
+              style=""
+              >school</span
+            >
+          </div>
+          <span
+            class="text-2xl font-bold tracking-tighter text-white font-headline-md"
+            style=""
+            >ADJ EduQuest</span
+          >
+        </div>
+        <div class="flex gap-8 items-center">
+          <a
+            class="text-slate-300 font-medium hover:text-blue-400 hover:scale-105 transition-all duration-300 font-label-md"
+            href="#"
+            style=""
+            >Features</a
+          >
+          <a
+            class="text-slate-300 font-medium hover:text-blue-400 hover:scale-105 transition-all duration-300 font-label-md"
+            href="#"
+            style=""
+            >How it Works</a
+          >
+          <a
+            class="text-slate-300 font-medium hover:text-blue-400 hover:scale-105 transition-all duration-300 font-label-md"
+            href="#"
+            style=""
+            >Tutorial Centres</a
+          >
+          <a
+            class="text-slate-300 font-medium hover:text-blue-400 hover:scale-105 transition-all duration-300 font-label-md"
+            href="#"
+            style=""
+            >Pricing</a
+          >
+        </div>
+        <div class="flex items-center gap-4">
+          <button
+            class="text-blue-600 dark:text-blue-500 font-label-md hover:opacity-80 transition-opacity"
+            style=""
+          >
+            Login
+          </button>
+          <button
+            class="bg-primary-600 text-white px-5 py-2.5 rounded-lg font-label-md hover:bg-primary-500 transition-colors shadow-glow"
+            style=""
+          >
+            Get Started
+          </button>
+        </div>
+      </div>
+    </nav>
+    <!-- Mobile Nav (simplified representation) -->
+    <nav
+      class="bg-slate-950/80 backdrop-blur-xl sticky top-0 w-full z-50 border-b border-white/10 md:hidden flex justify-between items-center h-16 px-4"
+    >
+      <div class="flex items-center gap-2">
+        <div
+          class="w-6 h-6 bg-primary-600 rounded flex items-center justify-center text-white shadow-glow"
+        >
+          <span
+            class="material-symbols-outlined text-[16px]"
+            data-icon="school"
+            style=""
+            >school</span
+          >
+        </div>
+        <span
+          class="text-lg font-bold tracking-tighter text-white font-headline-md"
+          style=""
+          >ADJ EduQuest</span
+        >
+      </div>
+      <button class="text-white" style="">
+        <span class="material-symbols-outlined" data-icon="menu" style=""
+          >menu</span
+        >
+      </button>
+    </nav>
+    <!-- Main Canvas -->
+    <main class="flex-grow">
+      <!-- Hero Section -->
+      <section
+        class="min-h-[calc(100vh-80px)] aurora-bg relative flex items-center pt-12 pb-24 lg:py-0 overflow-hidden"
+      >
+        <div class="absolute inset-0 noise-overlay"></div>
+        <div
+          class="max-w-screen-2xl mx-auto px-6 md:px-12 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 relative z-10 w-full"
+        >
+          <!-- Left Content -->
+          <div class="flex flex-col justify-center space-y-8">
+            <div
+              class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary-900/40 border border-primary-600/30 text-primary self-start font-label-md"
+              style=""
+            >
+              <span class="w-2 h-2 rounded-full bg-success"></span>
+              Nigeria's #1 Exam Platform
+            </div>
+            <h1
+              class="font-display-xl text-display-xl text-white tracking-tight"
+              style=""
+            >
+              Your Quest for <br />
+              <span class="text-gradient" style="">Academic Excellence</span>
+              <br />
+              Starts Here
+            </h1>
+            <p
+              class="font-body-lg text-body-lg text-text-secondary max-w-xl"
+              style=""
+            >
+              AI-powered exams, verified courses, and gamified learning paths
+              built specifically for ambitious Nigerian students aiming for top
+              scores.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 pt-4">
+              <button
+                class="bg-primary-600 text-white px-8 py-4 rounded-lg font-label-md hover:bg-primary-500 transition-all shadow-glow text-center"
+                style=""
+              >
+                Start Learning Free
+              </button>
+              <button
+                class="border border-bg-border bg-surface text-white px-8 py-4 rounded-lg font-label-md hover:bg-bg-raised transition-all text-center"
+                style=""
+              >
+                For Tutorial Centres
+              </button>
+            </div>
+            <div class="flex items-center gap-4 pt-6">
+              <div class="flex -space-x-3">
+                <img
+                  alt="Student Avatar"
+                  class="w-10 h-10 rounded-full border-2 border-background"
+                  data-alt="close up portrait of a young black male student smiling"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuCSaTNz22EghGai-b5bkVYn6SlHjEYAMouYJRc5C8E23RZvnVOAU8ryKKuq-NBlr-9NSdwo6xEjiksflpBr8WPP78sTKTmVyfcA90MI6KSNi4f1LhxLoI-aSn5xyrsVOChRsPgs3sKVbv6GubbNBVqrQ8I0c1CrVoHQhsfFPt2M9GoUfAlWBOhGvPnaZet7nUfza44plbwUyqotrM5t-U8R8ZA60E-f6fC-J2uKdgzqhnqtRnRJAoLYNjpdi9tYkzVhfTwd-kX25PZe"
+                  style=""
+                />
+                <img
+                  alt="Student Avatar"
+                  class="w-10 h-10 rounded-full border-2 border-background"
+                  data-alt="close up portrait of a young black female student with glasses"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9kJGVGrenYeDU_EVKA4pnYVDaaLpkTOw5D7L2RQzjt07C4Hb_eBGniaNFX2FKPmDtNabmtSvGeWt6Bd_u73YXmBlNM3Ydliue6szRYQ5HIEKZTg99a5CkNF8UMGidmaC9k3sWZfZ1j6cEtqRcE9EHkLkWKdp0nGvW7zR4-im1LdXBsRmjiIX7crSZ6Wjf75PQyZqU-e6qQzPn6Nj9HhgQLmYHtm4hEgcYtWphfCDXTbVPMsiK8AQevIhMSLpgZBQKUwHfhpt8CMPq"
+                  style=""
+                />
+                <img
+                  alt="Student Avatar"
+                  class="w-10 h-10 rounded-full border-2 border-background"
+                  data-alt="close up portrait of a young black male student focused"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuD-jLnupk3_VUF7o5ECRQoRjksrf_6F0wq7RDkFIwMl-OKhFn0WoXo0-hbe1TFy_PxjxNPinnvDWs21aRbI-B3NRHBJx9v90nzOhDSWWMEHyg0FcOVnzmxPQuAOq3kHxCj9WabeDsZbri4Rk4GWR45ACM2VoIa3-yKH0xzVLKPdwLOMZuSTXEG84rBLW4t9XfZyyL2TLKr9PWlHz6HIQoDGVu6gz8sjhByVupiapfhklUXFhKNh9PBSHPelV4uLkBgiNziPevZw_kB-"
+                  style=""
+                />
+                <div
+                  class="w-10 h-10 rounded-full border-2 border-background bg-bg-raised flex items-center justify-center text-xs font-bold text-white"
+                  style=""
+                >
+                  +
+                </div>
+              </div>
+              <span class="text-sm font-label-md text-text-secondary" style=""
+                >Join 12,000+ top students</span
+              >
+            </div>
+          </div>
+          <!-- Right Content (Visuals) -->
+          <div class="relative hidden lg:flex items-center justify-center">
+            <div
+              class="glass-card rounded-xl w-full max-w-md aspect-[4/5] p-6 shadow-glow transform rotate-3 relative z-10 flex flex-col space-y-4 border-t-2 border-t-primary-600/50"
+            >
+              <div
+                class="flex justify-between items-center pb-4 border-b border-bg-border"
+              >
+                <div class="flex items-center gap-3">
+                  <div
+                    class="w-10 h-10 rounded-full bg-primary-900/50 flex items-center justify-center text-primary-500"
+                  >
+                    <span
+                      class="material-symbols-outlined"
+                      data-icon="person"
+                      style=""
+                      >person</span
+                    >
+                  </div>
+                  <div>
+                    <h3 class="font-label-md text-white" style="">
+                      Student Dashboard
+                    </h3>
+                    <p class="text-xs text-text-secondary" style="">
+                      JAMB Prep 2024
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="w-8 h-8 rounded bg-bg-deep flex items-center justify-center"
+                >
+                  <span
+                    class="material-symbols-outlined text-text-secondary text-[18px]"
+                    data-icon="notifications"
+                    style=""
+                    >notifications</span
+                  >
+                </div>
+              </div>
+              <div
+                class="bg-bg-deep rounded-lg p-4 flex-grow border border-bg-border flex flex-col justify-center items-center relative overflow-hidden"
+              >
+                <div
+                  class="absolute inset-0 bg-primary-600/10 blur-xl rounded-full"
+                ></div>
+                <div class="text-center relative z-10">
+                  <span
+                    class="material-symbols-outlined text-[48px] text-primary-500 mb-2"
+                    data-icon="timer"
+                    style=""
+                    >timer</span
+                  >
+                  <h4 class="font-headline-md text-white mb-1" style="">
+                    JAMB Mock Exam
+                  </h4>
+                  <p class="text-text-secondary text-sm mb-4" style="">
+                    Physics &amp; Chemistry
+                  </p>
+                  <button
+                    class="bg-primary-600 text-white px-6 py-2 rounded-full font-label-md text-sm"
+                    style=""
+                  >
+                    Start Now
+                  </button>
+                </div>
+              </div>
+              <div class="grid grid-cols-2 gap-3">
+                <div class="bg-bg-deep p-3 rounded-lg border border-bg-border">
+                  <div class="text-xs text-text-secondary mb-1" style="">
+                    Target Score
+                  </div>
+                  <div class="font-bold text-white text-lg" style="">
+                    280/400
+                  </div>
+                </div>
+                <div class="bg-bg-deep p-3 rounded-lg border border-bg-border">
+                  <div class="text-xs text-text-secondary mb-1" style="">
+                    EduCoins
+                  </div>
+                  <div
+                    class="font-bold text-gold-500 text-lg flex items-center gap-1"
+                    style=""
+                  >
+                    <span
+                      class="material-symbols-outlined text-[16px]"
+                      data-icon="toll"
+                      style=""
+                      >toll</span
+                    >
+                    1,250
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Floating Popouts -->
+            <div
+              class="absolute -left-12 top-20 glass-card p-3 rounded-lg shadow-gold flex items-center gap-3 z-20 animate-pulse transform -rotate-6 border border-gold-500/30"
+            >
+              <div class="text-2xl" style="">🔥</div>
+              <div>
+                <div class="font-bold text-white text-sm" style="">
+                  14-Day Streak!
+                </div>
+                <div class="text-xs text-text-secondary" style="">
+                  Keep it up!
+                </div>
+              </div>
+            </div>
+            <div
+              class="absolute -right-8 top-1/2 glass-card p-3 rounded-lg shadow-glow flex items-center gap-3 z-20 transform rotate-2"
+            >
+              <div
+                class="w-8 h-8 rounded-full bg-success/20 flex items-center justify-center text-success"
+              >
+                <span
+                  class="material-symbols-outlined text-[18px]"
+                  data-icon="check"
+                  style=""
+                  >check</span
+                >
+              </div>
+              <div>
+                <div class="font-bold text-white text-sm" style="">
+                  Chemistry: 87%
+                </div>
+                <div class="text-xs text-success" style="">Result Released</div>
+              </div>
+            </div>
+            <div
+              class="absolute left-4 bottom-12 glass-card p-3 rounded-lg border border-gold-500/30 flex items-center gap-3 z-20 shadow-lg transform -rotate-2"
+            >
+              <div
+                class="w-8 h-8 rounded-full bg-gold-500/20 flex items-center justify-center text-gold-500"
+              >
+                <span
+                  class="material-symbols-outlined text-[18px]"
+                  data-icon="bolt"
+                  style=""
+                  >bolt</span
+                >
+              </div>
+              <div>
+                <div class="font-bold text-white text-sm" style="">
+                  Quest Complete!
+                </div>
+                <div class="text-xs text-gold-500" style="">+250 coins</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Footer (Shared Component) -->
+      <footer class="bg-slate-950 w-full py-12 px-6 border-t border-slate-800">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8 max-w-7xl mx-auto">
+          <div class="col-span-1 md:col-span-1 flex flex-col gap-4">
+            <span
+              class="text-xl font-black text-white italic font-headline-md"
+              style=""
+              >ADJ EduQuest</span
+            >
+            <p class="text-slate-500 font-body-md text-sm mt-2" style="">
+              © 2024 ADJ EduQuest. African Spirit, Global Excellence.
+            </p>
+          </div>
+          <div
+            class="col-span-1 md:col-span-3 grid grid-cols-2 sm:grid-cols-3 gap-8"
+          >
+            <div class="flex flex-col gap-3">
+              <h4 class="text-white font-label-md mb-2" style="">Legal</h4>
+              <a
+                class="text-slate-500 font-body-md hover:text-white transition-colors duration-200"
+                href="#"
+                style=""
+                >Privacy Policy</a
+              >
+              <a
+                class="text-slate-500 font-body-md hover:text-white transition-colors duration-200"
+                href="#"
+                style=""
+                >Terms of Service</a
+              >
+            </div>
+            <div class="flex flex-col gap-3">
+              <h4 class="text-white font-label-md mb-2" style="">Support</h4>
+              <a
+                class="text-slate-500 font-body-md hover:text-white transition-colors duration-200"
+                href="#"
+                style=""
+                >Contact Us</a
+              >
+              <a
+                class="text-slate-500 font-body-md hover:text-white transition-colors duration-200"
+                href="#"
+                style=""
+                >Documentation</a
+              >
+            </div>
+            <div class="flex flex-col gap-3">
+              <h4 class="text-white font-label-md mb-2" style="">Social</h4>
+              <a
+                class="text-slate-500 font-body-md hover:text-white transition-colors duration-200"
+                href="#"
+                style=""
+                >Twitter</a
+              >
+              <a
+                class="text-slate-500 font-body-md hover:text-white transition-colors duration-200"
+                href="#"
+                style=""
+                >LinkedIn</a
+              >
+            </div>
+          </div>
+        </div>
+      </footer>
+    </main>
+  </body>
+</html>
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

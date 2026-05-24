@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Icon Libraries Comparison - ADJ EduQuest</title>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/heroicons-css@latest/heroicons.min.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: #0F1117;
+      color: #F0F2FF;
+      padding: 30px 20px;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 10px;
+      color: #1E3FCC;
+      font-size: 28px;
+    }
+    .subtitle {
+      text-align: center;
+      color: #9AA3C4;
+      margin-bottom: 20px;
+      font-size: 14px;
+    }
+    .legend {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      color: #9AA3C4;
+    }
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+    .dot.best { background: #10B981; }
+    .dot.good { background: #1E3FCC; }
+    .dot.ok { background: #5A6490; }
+
+    .comparison-table {
+      max-width: 1400px;
+      margin: 0 auto;
+      background: #141827;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid #2A3354;
+    }
+
+    .table-header {
+      display: grid;
+      grid-template-columns: 140px 1fr 1fr 1fr 1fr 1fr;
+      background: #0F1117;
+      border-bottom: 1px solid #2A3354;
+      padding: 15px 10px;
+    }
+    .table-header > div {
+      text-align: center;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #5A6490;
+    }
+    .table-header .icon-name { text-align: left; }
+
+    .table-row {
+      display: grid;
+      grid-template-columns: 140px 1fr 1fr 1fr 1fr 1fr;
+      border-bottom: 1px solid #2A3354;
+      padding: 12px 10px;
+      align-items: center;
+    }
+    .table-row:hover {
+      background: #1A2038;
+    }
+    .table-row:last-child {
+      border-bottom: none;
+    }
+
+    .icon-label {
+      font-size: 12px;
+      color: #F0F2FF;
+      font-weight: 500;
+    }
+    .icon-label small {
+      display: block;
+      color: #5A6490;
+      font-size: 10px;
+      margin-top: 2px;
+    }
+
+    .icon-cell {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .icon-wrapper {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 8px;
+      background: #0F1117;
+      border: 1px solid #2A3354;
+    }
+    .icon-wrapper.has-icon {
+      border-color: #1E3FCC;
+      background: rgba(30, 63, 204, 0.1);
+    }
+    .icon-wrapper.missing {
+      border-color: #F4622A;
+      background: rgba(244, 98, 42, 0.1);
+    }
+
+    /* Lucide */
+    .lucide-cell i {
+      width: 20px;
+      height: 20px;
+      color: #F0F2FF;
+    }
+
+    /* Phosphor */
+    .phosphor-cell i {
+      font-size: 22px;
+      color: #F0F2FF;
+    }
+
+    /* Tabler */
+    .tabler-cell i {
+      font-size: 22px;
+      color: #F0F2FF;
+    }
+
+    /* Bootstrap */
+    .bootstrap-cell i {
+      font-size: 20px;
+      color: #F0F2FF;
+    }
+
+    /* Heroicons (SVG) */
+    .heroicons-cell svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .lib-name {
+      font-size: 9px;
+      color: #5A6490;
+      text-transform: uppercase;
+    }
+
+    .rating {
+      display: flex;
+      gap: 3px;
+    }
+    .star {
+      font-size: 10px;
+    }
+    .star.good { color: #F59E0B; }
+    .star.missing { color: #2A3354; }
+
+    .stats-row {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin-top: 40px;
+      padding: 20px;
+    }
+    .stat {
+      text-align: center;
+    }
+    .stat-number {
+      font-size: 32px;
+      font-weight: 700;
+      color: #1E3FCC;
+    }
+    .stat-label {
+      font-size: 12px;
+      color: #9AA3C4;
+    }
+
+    .recommendation {
+      max-width: 800px;
+      margin: 40px auto;
+      background: #1A2038;
+      border: 1px solid #2A3354;
+      border-radius: 12px;
+      padding: 20px;
+    }
+    .recommendation h3 {
+      color: #F59E0B;
+      margin-bottom: 15px;
+      font-size: 16px;
+    }
+    .recommendation p {
+      font-size: 13px;
+      line-height: 1.6;
+      color: #9AA3C4;
+    }
+
+    /* Color variations shown */
+    .variation-fire { color: #F4622A !important; }
+    .variation-gold { color: #F59E0B !important; }
+    .variation-success { color: #10B981 !important; }
+  </style>
+</head>
+<body>
+  <h1>Icon Libraries Comparison</h1>
+  <p class="subtitle">Same icons across different libraries - see which fits your design best</p>
+
+  <div class="legend">
+    <div class="legend-item"><span class="dot best"></span> Best Match</div>
+    <div class="legend-item"><span class="dot good"></span> Available</div>
+    <div class="legend-item"><span class="dot ok"></span> Missing/Alternative</div>
+  </div>
+
+  <div class="comparison-table">
+    <div class="table-header">
+      <div class="icon-name">Icon / Use Case</div>
+      <div>Lucide<br><small>v1.8.0</small></div>
+      <div>Phosphor<br><small>Latest</small></div>
+      <div>Tabler<br><small>v2.x</small></div>
+      <div>Bootstrap<br><small>v1.11</small></div>
+      <div>Heroicons<br><small>v2.x</small></div>
+    </div>
+
+    <!-- Fire/Streak -->
+    <div class="table-row">
+      <div class="icon-label">
+        Fire/Streak
+        <small>Daily streak counter</small>
+      </div>
+      <div class="icon-cell lucide-cell">
+        <div class="icon-wrapper has-icon"><i data-lucide="flame" class="variation-fire"></i></div>
+        <span class="lib-name">flame</span>
+      </div>
+      <div class="icon-cell phosphor-cell">
+        <div class="icon-wrapper has-icon"><i class="ph ph-fire variation-fire"></i></div>
+        <span class="lib-name">fire</span>
+      </div>
+      <div class="icon-cell tabler-cell">
+        <div class="icon-wrapper has-icon"><i class="ti ti-flame variation-fire"></i></div>
+        <span class="lib-name">flame</span>
+      </div>
+      <div class="icon-cell bootstrap-cell">
+        <div class="icon-wrapper has-icon"><i class="bi bi-fire variation-fire"></i></div>
+        <span class="lib-name">fire</span>
+      </div>
+      <div class="icon-cell heroicons-cell">
+        <div class="icon-wrapper has-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#F0F2FF" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15.362 5.214A8.252 8.252 0 0112 21 8.25 8.25 0 016.038 7.048 8.287 8.287 0 009 9.6a8.983 8.983 0 013.361-6.867 8.21 8.21 0 003 2.48z" /><path stroke-linecap="round" stroke-linejoin="round" d="M12 18a3.75 3.75 0 00.495-7.467 5.99 5.99 0 00-1.925 3.546 5.974 5.974 0 01-2.133-1A3.75 3.75 0 0012 18z" /></svg>
+        </div>
+        <span class="lib-name">fire</span>
+      </div>
+    </div>
+
+    <!-- Clock/Time -->
+    <div class="table-row">
+      <div class="icon-label">
+        Clock
+        <small>Time remaining</small>
+      </div>
+      <div class="icon-cell lucide-cell">
+        <div class="icon-wrapper has-icon"><i data-lucide="clock" class="variation-gold"></i></div>
+        <span class="lib-name">clock</span>
+      </div>
+      <div class="icon-cell phosphor-cell">
+        <div class="icon-wrapper has-icon"><i class="ph ph-clock variation-gold"></i></div>
+        <span class="lib-name">clock</span>
+      </div>
+      <div class="icon-cell tabler-cell">
+        <div class="icon-wrapper has-icon"><i class="ti ti-clock variation-gold"></i></div>
+        <span class="lib-name">clock</span>
+      </div>
+      <div class="icon-cell bootstrap-cell">
+        <div class="icon-wrapper has-icon"><i class="bi bi-clock variation-gold"></i></div>
+        <span class="lib-name">clock</span>
+      </div>
+      <div class="icon-cell heroicons-cell">
+        <div class="icon-wrapper has-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#F0F2FF" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+        </div>
+        <span class="lib-name">clock</span>
+      </div>
+    </div>
+
+    <!-- Check/Done -->
+    <div class="table-row">
+      <div class="icon-label">
+        Check Circle
+        <small>Progress complete</small>
+      </div>
+      <div class="icon-cell lucide-cell">
+        <div class="icon-wrapper has-icon"><i data-lucide="check-circle-2" class="variation-success"></i></div>
+        <span class="lib-name">check-circle-2</span>
+      </div>
+      <div class="icon-cell phosphor-cell">
+        <div class="icon-wrapper has-icon"><i class="ph ph-check-circle variation-success"></i></div>
+        <span class="lib-name">check-circle</span>
+      </div>
+      <div class="icon-cell tabler-cell">
+        <div class="icon-wrapper has-icon"><i class="ti ti-circle-check variation-success"></i></div>
+        <span class="lib-name">circle-check</span>
+      </div>
+      <div class="icon-cell bootstrap-cell">
+        <div class="icon-wrapper has-icon"><i class="bi bi-check-circle variation-success"></i></div>
+        <span class="lib-name">check-circle</span>
+      </div>
+      <div class="icon-cell heroicons-cell">
+        <div class="icon-wrapper has-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#F0F2FF" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+        </div>
+        <span class="lib-name">check-circle</span>
+      </div>
+    </div>
+
+    <!-- Book/Study -->
+    <div class="table-row">
+      <div class="icon-label">
+        Book Open
+        <small>Active assessment</small>
+      </div>
+      <div class="icon-cell lucide-cell">
+        <div class="icon-wrapper has-icon"><i data-lucide="book-open"></i></div>
+        <span class="lib-name">book-open</span>
+      </div>
+      <div class="icon-cell phosphor-cell">
+        <div class="icon-wrapper has-icon"><i class="ph ph-book-open"></i></div>
+        <span class="lib-name">book-open</span>
+      </div>
+      <div class="icon-cell tabler-cell">
+        <div class="icon-wrapper has-icon"><i class="ti ti-book"></i></div>
+        <span class="lib-name">book</span>
+      </div>
+      <div class="icon-cell bootstrap-cell">
+        <div class="icon-wrapper has-icon"><i class="bi bi-book"></i></div>
+        <span class="lib-name">book</span>
+      </div>
+      <div class="icon-cell heroicons-cell">
+        <div class="icon-wrapper has-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#F0F2FF" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" /></svg>
+        </div>
+        <span class="lib-name">book-open</span>
+      </div>
+    </div>
+
+    <!-- Trophy/Achievement -->
+    <div class="table-row">
+      <div class="icon-label">
+        Trophy
+        <small>Top ranking, badges</small>
+      </div>
+      <div class="icon-cell lucide-cell">
+        <div class="icon-wrapper has-icon"><i data-lucide="trophy" class="variation-gold"></i></div>
+        <span class="lib-name">trophy</span>
+      </div>
+      <div class="icon-cell phosphor-cell">
+        <div class="icon-wrapper has-icon"><i class="ph ph-trophy variation-gold"></i></div>
+        <span class="lib-name">trophy</span>
+      </div>
+      <div class="icon-cell tabler-cell">
+        <div class="icon-wrapper has-icon"><i class="ti ti-trophy variation-gold"></i></div>
+        <span class="lib-name">trophy</span>
+      </div>
+      <div class="icon-cell bootstrap-cell">
+        <div class="icon-wrapper has-icon"><i class="bi bi-trophy variation-gold"></i></div>
+        <span class="lib-name">trophy</span>
+      </div>
+      <div class="icon-cell heroicons-cell">
+        <div class="icon-wrapper has-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#F0F2FF" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 18.75h-9m9 0a3 3 0 013 3h-15a3 3 0 013-3m9 0v-3.375c0-.621-.503-1.125-1.125-1.125h-.871M7.5 18.75v-3.375c0-.621.504-1.125 1.125-1.125h.872m5.007 0H9.497m5.493-6.75h.001M12.75 6.75h.001m-4.483 0h.001m-4.236 6.75h.001M12 6.75V3.75m0 3h.001m-6.182 3v3.375c0 .621.504 1.125 1.125 1.125h.871m9.75-4.5v4.5m0-4.5h-9m9 0a3 3 0 013 3h-15a3 3 0 013-3m9 0v-3.375c0-.621-.503-1.125-1.125-1.125h-.871M7.5 18.75v-3.375c0-.621.504-1.125 1.125-1.125h.872m9.75 0h.871" /></svg>
+        </div>
+        <span class="lib-name">trophy</span>
+      </div>
+    </div>
+
+    <!-- Chemistry/Flask -->
+    <div class="table-row">
+      <div class="icon-label">
+        Flask
+        <small>Chemistry subject</small>
+      </div>
+      <div class="icon-cell lucide-cell">
+        <div class="icon-wrapper has-icon"><i data-lucide="flask-conical" class="variation-success"></i></div>
+        <span class="lib-name">flask-conical</span>
+      </div>
+      <div class="icon-cell phosphor-cell">
+        <div class="icon-wrapper has-icon"><i class="ph ph-flask variation-success"></i></div>
+        <span class="lib-name">flask</span>
+      </div>
+      <div class="icon-cell tabler-cell">
+        <div class="icon-wrapper has-icon"><i class="ti ti-flask variation-success"></i></div>
+        <span class="lib-name">flask</span>
+      </div>
+      <div class="icon-cell bootstrap-cell">
+        <div class="icon-wrapper has-icon"><i class="bi bi-flask variation-success"></i></div>
+        <span class="lib-name">flask</span>
+      </div>
+      <div class="icon-cell heroicons-cell">
+        <div class="icon-wrapper has-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#F0F2FF" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0112 15a9.065 9.065 0 00-6.23-.693L5 14.5m14.8.8l1.402 1.402c1.232 1.232.65 3.318-1.067 3.611A48.309 48.309 0 0112 21c-2.773 0-5.491-.235-8.135-.687-1.718-.293-2.3-2.379-1.067-3.61L5 14.5" /></svg>
+        </div>
+        <span class="lib-name">beaker</span>
+      </div>
+    </div>
+
+    <!-- Atom/Science -->
+    <div class="table-row">
+      <div class="icon-label">
+        Atom
+        <small>Science/Physics</small>
+      </div>
+      <div class="icon-cell lucide-cell">
+        <div class="icon-wrapper has-icon"><i data-lucide="atom"></i></div>
+        <span class="lib-name">atom</span>
+      </div>
+      <div class="icon-cell phosphor-cell">
+        <div class="icon-wrapper has-icon"><i class="ph ph-atom"></i></div>
+        <span class="lib-name">atom</span>
+      </div>
+      <div class="icon-cell tabler-cell">
+        <div class="icon-wrapper has-icon"><i class="ti ti-atom"></i></div>
+        <span class="lib-name">atom</span>
+      </div>
+      <div class="icon-cell bootstrap-cell">
+        <div class="icon-wrapper missing"><i class="bi bi-circle" style="opacity:0.3"></i></div>
+        <span class="lib-name">❌ missing</span>
+      </div>
+      <div class="icon-cell heroicons-cell">
+        <div class="icon-wrapper missing"><span style="color:#F4622A;font-size:12px">✕</span></div>
+        <span class="lib-name">❌ missing</span>
+      </div>
+    </div>
+
+    <!-- Chart/Stats -->
+    <div class="table-row">
+      <div class="icon-label">
+        Bar Chart
+        <small>Performance stats</small>
+      </div>
+      <div class="icon-cell lucide-cell">
+        <div class="icon-wrapper has-icon"><i data-lucide="bar-chart-3"></i></div>
+        <span class="lib-name">bar-chart-3</span>
+      </div>
+      <div class="icon-cell phosphor-cell">
+        <div class="icon-wrapper has-icon"><i class="ph ph-chart-bar"></i></div>
+        <span class="lib-name">chart-bar</span>
+      </div>
+      <div class="icon-cell tabler-cell">
+        <div class="icon-wrapper has-icon"><i class="ti ti-chart-bar"></i></div>
+        <span class="lib-name">chart-bar</span>
+      </div>
+      <div class="icon-cell bootstrap-cell">
+        <div class="icon-wrapper has-icon"><i class="bi bi-bar-chart"></i></div>
+        <span class="lib-name">bar-chart</span>
+      </div>
+      <div class="icon-cell heroicons-cell">
+        <div class="icon-wrapper has-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#F0F2FF" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" /></svg>
+        </div>
+        <span class="lib-name">chart-bar</span>
+      </div>
+    </div>
+
+    <!-- Bell/Notification -->
+    <div class="table-row">
+      <div class="icon-label">
+        Bell
+        <small>Notifications</small>
+      </div>
+      <div class="icon-cell lucide-cell">
+        <div class="icon-wrapper has-icon"><i data-lucide="bell"></i></div>
+        <span class="lib-name">bell</span>
+      </div>
+      <div class="icon-cell phosphor-cell">
+        <div class="icon-wrapper has-icon"><i class="ph ph-bell"></i></div>
+        <span class="lib-name">bell</span>
+      </div>
+      <div class="icon-cell tabler-cell">
+        <div class="icon-wrapper has-icon"><i class="ti ti-bell"></i></div>
+        <span class="lib-name">bell</span>
+      </div>
+      <div class="icon-cell bootstrap-cell">
+        <div class="icon-wrapper has-icon"><i class="bi bi-bell"></i></div>
+        <span class="lib-name">bell</span>
+      </div>
+      <div class="icon-cell heroicons-cell">
+        <div class="icon-wrapper has-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#F0F2FF" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" /></svg>
+        </div>
+        <span class="lib-name">bell</span>
+      </div>
+    </div>
+
+    <!-- User/Profile -->
+    <div class="table-row">
+      <div class="icon-label">
+        User
+        <small>Profile avatar</small>
+      </div>
+      <div class="icon-cell lucide-cell">
+        <div class="icon-wrapper has-icon"><i data-lucide="user"></i></div>
+        <span class="lib-name">user</span>
+      </div>
+      <div class="icon-cell phosphor-cell">
+        <div class="icon-wrapper has-icon"><i class="ph ph-user"></i></div>
+        <span class="lib-name">user</span>
+      </div>
+      <div class="icon-cell tabler-cell">
+        <div class="icon-wrapper has-icon"><i class="ti ti-user"></i></div>
+        <span class="lib-name">user</span>
+      </div>
+      <div class="icon-cell bootstrap-cell">
+        <div class="icon-wrapper has-icon"><i class="bi bi-person"></i></div>
+        <span class="lib-name">person</span>
+      </div>
+      <div class="icon-cell heroicons-cell">
+        <div class="icon-wrapper has-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#F0F2FF" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" /></svg>
+        </div>
+        <span class="lib-name">user</span>
+      </div>
+    </div>
+
+    <!-- Menu -->
+    <div class="table-row">
+      <div class="icon-label">
+        Menu
+        <small>Mobile navigation</small>
+      </div>
+      <div class="icon-cell lucide-cell">
+        <div class="icon-wrapper has-icon"><i data-lucide="menu"></i></div>
+        <span class="lib-name">menu</span>
+      </div>
+      <div class="icon-cell phosphor-cell">
+        <div class="icon-wrapper has-icon"><i class="ph ph-list"></i></div>
+        <span class="lib-name">list</span>
+      </div>
+      <div class="icon-cell tabler-cell">
+        <div class="icon-wrapper has-icon"><i class="ti ti-menu-2"></i></div>
+        <span class="lib-name">menu-2</span>
+      </div>
+      <div class="icon-cell bootstrap-cell">
+        <div class="icon-wrapper has-icon"><i class="bi bi-list"></i></div>
+        <span class="lib-name">list</span>
+      </div>
+      <div class="icon-cell heroicons-cell">
+        <div class="icon-wrapper has-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#F0F2FF" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" /></svg>
+        </div>
+        <span class="lib-name">bars-3</span>
+      </div>
+    </div>
+
+    <!-- Graduation Cap -->
+    <div class="table-row">
+      <div class="icon-label">
+        Graduation Cap
+        <small>Logo, education</small>
+      </div>
+      <div class="icon-cell lucide-cell">
+        <div class="icon-wrapper has-icon"><i data-lucide="graduation-cap"></i></div>
+        <span class="lib-name">graduation-cap</span>
+      </div>
+      <div class="icon-cell phosphor-cell">
+        <div class="icon-wrapper has-icon"><i class="ph ph-student"></i></div>
+        <span class="lib-name">student</span>
+      </div>
+      <div class="icon-cell tabler-cell">
+        <div class="icon-wrapper has-icon"><i class="ti ti-school"></i></div>
+        <span class="lib-name">school</span>
+      </div>
+      <div class="icon-cell bootstrap-cell">
+        <div class="icon-wrapper has-icon"><i class="bi bi-mortarboard"></i></div>
+        <span class="lib-name">mortarboard</span>
+      </div>
+      <div class="icon-cell heroicons-cell">
+        <div class="icon-wrapper has-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#F0F2FF" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.499 5.221 69.269 69.269 0 00-2.658.814m-15.482 0a50.697 50.697 0 00-2.34.956A48.623 48.623 0 0112 16.883a48.623 48.623 0 018.232-4.41 50.697 50.697 0 00-2.34-.956m-15.482 0a48.634 48.634 0 00-2.658.814m15.482 0a50.57 50.57 0 002.658.813m-15.482 0a50.57 50.57 0 00-2.658-.813" /></svg>
+        </div>
+        <span class="lib-name">academic-cap</span>
+      </div>
+    </div>
+
+    <!-- Coins/Currency -->
+    <div class="table-row">
+      <div class="icon-label">
+        Coins
+        <small>EduCoins currency</small>
+      </div>
+      <div class="icon-cell lucide-cell">
+        <div class="icon-wrapper has-icon"><i data-lucide="coins" class="variation-gold"></i></div>
+        <span class="lib-name">coins</span>
+      </div>
+      <div class="icon-cell phosphor-cell">
+        <div class="icon-wrapper has-icon"><i class="ph ph-coins variation-gold"></i></div>
+        <span class="lib-name">coins</span>
+      </div>
+      <div class="icon-cell tabler-cell">
+        <div class="icon-wrapper has-icon"><i class="ti ti-coins variation-gold"></i></div>
+        <span class="lib-name">coins</span>
+      </div>
+      <div class="icon-cell bootstrap-cell">
+        <div class="icon-wrapper has-icon"><i class="bi bi-coin variation-gold"></i></div>
+        <span class="lib-name">coin</span>
+      </div>
+      <div class="icon-cell heroicons-cell">
+        <div class="icon-wrapper missing"><span style="color:#F4622A;font-size:12px">✕</span></div>
+        <span class="lib-name">❌ missing</span>
+      </div>
+    </div>
+
+    <!-- Target/Goal -->
+    <div class="table-row">
+      <div class="icon-label">
+        Target
+        <small>Daily quests</small>
+      </div>
+      <div class="icon-cell lucide-cell">
+        <div class="icon-wrapper has-icon"><i data-lucide="target"></i></div>
+        <span class="lib-name">target</span>
+      </div>
+      <div class="icon-cell phosphor-cell">
+        <div class="icon-wrapper has-icon"><i class="ph ph-target"></i></div>
+        <span class="lib-name">target</span>
+      </div>
+      <div class="icon-cell tabler-cell">
+        <div class="icon-wrapper has-icon"><i class="ti ti-target"></i></div>
+        <span class="lib-name">target</span>
+      </div>
+      <div class="icon-cell bootstrap-cell">
+        <div class="icon-wrapper missing"><i class="bi bi-circle" style="opacity:0.3"></i></div>
+        <span class="lib-name">❌ missing</span>
+      </div>
+      <div class="icon-cell heroicons-cell">
+        <div class="icon-wrapper missing"><span style="color:#F4622A;font-size:12px">✕</span></div>
+        <span class="lib-name">❌ missing</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="stats-row">
+    <div class="stat">
+      <div class="stat-number">1000+</div>
+      <div class="stat-label">Lucide Icons</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">7000+</div>
+      <div class="stat-label">Phosphor Icons</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">5500+</div>
+      <div class="stat-label">Tabler Icons</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">2000+</div>
+      <div class="stat-label">Bootstrap Icons</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">300+</div>
+      <div class="stat-label">Heroicons</div>
+    </div>
+  </div>
+
+  <div class="recommendation">
+    <h3>📊 My Recommendation for ADJ EduQuest</h3>
+    <p>
+      <strong>Best Overall: Tabler Icons</strong> - 5,500+ icons, excellent quality, 
+      all your dashboard icons available, free, and has outline/filled variants.
+      <br><br>
+      <strong>Runner Up: Phosphor</strong> - Massive 7,000+ collection with 6 weight variations 
+      (thin to bold). Perfect if you want more visual hierarchy options.
+      <br><br>
+      <strong>Stay with Lucide?</strong> It's good but v1.8.0 is limiting. 
+      You already hit missing icons (Instagram, LinkedIn). Consider upgrading to latest Lucide or switching to Tabler.
+    </p>
+  </div>
+
+  <script>
+    lucide.createIcons();
+  </script>
+
+  <div style="text-align: center; margin-top: 40px; padding: 20px; border-top: 1px solid #2A3354;">
+    <p style="color: #5A6490; font-size: 12px;">
+      Comparison of 5 major icon libraries • 15 key dashboard icons shown<br>
+      Open this file in browser to compare visually
+    </p>
+  </div>
+</body>
+</html>

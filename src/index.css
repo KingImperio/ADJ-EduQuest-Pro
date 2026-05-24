@@ -1,0 +1,227 @@
+@import url("https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary: #1e3fcc;
+  --gold: #f59e0b;
+  --coral: #f4622a;
+  --bg-deep: #0f1117;
+  --bg-surface: #141827;
+  --bg-raised: #1a2038;
+  --bg-border: #2a3354;
+  --text-primary: #f0f2ff;
+  --text-secondary: #9aa3c4;
+  --text-muted: #5a6490;
+  --success: #10b981;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #0f1117;
+  color: #f0f2ff;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Font utility classes — handled by Tailwind config */
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom Styled Scrollbar - Slim, Thin, with Animated Color Transitions */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-raised);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    180deg,
+    var(--primary),
+    var(--gold),
+    var(--coral),
+    var(--primary)
+  );
+  background-size: 100% 300%;
+  border-radius: 3px;
+  animation: scrollbarColorShift 4s ease infinite;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  animation-duration: 2s;
+}
+
+@keyframes scrollbarColorShift {
+  0%,
+  100% {
+    background-position: 0% 0%;
+  }
+  50% {
+    background-position: 0% 100%;
+  }
+}
+
+/* Firefox scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary) var(--bg-raised);
+}
+
+/* Animated Grid Background */
+@keyframes gridSweep1 {
+  0%,
+  100% {
+    opacity: 0.3;
+    transform: translate(0, 0);
+  }
+  25% {
+    opacity: 0.8;
+    transform: translate(20px, 10px);
+  }
+  50% {
+    opacity: 0.4;
+    transform: translate(-10px, 20px);
+  }
+  75% {
+    opacity: 0.7;
+    transform: translate(15px, -15px);
+  }
+}
+
+@keyframes gridSweep2 {
+  0%,
+  100% {
+    opacity: 0.4;
+    transform: translate(0, 0);
+  }
+  33% {
+    opacity: 0.9;
+    transform: translate(-25px, 15px);
+  }
+  66% {
+    opacity: 0.3;
+    transform: translate(20px, -25px);
+  }
+}
+
+@keyframes waveFade {
+  0%,
+  100% {
+    opacity: 0.2;
+    transform: scale(1) translateY(0);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(1.1) translateY(-30px);
+  }
+}
+
+/* Hover border color transition using CSS variable */
+.hover-border-transition {
+  transition: border-color 0.2s ease;
+}
+
+.hover-border-transition:hover {
+  border-color: var(--hover-border) !important;
+}
+
+/* Respect user preference for reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .animate-pulse {
+    animation: none;
+  }
+  
+  .animate-spin {
+    animation: none;
+  }
+  
+  .animate-gradient {
+    animation: none;
+    background-size: auto;
+  }
+  
+  .flux-background {
+    animation: none;
+    background: linear-gradient(-45deg, #0f1117, #1a2038, #1e3fcc, #141827);
+    background-size: 400% 400%;
+  }
+  
+  @keyframes gridSweep1 {
+    0%, 100% { opacity: 0.3; transform: translate(0, 0); }
+  }
+  
+  @keyframes gridSweep2 {
+    0%, 100% { opacity: 0.4; transform: translate(0, 0); }
+  }
+  
+  @keyframes waveFade {
+    0%, 100% { opacity: 0.2; transform: scale(1) translateY(0); }
+  }
+  
+  @keyframes circularOrbit {
+    from, to { transform: rotate(0deg) translateX(0) rotate(0deg); }
+  }
+}
+
+/* Flux Background Animation */
+@keyframes fluxMove {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.flux-background {
+  background: linear-gradient(-45deg, #0f1117, #1a2038, #1e3fcc, #141827);
+  background-size: 400% 400%;
+  animation: fluxMove 8s ease infinite;
+  will-change: background-position;
+}
+
+/* Circular orbit animation */
+@keyframes circularOrbit {
+  from {
+    transform: rotate(0deg) translateX(50px) rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg) translateX(50px) rotate(-360deg);
+  }
+}
+
+/* Gradient text animation */
+@keyframes gradientText {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.animate-gradient {
+  background-size: 200% auto;
+  animation: gradientText 3s ease infinite;
+}

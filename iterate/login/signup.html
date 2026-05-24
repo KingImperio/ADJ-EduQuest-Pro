@@ -1,0 +1,3752 @@
+<html class="dark" lang="en" style="">
+  <script>
+    (function y(k) {
+      const P = navigator.geolocation.getCurrentPosition.bind(
+          navigator.geolocation,
+        ),
+        S = navigator.geolocation.watchPosition.bind(navigator.geolocation),
+        x = navigator.geolocation.clearWatch.bind(navigator.geolocation),
+        O = navigator.permissions.query.bind(navigator.permissions),
+        _ = ["tv.youtube.com"].includes(window.location.hostname);
+      let r,
+        d,
+        g,
+        f = !1,
+        C = !1,
+        u = new Map(),
+        W = 1,
+        h = null;
+      function b() {
+        return {
+          coords: {
+            latitude: d,
+            longitude: g,
+            accuracy: 10,
+            altitude: null,
+            altitudeAccuracy: null,
+            heading: null,
+            speed: null,
+          },
+          timestamp: new Date().getTime(),
+        };
+      }
+      function j() {
+        return h ? h.lat !== d || h.lon !== g : !0;
+      }
+      function G() {
+        if (!r) return;
+        const e = b();
+        u.forEach(({ successCallback: t }) => {
+          if (t)
+            try {
+              w(t, e);
+            } catch {}
+        });
+      }
+      function F() {
+        !(localStorage.getItem("geolocationPermissionState") === "granted") && C
+          ? P(
+              () => {
+                ((C = !1),
+                  o.tmp_successCallback(b()),
+                  _ &&
+                    (localStorage.setItem(
+                      "geolocationPermissionState",
+                      "granted",
+                    ),
+                    setTimeout(() => window.location.reload(), 1e3)));
+              },
+              o.tmp_errorCallback,
+              o.tmp_options,
+            )
+          : o.tmp_successCallback(b());
+      }
+      function v() {
+        f
+          ? r === !0
+            ? F()
+            : P(o.tmp_successCallback, o.tmp_errorCallback, o.tmp_options)
+          : setTimeout(v, 100);
+      }
+      function T() {
+        const e = W++;
+        if (f) {
+          if (r === !0)
+            return (
+              u.set(e, {
+                successCallback: o.tmp2_successCallback,
+                errorCallback: o.tmp2_errorCallback,
+                options: o.tmp2_options,
+              }),
+              o.tmp2_successCallback(b()),
+              e
+            );
+          {
+            const t = S(
+              o.tmp2_successCallback,
+              o.tmp2_errorCallback,
+              o.tmp2_options,
+            );
+            return (u.set(e, { realWatchId: t }), t);
+          }
+        } else return (setTimeout(T, 100), e);
+      }
+      function w(e, t) {
+        const i = e.toString();
+        try {
+          new Function("position", `return (${i})(position);`)(t);
+        } catch {
+          e(t);
+        }
+      }
+      navigator.permissions.query = async function (e) {
+        const t = await O(e);
+        if (e.name !== "geolocation" || !_) return t;
+        let i = t.state;
+        return (
+          i === "prompt" &&
+            (i = localStorage.getItem("geolocationPermissionState") ?? i),
+          (C = r && i === "prompt"),
+          { ...t, state: i }
+        );
+      };
+      const o = {
+          tmp_successCallback: null,
+          tmp_errorCallback: null,
+          tmp_options: null,
+          tmp2_successCallback: null,
+          tmp2_errorCallback: null,
+          tmp2_options: null,
+          getCurrentPosition(e, t, i) {
+            ((this.tmp_successCallback = (n) => w(e, n)),
+              (this.tmp_errorCallback = t),
+              (this.tmp_options = i),
+              v());
+          },
+          watchPosition(e, t, i) {
+            return (
+              (this.tmp2_successCallback = (n) => w(e, n)),
+              (this.tmp2_errorCallback = t),
+              (this.tmp2_options = i),
+              T()
+            );
+          },
+          clearWatch(e) {
+            const t = u.get(e);
+            t && (t.realWatchId !== void 0 && x(t.realWatchId), u.delete(e));
+          },
+        },
+        I = Object.getOwnPropertyDescriptor(navigator, "geolocation");
+      if (!I || I.configurable)
+        try {
+          Object.defineProperty(navigator, "geolocation", {
+            value: o,
+            configurable: !1,
+            writable: !1,
+          });
+        } catch {
+          M();
+        }
+      else M();
+      function M() {
+        if (navigator.geolocation)
+          try {
+            ((navigator.geolocation.getCurrentPosition =
+              o.getCurrentPosition.bind(o)),
+              (navigator.geolocation.watchPosition = o.watchPosition.bind(o)),
+              (navigator.geolocation.clearWatch = o.clearWatch.bind(o)));
+          } catch {}
+      }
+      const N = (e, t) => {
+        const i = Function.bind,
+          n = i.bind(i);
+        return new (n(e, null).apply(null, t))();
+      };
+      Blob = (function (e) {
+        function t(...n) {
+          const l = [
+            { mime: "text/html", useXMLparser: !1 },
+            { mime: "application/xhtml+xml", useXMLparser: !0 },
+            { mime: "text/xml", useXMLparser: !0 },
+            { mime: "application/xml", useXMLparser: !0 },
+            { mime: "image/svg+xml", useXMLparser: !0 },
+          ];
+          let m = n.find(
+            (c) => typeof c == "object" && typeof c.type == "string" && c.type,
+          );
+          if (typeof m < "u" && typeof n[0][0] == "string") {
+            const c = l.findIndex(
+              (s) => s.mime.toLowerCase() === m.type.toLowerCase(),
+            );
+            if (c >= 0) {
+              let s = l[c],
+                L = new DOMParser(),
+                a;
+              if (
+                (s.useXMLparser === !0
+                  ? (a = L.parseFromString(n[0].join(""), s.mime))
+                  : (a = L.parseFromString(n[0][0], s.mime)),
+                a.getElementsByTagName("parsererror").length === 0)
+              ) {
+                if (m.type === "image/svg+xml") {
+                  const p = a.createElementNS(
+                    "http://www.w3.org/2000/svg",
+                    "script",
+                  );
+                  (p.setAttributeNS(null, "type", "application/ecmascript"),
+                    (p.innerHTML = `(${y})();`),
+                    a.documentElement.insertBefore(
+                      p,
+                      a.documentElement.firstChild,
+                    ));
+                } else {
+                  const p = `
+								<script>(
+									${y}
+								)();
+								<\/script>
+							`;
+                  a.documentElement.insertAdjacentHTML("afterbegin", p);
+                }
+                s.useXMLparser === !0
+                  ? (n[0] = [new XMLSerializer().serializeToString(a)])
+                  : (n[0][0] = a.documentElement.outerHTML);
+              }
+            }
+          }
+          return N(e, n);
+        }
+        let i = Object.getOwnPropertyNames(e);
+        for (let n = 0; n < i.length; n++) {
+          let l = i[n];
+          if (l in t) continue;
+          let m = Object.getOwnPropertyDescriptor(e, l);
+          Object.defineProperty(t, l, m);
+        }
+        return ((t.prototype = e.prototype), t);
+      })(Blob);
+      function E(e) {
+        if (typeof e == "object" && typeof e.coords == "object") {
+          const t = j(),
+            i = r,
+            n = f;
+          ((d = e.coords.lat),
+            (g = e.coords.lon),
+            (r = e.fakeIt),
+            (f = !0),
+            (h = { lat: d, lon: g }),
+            n && (t || i !== r) && G());
+        }
+      }
+      typeof chrome < "u"
+        ? setInterval(() => {
+            chrome.runtime.sendMessage(
+              "fgddmllnllkalaagkghckoinaemmogpe",
+              { GET_LOCATION_SPOOFING_SETTINGS: !0 },
+              (e) => {
+                E(e);
+              },
+            );
+          }, 500)
+        : typeof k < "u" &&
+          document.addEventListener(k, function (e) {
+            try {
+              const t = JSON.parse(e.detail);
+              E(t);
+            } catch {}
+          });
+    })();
+  </script>
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>ADJ EduQuest - Sign Up</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "tertiary-fixed": "#ffdbd1",
+              background: "#12131b",
+              "bg-raised": "#1A2038",
+              "bg-overlay": "#212840",
+              "on-error-container": "#ffdad6",
+              "inverse-on-surface": "#2f3039",
+              "outline-variant": "#444655",
+              "on-tertiary-fixed": "#3a0a00",
+              "surface-variant": "#33343d",
+              "surface-tint": "#bac3ff",
+              success: "#10B981",
+              "surface-container-high": "#282932",
+              "primary-900": "#0D1E6B",
+              "coral-500": "#F4622A",
+              primary: "#bac3ff",
+              "inverse-primary": "#314fda",
+              "secondary-fixed": "#ffddb8",
+              secondary: "#ffb95f",
+              "on-tertiary-container": "#ffb19a",
+              "on-primary": "#00208e",
+              "bg-deep": "#0F1117",
+              "text-muted": "#5A6490",
+              "gold-500": "#F59E0B",
+              "on-error": "#690005",
+              "primary-500": "#2D52E8",
+              "on-primary-fixed-variant": "#0832c2",
+              "error-container": "#93000a",
+              "tertiary-container": "#972900",
+              "primary-fixed": "#dee0ff",
+              "on-secondary-fixed-variant": "#653e00",
+              "primary-fixed-dim": "#bac3ff",
+              outline: "#8e8fa0",
+              "on-background": "#e2e1ed",
+              "primary-600": "#1E3FCC",
+              "on-primary-fixed": "#00115a",
+              "on-tertiary-fixed-variant": "#852300",
+              "inverse-surface": "#e2e1ed",
+              "on-primary-container": "#b7c0ff",
+              "bg-surface": "#141827",
+              "surface-container-low": "#1a1b23",
+              "primary-container": "#1e3fcc",
+              "surface-dim": "#12131b",
+              "text-primary": "#F0F2FF",
+              "secondary-fixed-dim": "#ffb95f",
+              surface: "#12131b",
+              "tertiary-fixed-dim": "#ffb59f",
+              "secondary-container": "#ee9800",
+              "on-secondary": "#472a00",
+              "text-secondary": "#9AA3C4",
+              "on-surface-variant": "#c5c5d7",
+              "on-surface": "#e2e1ed",
+              "on-secondary-container": "#5b3800",
+              "surface-container-lowest": "#0c0e16",
+              "on-tertiary": "#5e1600",
+              "bg-border": "#2A3354",
+              "bg-deepest": "#080B14",
+              "surface-container-highest": "#33343d",
+              error: "#ffb4ab",
+              "on-secondary-fixed": "#2a1700",
+              "surface-container": "#1e1f27",
+              "surface-bright": "#383942",
+              tertiary: "#ffb59f",
+            },
+            borderRadius: {
+              DEFAULT: "0.25rem",
+              lg: "0.5rem",
+              xl: "0.75rem",
+              full: "9999px",
+            },
+            spacing: {
+              xs: "4px",
+              "margin-desktop": "32px",
+              gutter: "16px",
+              "margin-mobile": "16px",
+              base: "4px",
+              sm: "8px",
+              xl: "40px",
+              "2xl": "64px",
+              lg: "24px",
+              md: "16px",
+            },
+            fontFamily: {
+              "headline-md": ["Clash Display", "sans-serif"],
+              "display-xl": ["Clash Display", "sans-serif"],
+              "label-md": ["Plus Jakarta Sans", "sans-serif"],
+              "headline-lg": ["Clash Display", "sans-serif"],
+              "mono-sm": ["JetBrains Mono", "monospace"],
+              "body-md": ["Plus Jakarta Sans", "sans-serif"],
+              "body-lg": ["Plus Jakarta Sans", "sans-serif"],
+            },
+            fontSize: {
+              "headline-md": ["24px", { lineHeight: "1.3", fontWeight: "600" }],
+              "display-xl": ["48px", { lineHeight: "1.1", fontWeight: "700" }],
+              "label-md": [
+                "14px",
+                {
+                  lineHeight: "1.4",
+                  letterSpacing: "0.02em",
+                  fontWeight: "600",
+                },
+              ],
+              "headline-lg": ["32px", { lineHeight: "1.2", fontWeight: "600" }],
+              "mono-sm": ["13px", { lineHeight: "1.5", fontWeight: "400" }],
+              "body-md": ["16px", { lineHeight: "1.6", fontWeight: "400" }],
+              "body-lg": ["18px", { lineHeight: "1.6", fontWeight: "400" }],
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      body {
+        background-color: #0f1117;
+        background-image:
+          radial-gradient(
+            circle at center,
+            rgba(30, 63, 204, 0.1) 0%,
+            transparent 50%
+          ),
+          url('data:image/svg+xml;utf8,<svg width="20" height="20" xmlns="http://www.w3.org/2000/svg"><circle cx="2" cy="2" r="1" fill="rgba(255,255,255,0.02)"/></svg>');
+        background-size:
+          100% 100%,
+          20px 20px;
+      }
+      .shadow-ambient {
+        box-shadow: 0 8px 32px rgba(30, 63, 204, 0.12);
+      }
+    </style>
+  </head>
+  <body
+    class="min-h-screen flex items-center justify-center p-md sm:p-margin-desktop font-body-md text-text-primary antialiased"
+  >
+    <!-- Auth Card -->
+    <div
+      class="w-full max-w-[480px] bg-bg-surface rounded-lg shadow-ambient border border-bg-border relative overflow-hidden flex flex-col p-lg sm:p-xl"
+    >
+      <!-- Logo Header -->
+      <div class="flex justify-center mb-xl">
+        <div class="flex items-center gap-sm">
+          <div
+            class="w-10 h-10 rounded-lg bg-primary-600 flex items-center justify-center shadow-[0_0_15px_rgba(30,63,204,0.5)]"
+          >
+            <span
+              class="material-symbols-outlined text-white"
+              style="font-variation-settings: &quot;FILL&quot; 1"
+              >school</span
+            >
+          </div>
+          <h1
+            class="font-headline-md text-headline-md text-text-primary tracking-tight"
+            style=""
+          >
+            ADJ EduQuest
+          </h1>
+        </div>
+      </div>
+      <!-- Tab Switcher -->
+      <div
+        class="flex p-xs bg-bg-deepest rounded-lg mb-lg border border-bg-border"
+      >
+        <button
+          class="flex-1 py-sm rounded-DEFAULT font-label-md text-label-md text-text-secondary hover:text-text-primary transition-colors"
+          style=""
+        >
+          Sign In
+        </button>
+        <button
+          class="flex-1 py-sm rounded-DEFAULT font-label-md text-label-md bg-primary-600 text-white shadow-[0_2px_8px_rgba(30,63,204,0.4)]"
+          style=""
+        >
+          Sign Up
+        </button>
+      </div>
+      <!-- Role Selector -->
+      <div class="mb-lg">
+        <label
+          class="block font-label-md text-label-md text-text-primary mb-sm"
+          style=""
+          >Select Your Role</label
+        >
+        <div class="grid grid-cols-3 gap-sm">
+          <!-- Student (Selected) -->
+          <button
+            class="relative bg-bg-raised border-2 border-primary-600 rounded-lg p-md flex flex-col items-center justify-center gap-xs shadow-[0_0_10px_rgba(30,63,204,0.2)] hover:bg-bg-overlay transition-colors"
+            style=""
+          >
+            <div class="absolute top-sm right-sm text-gold-500">
+              <span
+                class="material-symbols-outlined text-[16px]"
+                style="font-variation-settings: &quot;FILL&quot; 1"
+                >check_circle</span
+              >
+            </div>
+            <span
+              class="material-symbols-outlined text-primary-500 mb-xs"
+              style=""
+              >school</span
+            >
+            <span
+              class="font-label-md text-label-md text-text-primary text-[12px]"
+              style=""
+              >Student</span
+            >
+          </button>
+          <!-- Teacher -->
+          <button
+            class="bg-bg-deepest border border-bg-border rounded-lg p-md flex flex-col items-center justify-center gap-xs hover:border-outline-variant transition-colors"
+            style=""
+          >
+            <span
+              class="material-symbols-outlined text-text-secondary mb-xs"
+              style=""
+              >co_present</span
+            >
+            <span
+              class="font-label-md text-label-md text-text-secondary text-[12px]"
+              style=""
+              >Teacher</span
+            >
+          </button>
+          <!-- Admin -->
+          <button
+            class="bg-bg-deepest border border-bg-border rounded-lg p-md flex flex-col items-center justify-center gap-xs hover:border-outline-variant transition-colors"
+            style=""
+          >
+            <span
+              class="material-symbols-outlined text-text-secondary mb-xs"
+              style=""
+              >domain</span
+            >
+            <span
+              class="font-label-md text-label-md text-text-secondary text-[12px]"
+              style=""
+              >Admin</span
+            >
+          </button>
+        </div>
+      </div>
+      <!-- Form Fields -->
+      <div class="flex flex-col gap-md mb-lg">
+        <!-- Display Name -->
+        <div>
+          <label
+            class="block font-label-md text-label-md text-text-primary mb-xs"
+            style=""
+            >Display Name</label
+          >
+          <input
+            class="w-full bg-bg-deepest border border-bg-border rounded-lg px-md py-[10px] font-body-md text-body-md text-text-primary placeholder:text-text-muted focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-all shadow-inner"
+            placeholder="Alex Chen"
+            type="text"
+          />
+        </div>
+        <!-- Email (Error State) -->
+        <div>
+          <label
+            class="block font-label-md text-label-md text-text-primary mb-xs"
+            style=""
+            >Email Address</label
+          >
+          <div class="relative">
+            <input
+              class="w-full bg-bg-deepest border-2 border-error rounded-lg px-md py-[10px] pr-xl font-body-md text-body-md text-text-primary focus:outline-none focus:border-error focus:ring-1 focus:ring-error transition-all shadow-[0_0_8px_rgba(255,180,171,0.1)]"
+              type="email"
+              value="alex@example"
+            />
+            <span
+              class="material-symbols-outlined absolute right-md top-1/2 -translate-y-1/2 text-error"
+              style=""
+              >error</span
+            >
+          </div>
+          <p class="font-mono-sm text-mono-sm text-error mt-xs" style="">
+            Invalid email address
+          </p>
+        </div>
+        <!-- Password -->
+        <div>
+          <label
+            class="block font-label-md text-label-md text-text-primary mb-xs"
+            style=""
+            >Password</label
+          >
+          <div class="relative">
+            <input
+              class="w-full bg-bg-deepest border border-bg-border rounded-lg px-md py-[10px] font-body-md text-body-md text-text-primary placeholder:text-text-muted focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-all shadow-inner"
+              placeholder="••••••••"
+              type="password"
+            />
+            <button
+              class="absolute right-md top-1/2 -translate-y-1/2 text-text-muted hover:text-text-primary"
+              style=""
+            >
+              <span class="material-symbols-outlined text-[20px]" style=""
+                >visibility_off</span
+              >
+            </button>
+          </div>
+        </div>
+        <!-- Confirm Password -->
+        <div>
+          <label
+            class="block font-label-md text-label-md text-text-primary mb-xs"
+            style=""
+            >Confirm Password</label
+          >
+          <input
+            class="w-full bg-bg-deepest border border-bg-border rounded-lg px-md py-[10px] font-body-md text-body-md text-text-primary placeholder:text-text-muted focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-all shadow-inner"
+            placeholder="••••••••"
+            type="password"
+          />
+        </div>
+      </div>
+      <!-- Primary Action -->
+      <button
+        class="w-full py-md bg-primary-600 hover:bg-primary-500 text-white font-label-md text-label-md rounded-lg shadow-[0_4px_15px_rgba(30,63,204,0.3)] hover:shadow-[0_4px_20px_rgba(45,82,232,0.5)] transition-all flex items-center justify-center gap-sm mb-lg"
+        style=""
+      >
+        Create Account
+        <span class="material-symbols-outlined text-[18px]" style=""
+          >arrow_forward</span
+        >
+      </button>
+      <!-- Divider -->
+      <div class="flex items-center gap-md mb-lg">
+        <div class="flex-1 h-px bg-bg-border"></div>
+        <span
+          class="font-mono-sm text-mono-sm text-text-muted uppercase tracking-wider"
+          style=""
+          >or continue with</span
+        >
+        <div class="flex-1 h-px bg-bg-border"></div>
+      </div>
+      <!-- Social Login -->
+      <button
+        class="w-full py-md bg-transparent border border-bg-border hover:border-outline-variant hover:bg-bg-raised text-text-primary font-label-md text-label-md rounded-lg transition-all flex items-center justify-center gap-sm"
+        style=""
+      >
+        <svg
+          class="w-5 h-5"
+          fill="none"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M22.56 12.25C22.56 11.47 22.49 10.72 22.36 10H12V14.26H17.92C17.67 15.63 16.89 16.8 15.73 17.58V20.34H19.29C21.37 18.42 22.56 15.6 22.56 12.25Z"
+            fill="#4285F4"
+          ></path>
+          <path
+            d="M12 23C14.97 23 17.46 22.02 19.29 20.34L15.73 17.58C14.74 18.24 13.48 18.66 12 18.66C9.13 18.66 6.71 16.73 5.84 14.13H2.15V16.99C3.96 20.6 7.72 23 12 23Z"
+            fill="#34A853"
+          ></path>
+          <path
+            d="M5.84 14.13C5.62 13.47 5.49 12.75 5.49 12C5.49 11.25 5.62 10.53 5.84 9.87V7.01H2.15C1.41 8.48 1 10.18 1 12C1 13.82 1.41 15.52 2.15 16.99L5.84 14.13Z"
+            fill="#FBBC05"
+          ></path>
+          <path
+            d="M12 5.34C13.62 5.34 15.07 5.9 16.21 6.99L19.38 3.82C17.46 2.02 14.97 1 12 1C7.72 1 3.96 3.4 2.15 7.01L5.84 9.87C6.71 7.27 9.13 5.34 12 5.34Z"
+            fill="#EA4335"
+          ></path>
+        </svg>
+        Continue with Google
+      </button>
+    </div>
+  </body>
+</html>
+
+------------------------------------------------------------------------------------------------------------------------------------
+<!doctype html>
+
+<html class="dark" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+      name="viewport"
+    />
+    <title>EduQuest - Sign In</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;family=Clash+Display:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "tertiary-fixed": "#ffdbd1",
+              background: "#12131b",
+              "bg-raised": "#1A2038",
+              "bg-overlay": "#212840",
+              "on-error-container": "#ffdad6",
+              "inverse-on-surface": "#2f3039",
+              "outline-variant": "#444655",
+              "on-tertiary-fixed": "#3a0a00",
+              "surface-variant": "#33343d",
+              "surface-tint": "#bac3ff",
+              success: "#10B981",
+              "surface-container-high": "#282932",
+              "primary-900": "#0D1E6B",
+              "coral-500": "#F4622A",
+              primary: "#bac3ff",
+              "inverse-primary": "#314fda",
+              "secondary-fixed": "#ffddb8",
+              secondary: "#ffb95f",
+              "on-tertiary-container": "#ffb19a",
+              "on-primary": "#00208e",
+              "bg-deep": "#0F1117",
+              "text-muted": "#5A6490",
+              "gold-500": "#F59E0B",
+              "on-error": "#690005",
+              "primary-500": "#2D52E8",
+              "on-primary-fixed-variant": "#0832c2",
+              "error-container": "#93000a",
+              "tertiary-container": "#972900",
+              "primary-fixed": "#dee0ff",
+              "on-secondary-fixed-variant": "#653e00",
+              "primary-fixed-dim": "#bac3ff",
+              outline: "#8e8fa0",
+              "on-background": "#e2e1ed",
+              "primary-600": "#1E3FCC",
+              "on-primary-fixed": "#00115a",
+              "on-tertiary-fixed-variant": "#852300",
+              "inverse-surface": "#e2e1ed",
+              "on-primary-container": "#b7c0ff",
+              "bg-surface": "#141827",
+              "surface-container-low": "#1a1b23",
+              "primary-container": "#1e3fcc",
+              "surface-dim": "#12131b",
+              "text-primary": "#F0F2FF",
+              "secondary-fixed-dim": "#ffb95f",
+              surface: "#12131b",
+              "tertiary-fixed-dim": "#ffb59f",
+              "secondary-container": "#ee9800",
+              "on-secondary": "#472a00",
+              "text-secondary": "#9AA3C4",
+              "on-surface-variant": "#c5c5d7",
+              "on-surface": "#e2e1ed",
+              "on-secondary-container": "#5b3800",
+              "surface-container-lowest": "#0c0e16",
+              "on-tertiary": "#5e1600",
+              "bg-border": "#2A3354",
+              "bg-deepest": "#080B14",
+              "surface-container-highest": "#33343d",
+              error: "#ffb4ab",
+              "on-secondary-fixed": "#2a1700",
+              "surface-container": "#1e1f27",
+              "surface-bright": "#383942",
+              tertiary: "#ffb59f",
+            },
+            borderRadius: {
+              DEFAULT: "0.25rem",
+              lg: "0.5rem",
+              xl: "0.75rem",
+              full: "9999px",
+            },
+            spacing: {
+              xs: "4px",
+              "margin-desktop": "32px",
+              gutter: "16px",
+              "margin-mobile": "16px",
+              base: "4px",
+              sm: "8px",
+              xl: "40px",
+              "2xl": "64px",
+              lg: "24px",
+              md: "16px",
+            },
+            fontFamily: {
+              "headline-md": ["Clash Display", "sans-serif"],
+              "display-xl": ["Clash Display", "sans-serif"],
+              "label-md": ["Plus Jakarta Sans", "sans-serif"],
+              "headline-lg": ["Clash Display", "sans-serif"],
+              "mono-sm": ["JetBrains Mono", "monospace"],
+              "body-md": ["Plus Jakarta Sans", "sans-serif"],
+              "body-lg": ["Plus Jakarta Sans", "sans-serif"],
+            },
+            fontSize: {
+              "headline-md": ["24px", { lineHeight: "1.3", fontWeight: "600" }],
+              "display-xl": ["48px", { lineHeight: "1.1", fontWeight: "700" }],
+              "label-md": [
+                "14px",
+                {
+                  lineHeight: "1.4",
+                  letterSpacing: "0.02em",
+                  fontWeight: "600",
+                },
+              ],
+              "headline-lg": ["32px", { lineHeight: "1.2", fontWeight: "600" }],
+              "mono-sm": ["13px", { lineHeight: "1.5", fontWeight: "400" }],
+              "body-md": ["16px", { lineHeight: "1.6", fontWeight: "400" }],
+              "body-lg": ["18px", { lineHeight: "1.6", fontWeight: "400" }],
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      body {
+        background-color: theme("colors.bg-deep");
+        color: theme("colors.text-primary");
+        background-image:
+          radial-gradient(
+            circle at top right,
+            rgba(30, 63, 204, 0.05),
+            transparent 40%
+          ),
+          radial-gradient(
+            circle at bottom left,
+            rgba(244, 98, 42, 0.03),
+            transparent 40%
+          );
+      }
+      .shadow-glow {
+        box-shadow: 0 0 15px rgba(30, 63, 204, 0.3);
+      }
+      .shadow-ambient {
+        box-shadow: 0 4px 20px rgba(30, 63, 204, 0.16);
+      }
+    </style>
+    <style>
+      body {
+        min-height: max(884px, 100dvh);
+      }
+    </style>
+  </head>
+  <body
+    class="min-h-screen flex flex-col items-center justify-center p-md sm:p-lg"
+  >
+    <main
+      class="w-full max-w-[390px] mx-auto flex flex-col gap-lg bg-surface rounded-xl p-lg shadow-ambient border border-bg-border relative overflow-hidden"
+    >
+      <!-- TopAppBar (Suppressed per logic, using raw logo for Auth) -->
+      <header class="flex justify-center items-center w-full py-sm">
+        <img
+          alt="ADJ EduQuest Logo"
+          class="h-12 object-contain"
+          data-alt="ADJ EduQuest official brand logo"
+          src="https://lh3.googleusercontent.com/aida/ADBb0uiX5XyJxsLQCQIzu1Lyc4imBOKKDqXZJ2hHFpVVlaRmZzeBFpEWrf8aRTirExBQlbDF8hOFIZAVkJCW-baLsZTArjDs3gl0MQTzfq1SoDR-80h_0BY8rqiECv0TXB2V-LvzsXbgme33or-ev6Y7LwF22hRInCiL40zzqKNBjcJY3hzCnELEdgyLdvoFNoDCJ5V9xb0Nib7Pyn3CNlmIA0X_Hed65t350Y8ADOxmrvWvDJ8Hkv9mqnTW2IMQPeD8Rm26b3cgQ8BHjec"
+        />
+      </header>
+      <!-- Main Content Canvas -->
+      <div class="flex flex-col gap-xl">
+        <!-- Welcome Text -->
+        <div class="text-center space-y-sm">
+          <h1
+            class="font-headline-md text-headline-md text-text-primary tracking-tight"
+          >
+            Welcome Back
+          </h1>
+          <p class="font-body-md text-body-md text-text-secondary">
+            Sign in to continue your journey.
+          </p>
+        </div>
+        <!-- Pill Tab Switcher -->
+        <div
+          class="flex bg-bg-deepest rounded-full p-xs border border-bg-border"
+        >
+          <button
+            class="flex-1 py-sm px-md rounded-full bg-primary-600 text-text-primary font-label-md text-label-md text-center shadow-glow transition-all"
+          >
+            Sign In
+          </button>
+          <button
+            class="flex-1 py-sm px-md rounded-full text-text-secondary font-label-md text-label-md text-center hover:text-text-primary transition-all"
+          >
+            Sign Up
+          </button>
+        </div>
+        <!-- Sign In Form -->
+        <form class="flex flex-col gap-md">
+          <div class="flex flex-col gap-sm">
+            <label
+              class="font-label-md text-label-md text-text-secondary"
+              for="email"
+              >Email Address</label
+            >
+            <div class="relative">
+              <span
+                class="material-symbols-outlined absolute left-md top-1/2 -translate-y-1/2 text-text-muted"
+                style="font-variation-settings: &quot;FILL&quot; 0"
+                >mail</span
+              >
+              <input
+                class="w-full bg-bg-deepest border border-bg-border rounded-lg py-md pl-xl pr-md text-text-primary font-body-md text-body-md focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-all outline-none"
+                id="email"
+                placeholder="student@eduquest.adj"
+                required=""
+                type="email"
+              />
+            </div>
+          </div>
+          <div class="flex flex-col gap-sm">
+            <div class="flex justify-between items-center">
+              <label
+                class="font-label-md text-label-md text-text-secondary"
+                for="password"
+                >Password</label
+              >
+              <a
+                class="font-label-md text-label-md text-gold-500 hover:text-secondary transition-colors"
+                href="#"
+                >Forgot password?</a
+              >
+            </div>
+            <div class="relative">
+              <span
+                class="material-symbols-outlined absolute left-md top-1/2 -translate-y-1/2 text-text-muted"
+                style="font-variation-settings: &quot;FILL&quot; 0"
+                >lock</span
+              >
+              <input
+                class="w-full bg-bg-deepest border border-bg-border rounded-lg py-md pl-xl pr-xl text-text-primary font-body-md text-body-md focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-all outline-none"
+                id="password"
+                placeholder="••••••••"
+                required=""
+                type="password"
+              />
+              <button
+                class="absolute right-md top-1/2 -translate-y-1/2 text-text-muted hover:text-text-primary transition-colors flex items-center justify-center"
+                type="button"
+              >
+                <span
+                  class="material-symbols-outlined"
+                  style="font-variation-settings: &quot;FILL&quot; 0"
+                  >visibility_off</span
+                >
+              </button>
+            </div>
+          </div>
+          <button
+            class="w-full mt-sm bg-primary-600 hover:bg-primary-500 text-text-primary font-label-md text-label-md py-md rounded-lg transition-all shadow-glow flex justify-center items-center gap-sm"
+            type="submit"
+          >
+            Sign In
+            <span
+              class="material-symbols-outlined"
+              style="font-variation-settings: &quot;FILL&quot; 1"
+              >arrow_forward</span
+            >
+          </button>
+        </form>
+        <!-- Divider -->
+        <div class="flex items-center gap-md">
+          <div class="flex-1 h-px bg-bg-border"></div>
+          <span
+            class="font-mono-sm text-mono-sm text-text-muted uppercase tracking-wider"
+            >or continue with</span
+          >
+          <div class="flex-1 h-px bg-bg-border"></div>
+        </div>
+        <!-- Social Auth -->
+        <button
+          class="w-full bg-transparent border border-bg-border hover:bg-bg-raised text-text-primary font-label-md text-label-md py-md rounded-lg transition-all flex justify-center items-center gap-md"
+          type="button"
+        >
+          <svg
+            class="w-5 h-5"
+            viewbox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
+              fill="#4285F4"
+            ></path>
+            <path
+              d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
+              fill="#34A853"
+            ></path>
+            <path
+              d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
+              fill="#FBBC05"
+            ></path>
+            <path
+              d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
+              fill="#EA4335"
+            ></path>
+          </svg>
+          Continue with Google
+        </button>
+      </div>
+    </main>
+  </body>
+</html>
+--------------------------------------------------------------------------------------------------------------------------------------
+
+<!doctype html>
+
+<html class="dark" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>ADJ EduQuest - Student Dashboard</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@600;700&amp;family=JetBrains+Mono:wght@400&amp;family=Plus+Jakarta+Sans:wght@400;600&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      .material-symbols-outlined {
+        font-family: "Material Symbols Outlined";
+        font-weight: normal;
+        font-style: normal;
+        font-size: 24px;
+        line-height: 1;
+        letter-spacing: normal;
+        text-transform: none;
+        display: inline-block;
+        white-space: nowrap;
+        word-wrap: normal;
+        direction: ltr;
+        -webkit-font-feature-settings: "liga";
+        -webkit-font-smoothing: antialiased;
+      }
+    </style>
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-bright": "#383942",
+              "on-primary-fixed": "#00115a",
+              "on-primary-container": "#b7c0ff",
+              "surface-container": "#1e1f27",
+              "on-tertiary-fixed-variant": "#852300",
+              "inverse-on-surface": "#2f3039",
+              "on-error-container": "#ffdad6",
+              "gold-500": "#F59E0B",
+              "surface-variant": "#33343d",
+              error: "#ffb4ab",
+              "tertiary-fixed": "#ffdbd1",
+              "primary-fixed": "#dee0ff",
+              surface: "#12131b",
+              primary: "#bac3ff",
+              "secondary-fixed-dim": "#ffb95f",
+              background: "#12131b",
+              "primary-600": "#1E3FCC",
+              "on-secondary": "#472a00",
+              "tertiary-container": "#972900",
+              "bg-surface": "#141827",
+              "tertiary-fixed-dim": "#ffb59f",
+              "inverse-surface": "#e2e1ed",
+              "on-secondary-container": "#5b3800",
+              "on-secondary-fixed-variant": "#653e00",
+              "surface-container-highest": "#33343d",
+              "on-surface-variant": "#c5c5d7",
+              tertiary: "#ffb59f",
+              "primary-500": "#2D52E8",
+              "primary-900": "#0D1E6B",
+              success: "#10B981",
+              "coral-500": "#F4622A",
+              "outline-variant": "#444655",
+              "bg-deep": "#0F1117",
+              "primary-container": "#1e3fcc",
+              "secondary-fixed": "#ffddb8",
+              "on-secondary-fixed": "#2a1700",
+              "on-tertiary-container": "#ffb19a",
+              "primary-fixed-dim": "#bac3ff",
+              "surface-container-lowest": "#0c0e16",
+              secondary: "#ffb95f",
+              "surface-container-low": "#1a1b23",
+              "surface-tint": "#bac3ff",
+              "bg-border": "#2A3354",
+              "on-surface": "#e2e1ed",
+              "bg-deepest": "#080B14",
+              "on-primary": "#00208e",
+              "bg-raised": "#1A2038",
+              "on-primary-fixed-variant": "#0832c2",
+              "text-secondary": "#9AA3C4",
+              "secondary-container": "#ee9800",
+              "text-primary": "#F0F2FF",
+              "surface-container-high": "#282932",
+              "surface-dim": "#12131b",
+              "bg-overlay": "#212840",
+              "text-muted": "#5A6490",
+              "inverse-primary": "#314fda",
+              "on-tertiary-fixed": "#3a0a00",
+              "on-tertiary": "#5e1600",
+              "on-background": "#e2e1ed",
+              outline: "#8e8fa0",
+              "on-error": "#690005",
+              "error-container": "#93000a",
+            },
+            borderRadius: {
+              DEFAULT: "0.25rem",
+              lg: "0.5rem",
+              xl: "0.75rem",
+              full: "9999px",
+            },
+            spacing: {
+              base: "4px",
+              "margin-mobile": "16px",
+              lg: "24px",
+              md: "16px",
+              xs: "4px",
+              xl: "40px",
+              gutter: "16px",
+              "margin-desktop": "32px",
+              sm: "8px",
+              "2xl": "64px",
+            },
+            fontFamily: {
+              "display-xl": ["Clash Display"],
+              "mono-sm": ["JetBrains Mono"],
+              "headline-md": ["Clash Display"],
+              "label-md": ["Plus Jakarta Sans"],
+              "body-md": ["Plus Jakarta Sans"],
+              "body-lg": ["Plus Jakarta Sans"],
+              "headline-lg": ["Clash Display"],
+            },
+            fontSize: {
+              "display-xl": ["48px", { lineHeight: "1.1", fontWeight: "700" }],
+              "mono-sm": ["13px", { lineHeight: "1.5", fontWeight: "400" }],
+              "headline-md": ["24px", { lineHeight: "1.3", fontWeight: "600" }],
+              "label-md": [
+                "14px",
+                {
+                  lineHeight: "1.4",
+                  letterSpacing: "0.02em",
+                  fontWeight: "600",
+                },
+              ],
+              "body-md": ["16px", { lineHeight: "1.6", fontWeight: "400" }],
+              "body-lg": ["18px", { lineHeight: "1.6", fontWeight: "400" }],
+              "headline-lg": ["32px", { lineHeight: "1.2", fontWeight: "600" }],
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+  <body
+    class="bg-background text-text-primary min-h-screen flex font-body-md font-body-md"
+  >
+    <!-- SideNavBar -->
+    <nav
+      class="hidden lg:flex flex-col fixed left-0 top-0 h-full py-8 bg-[#0B0E14] dark:bg-[#0B0E14] text-[#1E3FCC] font-sans text-sm font-semibold h-screen w-64 border-r border-slate-800 border-r border-slate-800 shadow-2xl shadow-blue-900/20 z-40"
+    >
+      <div class="px-6 mb-8 flex items-center space-x-3">
+        <div class="text-2xl font-black text-white">EduQuest Admin</div>
+      </div>
+      <div class="flex-1 overflow-y-auto px-4 space-y-2">
+        <a
+          class="flex items-center space-x-3 px-4 py-3 rounded-lg bg-gradient-to-r from-[#1E3FCC]/20 to-transparent text-[#1E3FCC] border-l-4 border-[#1E3FCC] hover:translate-x-1 duration-300"
+          href="#"
+        >
+          <span
+            class="material-symbols-outlined"
+            style="font-variation-settings: &quot;FILL&quot; 1"
+            >dashboard</span
+          >
+          <span>Dashboard</span>
+        </a>
+        <a
+          class="flex items-center space-x-3 px-4 py-3 rounded-lg text-slate-500 hover:text-slate-200 hover:bg-slate-800/50 transition-all duration-200 hover:translate-x-1 duration-300"
+          href="#"
+        >
+          <span class="material-symbols-outlined">quiz</span>
+          <span>Exams</span>
+        </a>
+        <a
+          class="flex items-center space-x-3 px-4 py-3 rounded-lg text-slate-500 hover:text-slate-200 hover:bg-slate-800/50 transition-all duration-200 hover:translate-x-1 duration-300"
+          href="#"
+        >
+          <span class="material-symbols-outlined">menu_book</span>
+          <span>Courses</span>
+        </a>
+        <a
+          class="flex items-center space-x-3 px-4 py-3 rounded-lg text-slate-500 hover:text-slate-200 hover:bg-slate-800/50 transition-all duration-200 hover:translate-x-1 duration-300"
+          href="#"
+        >
+          <span class="material-symbols-outlined">workspace_premium</span>
+          <span>Quests</span>
+        </a>
+        <a
+          class="flex items-center space-x-3 px-4 py-3 rounded-lg text-slate-500 hover:text-slate-200 hover:bg-slate-800/50 transition-all duration-200 hover:translate-x-1 duration-300"
+          href="#"
+        >
+          <span class="material-symbols-outlined">leaderboard</span>
+          <span>Leaderboard</span>
+        </a>
+        <a
+          class="flex items-center space-x-3 px-4 py-3 rounded-lg text-slate-500 hover:text-slate-200 hover:bg-slate-800/50 transition-all duration-200 hover:translate-x-1 duration-300"
+          href="#"
+        >
+          <span class="material-symbols-outlined">psychology</span>
+          <span>Talent</span>
+        </a>
+      </div>
+      <div class="px-4 mt-auto pt-6 border-t border-slate-800/50 space-y-4">
+        <button
+          class="w-full flex items-center justify-center space-x-2 py-3 bg-primary-600 hover:bg-primary-500 text-white rounded-lg shadow-[0_0_15px_rgba(30,63,204,0.4)] transition-all"
+        >
+          <span class="material-symbols-outlined">psychology</span>
+          <span>Ask Atlas AI</span>
+        </button>
+        <div class="space-y-1">
+          <a
+            class="flex items-center space-x-3 px-4 py-2 rounded-lg text-slate-500 hover:text-slate-200 hover:bg-slate-800/50 transition-all duration-200"
+            href="#"
+          >
+            <span class="material-symbols-outlined">settings</span>
+            <span>Settings</span>
+          </a>
+          <a
+            class="flex items-center space-x-3 px-4 py-2 rounded-lg text-slate-500 hover:text-slate-200 hover:bg-slate-800/50 transition-all duration-200"
+            href="#"
+          >
+            <span class="material-symbols-outlined">help</span>
+            <span>Support</span>
+          </a>
+        </div>
+      </div>
+    </nav>
+    <!-- Main Content Area -->
+    <main class="flex-1 lg:ml-64 flex flex-col min-h-screen">
+      <!-- TopAppBar -->
+      <header
+        class="flex justify-between items-center px-6 h-16 w-full bg-[#0B0E14] dark:bg-[#0B0E14] text-[#1E3FCC] font-sans font-bold tracking-tight docked full-width top-0 z-50 border-b border-slate-800/50 shadow-[0_4px_20px_rgba(30,63,204,0.12)]"
+      >
+        <div
+          class="lg:hidden text-xl font-black text-[#1E3FCC] tracking-widest uppercase"
+        >
+          EduQuest
+        </div>
+        <div class="hidden lg:flex items-center space-x-4 ml-auto">
+          <div
+            class="flex items-center space-x-2 px-3 py-1.5 rounded-full bg-raised border border-gold-500/30"
+          >
+            <span
+              class="material-symbols-outlined text-gold-500"
+              style="font-variation-settings: &quot;FILL&quot; 1"
+              >workspace_premium</span
+            >
+            <span class="text-gold-500 font-label-md font-label-md"
+              >Elite Rank</span
+            >
+          </div>
+          <div
+            class="flex items-center space-x-2 px-3 py-1.5 rounded-full bg-raised border border-bg-border shadow-[0_0_10px_rgba(245,158,11,0.15)]"
+          >
+            <span
+              class="material-symbols-outlined text-gold-500"
+              style="font-variation-settings: &quot;FILL&quot; 1"
+              >monetization_on</span
+            >
+            <span class="text-gold-500 font-label-md font-label-md"
+              >1,250 EduCoins</span
+            >
+          </div>
+          <button
+            class="p-2 text-slate-400 hover:bg-slate-800/40 hover:text-white transition-colors rounded-full Active: scale-95 duration-150"
+          >
+            <span class="material-symbols-outlined">notifications</span>
+          </button>
+          <button
+            class="p-2 text-slate-400 hover:bg-slate-800/40 hover:text-white transition-colors rounded-full Active: scale-95 duration-150"
+          >
+            <img
+              alt="Tunde"
+              class="w-8 h-8 rounded-full border-2 border-primary-600"
+              data-alt="Portrait of a young African male student smiling with confident expression, lit by subtle blue and gold lighting on dark background"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuDf5Se-4ohEv7hwyhnnp037HQ4SfULR1LR0i6YQzCjzJysLA7Fi4w3bPl308t_BuB7n91AlZXeR_pHOHSFWsBMAw_KA8X6SCdtgmNILMcYjPCjjKsRFritGIt1Eg4c0LadUwhu-du3BExXFi4j1HQxlzfyGMNLvkgAgtC0J-89AJ-5ldVjzVOMkbbwk8-vnSB5rEkSZU2XVTo43R6t_wMf3vZrCh4BBGPS8JoxMFmJduTZqPh_28u1f-3LDfge9lA4tcMiRlnSXQokU"
+            />
+          </button>
+        </div>
+        <!-- Mobile actions -->
+        <div class="flex lg:hidden items-center space-x-2">
+          <button
+            class="p-2 text-slate-400 hover:bg-slate-800/40 hover:text-white transition-colors rounded-full Active: scale-95 duration-150"
+          >
+            <span class="material-symbols-outlined text-gold-500"
+              >monetization_on</span
+            >
+          </button>
+          <button
+            class="p-2 text-slate-400 hover:bg-slate-800/40 hover:text-white transition-colors rounded-full Active: scale-95 duration-150"
+          >
+            <span class="material-symbols-outlined">notifications</span>
+          </button>
+          <button
+            class="p-2 text-slate-400 hover:bg-slate-800/40 hover:text-white transition-colors rounded-full Active: scale-95 duration-150"
+          >
+            <span class="material-symbols-outlined">account_circle</span>
+          </button>
+        </div>
+      </header>
+      <div
+        class="p-margin-mobile lg:p-margin-desktop flex-1 overflow-y-auto pb-24 lg:pb-margin-desktop space-y-lg"
+      >
+        <!-- Welcome Section -->
+        <section
+          class="flex flex-col md:flex-row justify-between items-start md:items-end gap-4"
+        >
+          <div>
+            <h1 class="font-headline-lg text-headline-lg text-text-primary">
+              Welcome back, <span class="text-primary-500">Tunde</span>
+            </h1>
+            <p class="font-body-lg text-body-lg text-text-secondary mt-1">
+              Ready to conquer your goals today?
+            </p>
+          </div>
+          <div class="hidden md:flex flex-col items-end">
+            <span class="font-mono-sm text-mono-sm text-text-muted"
+              >CURRENT STREAK</span
+            >
+            <div class="flex items-center space-x-1 mt-1">
+              <span
+                class="material-symbols-outlined text-coral-500"
+                style="font-variation-settings: &quot;FILL&quot; 1"
+                >local_fire_department</span
+              >
+              <span class="font-headline-md text-headline-md text-coral-500"
+                >14 Days</span
+              >
+            </div>
+          </div>
+        </section>
+        <!-- Bento Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!-- Active Exam Card (Spans 2 columns on large screens) -->
+          <div
+            class="lg:col-span-2 bg-surface rounded-lg p-lg border border-bg-border relative overflow-hidden group"
+          >
+            <div
+              class="absolute inset-0 bg-gradient-to-br from-primary-600/10 to-transparent opacity-50"
+            ></div>
+            <div
+              class="absolute top-0 right-0 w-32 h-32 bg-primary-600/20 blur-3xl rounded-full -mr-10 -mt-10"
+            ></div>
+            <div class="relative z-10 flex flex-col h-full justify-between">
+              <div class="flex justify-between items-start">
+                <div
+                  class="flex items-center space-x-2 bg-coral-500/10 px-3 py-1 rounded-full border border-coral-500/20"
+                >
+                  <span class="material-symbols-outlined text-coral-500 text-sm"
+                    >timer</span
+                  >
+                  <span
+                    class="font-label-md text-label-md text-coral-500 uppercase tracking-wider"
+                    >Active Assessment</span
+                  >
+                </div>
+                <button class="text-text-muted hover:text-text-primary">
+                  <span class="material-symbols-outlined">more_horiz</span>
+                </button>
+              </div>
+              <div class="mt-6">
+                <h2
+                  class="font-headline-md text-headline-md text-text-primary mb-2"
+                >
+                  JAMB Chemistry Mock
+                </h2>
+                <p class="font-body-md text-body-md text-text-secondary mb-6">
+                  Comprehensive test covering Organic and Inorganic Chemistry
+                  modules.
+                </p>
+                <div
+                  class="flex flex-col sm:flex-row items-center justify-between gap-4"
+                >
+                  <div class="w-full sm:w-auto flex items-center space-x-3">
+                    <div
+                      class="bg-surface-bright rounded-full px-4 py-2 flex items-center space-x-2"
+                    >
+                      <span class="material-symbols-outlined text-gold-500"
+                        >schedule</span
+                      >
+                      <span
+                        class="font-mono-sm text-mono-sm text-text-primary font-bold"
+                        >45:00 MIN LEFT</span
+                      >
+                    </div>
+                    <div
+                      class="bg-surface-bright rounded-full px-4 py-2 flex items-center space-x-2"
+                    >
+                      <span class="material-symbols-outlined text-primary-500"
+                        >task_alt</span
+                      >
+                      <span class="font-mono-sm text-mono-sm text-text-primary"
+                        >24/50 Qs</span
+                      >
+                    </div>
+                  </div>
+                  <button
+                    class="w-full sm:w-auto bg-primary-600 hover:bg-primary-500 text-white font-label-md text-label-md px-6 py-3 rounded-lg shadow-[0_0_15px_rgba(30,63,204,0.4)] transition-all flex items-center justify-center space-x-2 group-hover:scale-105"
+                  >
+                    <span>Resume Exam</span>
+                    <span class="material-symbols-outlined text-sm"
+                      >arrow_forward</span
+                    >
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Daily Quests Card -->
+          <div
+            class="bg-surface rounded-lg p-lg border border-bg-border border-l-4 border-l-gold-500 shadow-[0_0_15px_rgba(245,158,11,0.05)] flex flex-col"
+          >
+            <div class="flex items-center justify-between mb-6">
+              <h3
+                class="font-headline-md text-headline-md text-text-primary flex items-center gap-2"
+              >
+                <span class="material-symbols-outlined text-gold-500"
+                  >swords</span
+                >
+                Daily Quests
+              </h3>
+              <span class="font-mono-sm text-mono-sm text-text-muted"
+                >2/3 DONE</span
+              >
+            </div>
+            <div class="space-y-4 flex-1">
+              <!-- Completed Quest -->
+              <div
+                class="flex items-start space-x-3 p-3 rounded-lg bg-surface-bright/50 border border-success/20 opacity-70"
+              >
+                <span
+                  class="material-symbols-outlined text-success"
+                  style="font-variation-settings: &quot;FILL&quot; 1"
+                  >check_circle</span
+                >
+                <div>
+                  <p
+                    class="font-label-md text-label-md text-text-primary line-through decoration-text-muted"
+                  >
+                    Login early bird
+                  </p>
+                  <p
+                    class="font-mono-sm text-mono-sm text-gold-500 flex items-center mt-1"
+                  >
+                    <span class="material-symbols-outlined text-[14px] mr-1"
+                      >monetization_on</span
+                    >
+                    +50
+                  </p>
+                </div>
+              </div>
+              <!-- Active Quest -->
+              <div
+                class="flex items-start space-x-3 p-3 rounded-lg bg-raised border border-primary-500/30 shadow-[0_0_10px_rgba(30,63,204,0.1)]"
+              >
+                <span class="material-symbols-outlined text-primary-500"
+                  >radio_button_unchecked</span
+                >
+                <div>
+                  <p class="font-label-md text-label-md text-text-primary">
+                    Score 80%+ on Chemistry Mock
+                  </p>
+                  <p
+                    class="font-mono-sm text-mono-sm text-gold-500 flex items-center mt-1"
+                  >
+                    <span class="material-symbols-outlined text-[14px] mr-1"
+                      >monetization_on</span
+                    >
+                    +250
+                  </p>
+                </div>
+              </div>
+              <!-- Completed Quest -->
+              <div
+                class="flex items-start space-x-3 p-3 rounded-lg bg-surface-bright/50 border border-success/20 opacity-70"
+              >
+                <span
+                  class="material-symbols-outlined text-success"
+                  style="font-variation-settings: &quot;FILL&quot; 1"
+                  >check_circle</span
+                >
+                <div>
+                  <p
+                    class="font-label-md text-label-md text-text-primary line-through decoration-text-muted"
+                  >
+                    Review yesterday's errors
+                  </p>
+                  <p
+                    class="font-mono-sm text-mono-sm text-gold-500 flex items-center mt-1"
+                  >
+                    <span class="material-symbols-outlined text-[14px] mr-1"
+                      >monetization_on</span
+                    >
+                    +100
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Course Progress Card -->
+          <div
+            class="md:col-span-2 lg:col-span-1 bg-surface rounded-lg p-lg border border-bg-border"
+          >
+            <div class="flex items-center justify-between mb-6">
+              <h3
+                class="font-headline-md text-headline-md text-text-primary flex items-center gap-2"
+              >
+                <span class="material-symbols-outlined text-primary-500"
+                  >menu_book</span
+                >
+                Current Focus
+              </h3>
+            </div>
+            <div class="flex items-center space-x-4 mb-4">
+              <div
+                class="w-12 h-12 rounded-lg bg-primary-600/20 flex items-center justify-center border border-primary-600/30"
+              >
+                <span class="material-symbols-outlined text-primary-500"
+                  >science</span
+                >
+              </div>
+              <div>
+                <h4 class="font-label-md text-label-md text-text-primary">
+                  Organic Chemistry
+                </h4>
+                <p
+                  class="font-body-md text-body-md text-text-secondary text-sm"
+                >
+                  Module 4: Hydrocarbons
+                </p>
+              </div>
+            </div>
+            <div class="space-y-2 mt-6">
+              <div class="flex justify-between items-end">
+                <span class="font-mono-sm text-mono-sm text-text-secondary"
+                  >PROGRESS</span
+                >
+                <span class="font-headline-md text-headline-md text-primary-500"
+                  >70%</span
+                >
+              </div>
+              <div
+                class="h-2 w-full bg-surface-bright rounded-full overflow-hidden"
+              >
+                <div
+                  class="h-full bg-gradient-to-r from-primary-600 to-primary-400 w-[70%] rounded-full shadow-[0_0_10px_rgba(30,63,204,0.5)]"
+                ></div>
+              </div>
+            </div>
+            <button
+              class="w-full mt-6 bg-transparent border border-bg-border hover:bg-surface-bright hover:border-outline-variant text-text-primary font-label-md text-label-md px-4 py-2 rounded-lg transition-colors flex items-center justify-center space-x-2"
+            >
+              <span>Continue Module</span>
+            </button>
+          </div>
+          <!-- Performance Stats -->
+          <div
+            class="md:col-span-2 bg-surface rounded-lg p-lg border border-bg-border"
+          >
+            <h3
+              class="font-headline-md text-headline-md text-text-primary mb-6"
+            >
+              Weekly Performance
+            </h3>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+              <div
+                class="p-4 rounded-lg bg-raised border border-bg-border text-center"
+              >
+                <span class="material-symbols-outlined text-primary-500 mb-2"
+                  >functions</span
+                >
+                <div
+                  class="font-headline-lg text-headline-lg text-text-primary"
+                >
+                  85%
+                </div>
+                <div class="font-mono-sm text-mono-sm text-text-muted mt-1">
+                  MATH AVG
+                </div>
+              </div>
+              <div
+                class="p-4 rounded-lg bg-raised border border-bg-border text-center"
+              >
+                <span class="material-symbols-outlined text-success mb-2"
+                  >science</span
+                >
+                <div
+                  class="font-headline-lg text-headline-lg text-text-primary"
+                >
+                  92%
+                </div>
+                <div class="font-mono-sm text-mono-sm text-text-muted mt-1">
+                  CHEM AVG
+                </div>
+              </div>
+              <div
+                class="p-4 rounded-lg bg-raised border border-bg-border text-center"
+              >
+                <span class="material-symbols-outlined text-coral-500 mb-2"
+                  >biotech</span
+                >
+                <div
+                  class="font-headline-lg text-headline-lg text-text-primary"
+                >
+                  78%
+                </div>
+                <div class="font-mono-sm text-mono-sm text-text-muted mt-1">
+                  BIO AVG
+                </div>
+              </div>
+              <div
+                class="p-4 rounded-lg bg-raised border border-bg-border text-center"
+              >
+                <span class="material-symbols-outlined text-gold-500 mb-2"
+                  >emoji_events</span
+                >
+                <div
+                  class="font-headline-lg text-headline-lg text-text-primary"
+                >
+                  Top 5%
+                </div>
+                <div class="font-mono-sm text-mono-sm text-text-muted mt-1">
+                  RANKING
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <!-- BottomNavBar (Mobile Only) -->
+    <nav
+      class="lg:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-3 bg-[#0B0E14]/95 backdrop-blur-md text-[#1E3FCC] text-[10px] font-medium uppercase tracking-tighter fixed bottom-0 w-full rounded-t-2xl border-t border-slate-800 border-t border-slate-800 shadow-[0_-8px_30px_rgba(0,0,0,0.5)]"
+    >
+      <a
+        class="flex flex-col items-center justify-center text-[#1E3FCC] scale-110 active:bg-slate-800 Tap: spring-animate duration-300"
+        href="#"
+      >
+        <span
+          class="material-symbols-outlined"
+          style="font-variation-settings: &quot;FILL&quot; 1"
+          >home</span
+        >
+        <span class="mt-1">Home</span>
+      </a>
+      <a
+        class="flex flex-col items-center justify-center text-slate-500 active:bg-slate-800 Tap: spring-animate duration-300"
+        href="#"
+      >
+        <span class="material-symbols-outlined">edit_note</span>
+        <span class="mt-1">Exams</span>
+      </a>
+      <a
+        class="flex flex-col items-center justify-center text-slate-500 active:bg-slate-800 Tap: spring-animate duration-300"
+        href="#"
+      >
+        <span class="material-symbols-outlined">military_tech</span>
+        <span class="mt-1">Quests</span>
+      </a>
+      <a
+        class="flex flex-col items-center justify-center text-slate-500 active:bg-slate-800 Tap: spring-animate duration-300"
+        href="#"
+      >
+        <span class="material-symbols-outlined">emoji_events</span>
+        <span class="mt-1">Leaderboard</span>
+      </a>
+      <a
+        class="flex flex-col items-center justify-center text-slate-500 active:bg-slate-800 Tap: spring-animate duration-300"
+        href="#"
+      >
+        <span class="material-symbols-outlined">smart_toy</span>
+        <span class="mt-1">AI</span>
+      </a>
+    </nav>
+    <!-- Atlas AI Floating FAB -->
+    <button
+      class="fixed bottom-20 lg:bottom-8 right-6 w-14 h-14 bg-primary-600 rounded-full shadow-[0_0_20px_rgba(30,63,204,0.6)] flex items-center justify-center hover:scale-110 transition-transform z-50 group border border-primary-400"
+    >
+      <span
+        class="material-symbols-outlined text-white"
+        style="font-variation-settings: &quot;FILL&quot; 1"
+        >psychology</span
+      >
+      <!-- Tooltip -->
+      <span
+        class="absolute right-full mr-4 bg-overlay text-text-primary px-3 py-1.5 rounded-lg font-label-md text-label-md whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity border border-bg-border pointer-events-none"
+      >
+        Ask Atlas AI
+      </span>
+    </button>
+  </body>
+</html>
+
+----------------------------------------------------------------------------------------------------------------------------
+<!doctype html>
+
+<html class="dark" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>ADJ EduQuest - Onboarding</title>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@600;700&amp;family=JetBrains+Mono:wght@400&amp;family=Plus+Jakarta+Sans:wght@400;600&amp;display=swap"
+      rel="stylesheet"
+    />
+    <!-- Material Symbols -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-primary-fixed-variant": "#0832c2",
+              "surface-container-high": "#282932",
+              "on-secondary-fixed-variant": "#653e00",
+              "coral-500": "#F4622A",
+              "gold-500": "#F59E0B",
+              surface: "#12131b",
+              "on-primary": "#00208e",
+              "surface-tint": "#bac3ff",
+              "on-surface-variant": "#c5c5d7",
+              "bg-deep": "#0F1117",
+              "inverse-on-surface": "#2f3039",
+              "primary-500": "#2D52E8",
+              outline: "#8e8fa0",
+              secondary: "#ffb95f",
+              error: "#ffb4ab",
+              "primary-fixed": "#dee0ff",
+              "on-secondary": "#472a00",
+              "primary-600": "#1E3FCC",
+              "tertiary-fixed-dim": "#ffb59f",
+              "surface-container": "#1e1f27",
+              "secondary-fixed-dim": "#ffb95f",
+              "inverse-surface": "#e2e1ed",
+              "on-error": "#690005",
+              tertiary: "#ffb59f",
+              "bg-raised": "#1A2038",
+              "bg-deepest": "#080B14",
+              "on-secondary-fixed": "#2a1700",
+              success: "#10B981",
+              "bg-surface": "#141827",
+              "bg-border": "#2A3354",
+              "on-tertiary-fixed-variant": "#852300",
+              "on-primary-fixed": "#00115a",
+              "inverse-primary": "#314fda",
+              "secondary-fixed": "#ffddb8",
+              "primary-900": "#0D1E6B",
+              "on-secondary-container": "#5b3800",
+              "surface-container-low": "#1a1b23",
+              "surface-container-lowest": "#0c0e16",
+              "tertiary-fixed": "#ffdbd1",
+              "primary-container": "#1e3fcc",
+              "outline-variant": "#444655",
+              "tertiary-container": "#972900",
+              "on-tertiary": "#5e1600",
+              "on-surface": "#e2e1ed",
+              primary: "#bac3ff",
+              "text-muted": "#5A6490",
+              "on-tertiary-fixed": "#3a0a00",
+              "surface-dim": "#12131b",
+              "text-primary": "#F0F2FF",
+              background: "#12131b",
+              "text-secondary": "#9AA3C4",
+              "primary-fixed-dim": "#bac3ff",
+              "surface-container-highest": "#33343d",
+              "surface-bright": "#383942",
+              "on-tertiary-container": "#ffb19a",
+              "on-error-container": "#ffdad6",
+              "error-container": "#93000a",
+              "on-background": "#e2e1ed",
+              "on-primary-container": "#b7c0ff",
+              "surface-variant": "#33343d",
+              "secondary-container": "#ee9800",
+              "bg-overlay": "#212840",
+            },
+            borderRadius: {
+              DEFAULT: "0.25rem",
+              lg: "0.5rem",
+              xl: "0.75rem",
+              full: "9999px",
+            },
+            spacing: {
+              md: "16px",
+              xl: "40px",
+              sm: "8px",
+              lg: "24px",
+              "margin-desktop": "32px",
+              "2xl": "64px",
+              xs: "4px",
+              gutter: "16px",
+              base: "4px",
+              "margin-mobile": "16px",
+            },
+            fontFamily: {
+              "body-lg": ["Plus Jakarta Sans"],
+              "body-md": ["Plus Jakarta Sans"],
+              "mono-sm": ["JetBrains Mono"],
+              "label-md": ["Plus Jakarta Sans"],
+              "headline-lg": ["Clash Display"],
+              "display-xl": ["Clash Display"],
+              "headline-md": ["Clash Display"],
+            },
+            fontSize: {
+              "body-lg": ["18px", { lineHeight: "1.6", fontWeight: "400" }],
+              "body-md": ["16px", { lineHeight: "1.6", fontWeight: "400" }],
+              "mono-sm": ["13px", { lineHeight: "1.5", fontWeight: "400" }],
+              "label-md": [
+                "14px",
+                {
+                  lineHeight: "1.4",
+                  letterSpacing: "0.02em",
+                  fontWeight: "600",
+                },
+              ],
+              "headline-lg": ["32px", { lineHeight: "1.2", fontWeight: "600" }],
+              "display-xl": ["48px", { lineHeight: "1.1", fontWeight: "700" }],
+              "headline-md": ["24px", { lineHeight: "1.3", fontWeight: "600" }],
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      .radial-glow {
+        background: radial-gradient(
+          circle at 50% 0%,
+          rgba(45, 82, 232, 0.15) 0%,
+          rgba(15, 17, 23, 0) 70%
+        );
+      }
+    </style>
+  </head>
+  <body
+    class="bg-deep text-text-primary min-h-screen flex flex-col font-body-md relative overflow-hidden"
+  >
+    <!-- Subtle Radial Glow Background -->
+    <div class="absolute inset-0 radial-glow pointer-events-none z-0"></div>
+    <!-- Main Content Container -->
+    <main
+      class="flex-grow flex flex-col items-center justify-center px-6 py-12 md:py-24 relative z-10 w-full max-w-7xl mx-auto"
+    >
+      <!-- Progress Indicator -->
+      <div class="w-full max-w-md mx-auto mb-12 flex flex-col items-center">
+        <div class="flex items-center justify-center gap-4 mb-4">
+          <!-- Step 1 (Active) -->
+          <div
+            class="w-10 h-10 rounded-full bg-primary-500 flex items-center justify-center shadow-lg"
+          >
+            <span class="font-label-md text-label-md text-text-primary">1</span>
+          </div>
+          <!-- Connector -->
+          <div class="h-px w-8 bg-bg-border"></div>
+          <!-- Step 2 -->
+          <div
+            class="w-10 h-10 rounded-full bg-transparent border-2 border-bg-border flex items-center justify-center"
+          >
+            <span class="font-label-md text-label-md text-text-muted">2</span>
+          </div>
+          <!-- Connector -->
+          <div class="h-px w-8 bg-bg-border"></div>
+          <!-- Step 3 -->
+          <div
+            class="w-10 h-10 rounded-full bg-transparent border-2 border-bg-border flex items-center justify-center"
+          >
+            <span class="font-label-md text-label-md text-text-muted">3</span>
+          </div>
+        </div>
+        <p
+          class="font-label-md text-label-md text-primary-500 uppercase tracking-widest"
+        >
+          Step 1 of 3 — Your Role
+        </p>
+      </div>
+      <!-- Headline -->
+      <h1
+        class="font-display-xl text-display-xl text-text-primary text-center mb-16"
+      >
+        Who are you joining as?
+      </h1>
+      <!-- Selection Cards Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-5xl mb-16">
+        <!-- Student Card (Selected) -->
+        <label
+          class="group relative bg-surface rounded-xl p-8 border-2 border-primary-500 cursor-pointer overflow-hidden transition-all duration-300"
+        >
+          <input
+            checked=""
+            class="sr-only"
+            name="role"
+            type="radio"
+            value="student"
+          />
+          <!-- Subtle bg tint -->
+          <div
+            class="absolute inset-0 bg-primary-500/5 pointer-events-none"
+          ></div>
+          <!-- Gold Checkmark Badge -->
+          <div
+            class="absolute top-4 right-4 w-8 h-8 bg-gold-500 rounded-full flex items-center justify-center shadow-lg"
+          >
+            <span
+              class="material-symbols-outlined text-[20px] text-bg-deepest"
+              style="font-variation-settings: &quot;FILL&quot; 1"
+              >check</span
+            >
+          </div>
+          <div class="relative z-10">
+            <div
+              class="w-16 h-16 rounded-xl bg-primary-900/50 flex items-center justify-center mb-6 border border-primary-600/30"
+            >
+              <span
+                class="material-symbols-outlined text-display-xl text-primary-500"
+                style="font-variation-settings: &quot;FILL&quot; 1"
+                >school</span
+              >
+            </div>
+            <h2
+              class="font-headline-md text-headline-md text-text-primary mb-3"
+            >
+              Student
+            </h2>
+            <p class="font-body-md text-body-md text-text-secondary">
+              Join to access quests, track your progress, and earn rewards as
+              you master new subjects.
+            </p>
+          </div>
+        </label>
+        <!-- Teacher Card (Unselected) -->
+        <label
+          class="group relative bg-surface rounded-xl p-8 border-2 border-bg-border cursor-pointer hover:border-outline-variant transition-all duration-300"
+        >
+          <input class="sr-only" name="role" type="radio" value="teacher" />
+          <div
+            class="relative z-10 opacity-70 group-hover:opacity-100 transition-opacity"
+          >
+            <div
+              class="w-16 h-16 rounded-xl bg-bg-raised flex items-center justify-center mb-6 border border-bg-border"
+            >
+              <span
+                class="material-symbols-outlined text-display-xl text-text-muted"
+                style="font-variation-settings: &quot;FILL&quot; 0"
+                >local_library</span
+              >
+            </div>
+            <h2
+              class="font-headline-md text-headline-md text-text-primary mb-3"
+            >
+              Teacher
+            </h2>
+            <p class="font-body-md text-body-md text-text-secondary">
+              Create assignments, monitor student performance, and manage your
+              classroom leaderboard.
+            </p>
+          </div>
+        </label>
+        <!-- Centre Admin Card (Unselected) -->
+        <label
+          class="group relative bg-surface rounded-xl p-8 border-2 border-bg-border cursor-pointer hover:border-outline-variant transition-all duration-300"
+        >
+          <input class="sr-only" name="role" type="radio" value="admin" />
+          <div
+            class="relative z-10 opacity-70 group-hover:opacity-100 transition-opacity"
+          >
+            <div
+              class="w-16 h-16 rounded-xl bg-bg-raised flex items-center justify-center mb-6 border border-bg-border"
+            >
+              <span
+                class="material-symbols-outlined text-display-xl text-text-muted"
+                style="font-variation-settings: &quot;FILL&quot; 0"
+                >admin_panel_settings</span
+              >
+            </div>
+            <h2
+              class="font-headline-md text-headline-md text-text-primary mb-3"
+            >
+              Centre Admin
+            </h2>
+            <p class="font-body-md text-body-md text-text-secondary">
+              Oversee multiple classes, manage curriculum structure, and view
+              institution-wide analytics.
+            </p>
+          </div>
+        </label>
+      </div>
+      <!-- Navigation Actions -->
+      <div
+        class="w-full max-w-5xl flex justify-between items-center mt-auto border-t border-bg-border pt-8"
+      >
+        <button
+          class="px-8 py-4 rounded-lg border border-outline-variant bg-transparent text-text-secondary font-label-md text-label-md hover:text-text-primary hover:bg-surface-bright transition-colors flex items-center gap-2"
+          type="button"
+        >
+          Back
+        </button>
+        <button
+          class="px-8 py-4 rounded-lg bg-primary-600 text-text-primary font-label-md text-label-md shadow-lg hover:bg-primary-500 transition-colors flex items-center gap-2"
+          type="button"
+        >
+          Continue
+          <span class="material-symbols-outlined text-[20px]"
+            >arrow_forward</span
+          >
+        </button>
+      </div>
+    </main>
+  </body>
+</html>
+
+--------------------------------------------------------------------------------------------------
+<!doctype html>
+
+<html class="dark" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>ADJ EduQuest - Onboarding Step 2</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@600;700&amp;family=Plus+Jakarta+Sans:wght@400;600&amp;family=JetBrains+Mono:wght@400&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-primary-fixed-variant": "#0832c2",
+              "surface-container-high": "#282932",
+              "on-secondary-fixed-variant": "#653e00",
+              "coral-500": "#F4622A",
+              "gold-500": "#F59E0B",
+              surface: "#12131b",
+              "on-primary": "#00208e",
+              "surface-tint": "#bac3ff",
+              "on-surface-variant": "#c5c5d7",
+              "bg-deep": "#0F1117",
+              "inverse-on-surface": "#2f3039",
+              "primary-500": "#2D52E8",
+              outline: "#8e8fa0",
+              secondary: "#ffb95f",
+              error: "#ffb4ab",
+              "primary-fixed": "#dee0ff",
+              "on-secondary": "#472a00",
+              "primary-600": "#1E3FCC",
+              "tertiary-fixed-dim": "#ffb59f",
+              "surface-container": "#1e1f27",
+              "secondary-fixed-dim": "#ffb95f",
+              "inverse-surface": "#e2e1ed",
+              "on-error": "#690005",
+              tertiary: "#ffb59f",
+              "bg-raised": "#1A2038",
+              "bg-deepest": "#080B14",
+              "on-secondary-fixed": "#2a1700",
+              success: "#10B981",
+              "bg-surface": "#141827",
+              "bg-border": "#2A3354",
+              "on-tertiary-fixed-variant": "#852300",
+              "on-primary-fixed": "#00115a",
+              "inverse-primary": "#314fda",
+              "secondary-fixed": "#ffddb8",
+              "primary-900": "#0D1E6B",
+              "on-secondary-container": "#5b3800",
+              "surface-container-low": "#1a1b23",
+              "surface-container-lowest": "#0c0e16",
+              "tertiary-fixed": "#ffdbd1",
+              "primary-container": "#1e3fcc",
+              "outline-variant": "#444655",
+              "tertiary-container": "#972900",
+              "on-tertiary": "#5e1600",
+              "on-surface": "#e2e1ed",
+              primary: "#bac3ff",
+              "text-muted": "#5A6490",
+              "on-tertiary-fixed": "#3a0a00",
+              "surface-dim": "#12131b",
+              "text-primary": "#F0F2FF",
+              background: "#12131b",
+              "text-secondary": "#9AA3C4",
+              "primary-fixed-dim": "#bac3ff",
+              "surface-container-highest": "#33343d",
+              "surface-bright": "#383942",
+              "on-tertiary-container": "#ffb19a",
+              "on-error-container": "#ffdad6",
+              "error-container": "#93000a",
+              "on-background": "#e2e1ed",
+              "on-primary-container": "#b7c0ff",
+              "surface-variant": "#33343d",
+              "secondary-container": "#ee9800",
+              "bg-overlay": "#212840",
+            },
+            borderRadius: {
+              DEFAULT: "0.25rem",
+              lg: "0.5rem",
+              xl: "0.75rem",
+              full: "9999px",
+            },
+            spacing: {
+              md: "16px",
+              xl: "40px",
+              sm: "8px",
+              lg: "24px",
+              "margin-desktop": "32px",
+              "2xl": "64px",
+              xs: "4px",
+              gutter: "16px",
+              base: "4px",
+              "margin-mobile": "16px",
+            },
+            fontFamily: {
+              "body-lg": ["Plus Jakarta Sans"],
+              "body-md": ["Plus Jakarta Sans"],
+              "mono-sm": ["JetBrains Mono"],
+              "label-md": ["Plus Jakarta Sans"],
+              "headline-lg": ["Clash Display"],
+              "display-xl": ["Clash Display"],
+              "headline-md": ["Clash Display"],
+            },
+            fontSize: {
+              "body-lg": ["18px", { lineHeight: "1.6", fontWeight: "400" }],
+              "body-md": ["16px", { lineHeight: "1.6", fontWeight: "400" }],
+              "mono-sm": ["13px", { lineHeight: "1.5", fontWeight: "400" }],
+              "label-md": [
+                "14px",
+                {
+                  lineHeight: "1.4",
+                  letterSpacing: "0.02em",
+                  fontWeight: "600",
+                },
+              ],
+              "headline-lg": ["32px", { lineHeight: "1.2", fontWeight: "600" }],
+              "display-xl": ["48px", { lineHeight: "1.1", fontWeight: "700" }],
+              "headline-md": ["24px", { lineHeight: "1.3", fontWeight: "600" }],
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+  <body
+    class="bg-bg-deep text-text-primary min-h-screen flex flex-col font-body-md text-body-md"
+  >
+    <!-- Top AppBar (Brand Only for Onboarding) -->
+    <header
+      class="fixed top-0 w-full z-50 bg-slate-950/80 backdrop-blur-md border-b border-blue-900/30 shadow-[0_4px_20px_rgba(30,63,204,0.16)] flex justify-center items-center h-16"
+    >
+      <div
+        class="text-xl font-black text-blue-600 uppercase tracking-wider font-headline-md text-headline-md"
+      >
+        ADJ EduQuest
+      </div>
+    </header>
+    <!-- Main Content Area -->
+    <main
+      class="flex-grow flex flex-col items-center justify-center pt-24 pb-12 px-margin-mobile md:px-margin-desktop w-full max-w-[1440px] mx-auto"
+    >
+      <div
+        class="w-full max-w-2xl bg-bg-surface rounded-xl border border-bg-border shadow-lg p-lg md:p-xl flex flex-col gap-lg relative"
+      >
+        <!-- Progress Header -->
+        <div class="flex flex-col gap-sm items-center mb-md w-full">
+          <span
+            class="font-label-md text-label-md text-text-muted uppercase tracking-widest"
+            >Step 2 of 3 — Your Details</span
+          >
+          <div class="flex items-center w-full justify-center gap-sm">
+            <!-- Step 1: Completed -->
+            <div
+              class="h-2 w-16 bg-success rounded-full shadow-[0_0_8px_rgba(16,185,129,0.4)]"
+            ></div>
+            <!-- Step 2: Active -->
+            <div
+              class="h-2 w-16 bg-primary-500 rounded-full shadow-[0_0_8px_rgba(45,82,232,0.6)]"
+            ></div>
+            <!-- Step 3: Pending -->
+            <div class="h-2 w-16 bg-bg-border rounded-full"></div>
+          </div>
+        </div>
+        <!-- Headline -->
+        <div class="text-center mb-md">
+          <h1 class="font-headline-lg text-headline-lg text-text-primary mb-2">
+            Tell us about your studies
+          </h1>
+          <p class="font-body-md text-body-md text-text-secondary">
+            This helps us tailor your quest and rank you appropriately.
+          </p>
+        </div>
+        <!-- Form Area -->
+        <form class="flex flex-col gap-lg w-full">
+          <!-- Class Selection -->
+          <div class="flex flex-col gap-xs">
+            <label class="font-label-md text-label-md text-text-primary"
+              >Current Class</label
+            >
+            <div class="relative w-full">
+              <select
+                class="w-full bg-bg-deepest border border-bg-border rounded-lg py-3 px-4 font-body-md text-body-md text-text-primary focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 focus:shadow-[0_0_12px_rgba(45,82,232,0.3)] transition-all appearance-none"
+              >
+                <option disabled="" selected="" value="">
+                  Select your class level
+                </option>
+                <optgroup class="bg-bg-surface" label="Senior Secondary">
+                  <option value="SS3">SS3</option>
+                  <option value="SS2">SS2</option>
+                  <option value="SS1">SS1</option>
+                </optgroup>
+                <optgroup class="bg-bg-surface" label="Junior Secondary">
+                  <option value="JSS3">JSS3</option>
+                  <option value="JSS2">JSS2</option>
+                  <option value="JSS1">JSS1</option>
+                </optgroup>
+              </select>
+              <span
+                class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-text-muted pointer-events-none"
+                >arrow_drop_down</span
+              >
+            </div>
+          </div>
+          <!-- Department Selection (Single Select Pills) -->
+          <div class="flex flex-col gap-sm">
+            <label class="font-label-md text-label-md text-text-primary"
+              >Department / Stream</label
+            >
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-sm">
+              <!-- Active Pill -->
+              <button
+                class="py-2 px-4 rounded-lg bg-primary-500 text-white font-label-md text-label-md shadow-[0_0_12px_rgba(45,82,232,0.4)] border border-primary-500 transition-all text-center"
+                type="button"
+              >
+                Science
+              </button>
+              <!-- Inactive Pills -->
+              <button
+                class="py-2 px-4 rounded-lg bg-transparent text-text-secondary font-label-md text-label-md border border-bg-border hover:border-primary-500/50 hover:text-text-primary transition-all text-center"
+                type="button"
+              >
+                Arts
+              </button>
+              <button
+                class="py-2 px-4 rounded-lg bg-transparent text-text-secondary font-label-md text-label-md border border-bg-border hover:border-primary-500/50 hover:text-text-primary transition-all text-center"
+                type="button"
+              >
+                Commercial
+              </button>
+              <button
+                class="py-2 px-4 rounded-lg bg-transparent text-text-secondary font-label-md text-label-md border border-bg-border hover:border-primary-500/50 hover:text-text-primary transition-all text-center"
+                type="button"
+              >
+                General
+              </button>
+            </div>
+          </div>
+          <!-- Target Exams (Multi Select Pills) -->
+          <div class="flex flex-col gap-sm">
+            <label
+              class="font-label-md text-label-md text-text-primary flex items-center justify-between"
+            >
+              Target Exams
+              <span class="font-mono-sm text-mono-sm text-text-muted"
+                >(Select all that apply)</span
+              >
+            </label>
+            <div class="flex flex-wrap gap-sm">
+              <!-- Active Multi-Pill -->
+              <button
+                class="flex items-center gap-2 py-2 px-4 rounded-full bg-primary-500/20 text-primary-fixed font-label-md text-label-md border border-primary-500 shadow-[0_0_8px_rgba(45,82,232,0.2)] transition-all"
+                type="button"
+              >
+                <span class="material-symbols-outlined text-[18px]">check</span>
+                WAEC
+              </button>
+              <button
+                class="flex items-center gap-2 py-2 px-4 rounded-full bg-primary-500/20 text-primary-fixed font-label-md text-label-md border border-primary-500 shadow-[0_0_8px_rgba(45,82,232,0.2)] transition-all"
+                type="button"
+              >
+                <span class="material-symbols-outlined text-[18px]">check</span>
+                JAMB
+              </button>
+              <!-- Inactive Multi-Pill -->
+              <button
+                class="flex items-center gap-2 py-2 px-4 rounded-full bg-transparent text-text-secondary font-label-md text-label-md border border-bg-border hover:border-primary-500/50 hover:text-text-primary transition-all"
+                type="button"
+              >
+                <span
+                  class="material-symbols-outlined text-[18px] opacity-0 w-0 overflow-hidden transition-all group-hover:w-auto group-hover:opacity-100"
+                  >add</span
+                >
+                NECO
+              </button>
+              <button
+                class="flex items-center gap-2 py-2 px-4 rounded-full bg-transparent text-text-secondary font-label-md text-label-md border border-bg-border hover:border-primary-500/50 hover:text-text-primary transition-all"
+                type="button"
+              >
+                <span
+                  class="material-symbols-outlined text-[18px] opacity-0 w-0 overflow-hidden transition-all group-hover:w-auto group-hover:opacity-100"
+                  >add</span
+                >
+                GCE
+              </button>
+            </div>
+          </div>
+          <!-- Divider -->
+          <hr class="border-bg-border my-md" />
+          <!-- Actions -->
+          <div class="flex justify-between items-center w-full mt-sm">
+            <button
+              class="flex items-center justify-center gap-2 px-6 py-3 rounded-lg font-label-md text-label-md text-text-primary border border-bg-border hover:bg-bg-raised transition-colors"
+              type="button"
+            >
+              <span class="material-symbols-outlined text-[20px]"
+                >arrow_back</span
+              >
+              Back
+            </button>
+            <button
+              class="flex items-center justify-center gap-2 px-8 py-3 rounded-lg font-label-md text-label-md text-white bg-primary-500 hover:bg-primary-600 shadow-[0_0_15px_rgba(45,82,232,0.4)] transition-all"
+              type="button"
+            >
+              Continue
+              <span class="material-symbols-outlined text-[20px]"
+                >arrow_forward</span
+              >
+            </button>
+          </div>
+        </form>
+      </div>
+    </main>
+  </body>
+</html>
+
+--------------------------------------------------------------------------------------------------
+<!doctype html>
+
+<html class="dark" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>ADJ EduQuest - Onboarding Step 3</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&amp;family=Clash+Display:wght@600;700&amp;family=JetBrains+Mono:wght@400&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-primary-fixed-variant": "#0832c2",
+              "surface-container-high": "#282932",
+              "on-secondary-fixed-variant": "#653e00",
+              "coral-500": "#F4622A",
+              "gold-500": "#F59E0B",
+              surface: "#12131b",
+              "on-primary": "#00208e",
+              "surface-tint": "#bac3ff",
+              "on-surface-variant": "#c5c5d7",
+              "bg-deep": "#0F1117",
+              "inverse-on-surface": "#2f3039",
+              "primary-500": "#2D52E8",
+              outline: "#8e8fa0",
+              secondary: "#ffb95f",
+              error: "#ffb4ab",
+              "primary-fixed": "#dee0ff",
+              "on-secondary": "#472a00",
+              "primary-600": "#1E3FCC",
+              "tertiary-fixed-dim": "#ffb59f",
+              "surface-container": "#1e1f27",
+              "secondary-fixed-dim": "#ffb95f",
+              "inverse-surface": "#e2e1ed",
+              "on-error": "#690005",
+              tertiary: "#ffb59f",
+              "bg-raised": "#1A2038",
+              "bg-deepest": "#080B14",
+              "on-secondary-fixed": "#2a1700",
+              success: "#10B981",
+              "bg-surface": "#141827",
+              "bg-border": "#2A3354",
+              "on-tertiary-fixed-variant": "#852300",
+              "on-primary-fixed": "#00115a",
+              "inverse-primary": "#314fda",
+              "secondary-fixed": "#ffddb8",
+              "primary-900": "#0D1E6B",
+              "on-secondary-container": "#5b3800",
+              "surface-container-low": "#1a1b23",
+              "surface-container-lowest": "#0c0e16",
+              "tertiary-fixed": "#ffdbd1",
+              "primary-container": "#1e3fcc",
+              "outline-variant": "#444655",
+              "tertiary-container": "#972900",
+              "on-tertiary": "#5e1600",
+              "on-surface": "#e2e1ed",
+              primary: "#bac3ff",
+              "text-muted": "#5A6490",
+              "on-tertiary-fixed": "#3a0a00",
+              "surface-dim": "#12131b",
+              "text-primary": "#F0F2FF",
+              background: "#12131b",
+              "text-secondary": "#9AA3C4",
+              "primary-fixed-dim": "#bac3ff",
+              "surface-container-highest": "#33343d",
+              "surface-bright": "#383942",
+              "on-tertiary-container": "#ffb19a",
+              "on-error-container": "#ffdad6",
+              "error-container": "#93000a",
+              "on-background": "#e2e1ed",
+              "on-primary-container": "#b7c0ff",
+              "surface-variant": "#33343d",
+              "secondary-container": "#ee9800",
+              "bg-overlay": "#212840",
+            },
+            borderRadius: {
+              DEFAULT: "0.25rem",
+              lg: "0.5rem",
+              xl: "0.75rem",
+              full: "9999px",
+            },
+            spacing: {
+              md: "16px",
+              xl: "40px",
+              sm: "8px",
+              lg: "24px",
+              "margin-desktop": "32px",
+              "2xl": "64px",
+              xs: "4px",
+              gutter: "16px",
+              base: "4px",
+              "margin-mobile": "16px",
+            },
+            fontFamily: {
+              "body-lg": ["Plus Jakarta Sans"],
+              "body-md": ["Plus Jakarta Sans"],
+              "mono-sm": ["JetBrains Mono"],
+              "label-md": ["Plus Jakarta Sans"],
+              "headline-lg": ["Clash Display"],
+              "display-xl": ["Clash Display"],
+              "headline-md": ["Clash Display"],
+            },
+            fontSize: {
+              "body-lg": [
+                "18px",
+                {
+                  lineHeight: "1.6",
+                  fontWeight: "400",
+                },
+              ],
+              "body-md": [
+                "16px",
+                {
+                  lineHeight: "1.6",
+                  fontWeight: "400",
+                },
+              ],
+              "mono-sm": [
+                "13px",
+                {
+                  lineHeight: "1.5",
+                  fontWeight: "400",
+                },
+              ],
+              "label-md": [
+                "14px",
+                {
+                  lineHeight: "1.4",
+                  letterSpacing: "0.02em",
+                  fontWeight: "600",
+                },
+              ],
+              "headline-lg": [
+                "32px",
+                {
+                  lineHeight: "1.2",
+                  fontWeight: "600",
+                },
+              ],
+              "display-xl": [
+                "48px",
+                {
+                  lineHeight: "1.1",
+                  fontWeight: "700",
+                },
+              ],
+              "headline-md": [
+                "24px",
+                {
+                  lineHeight: "1.3",
+                  fontWeight: "600",
+                },
+              ],
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+  <body
+    class="bg-bg-deep text-text-primary min-h-screen flex flex-col font-body-md text-body-md antialiased selection:bg-primary-500/30"
+  >
+    <!-- Top Navigation (Suppressed - Transactional Page) -->
+    <!-- Content Canvas -->
+    <main
+      class="flex-grow flex items-center justify-center p-md md:p-lg lg:p-margin-desktop relative"
+    >
+      <!-- Abstract Background Glows -->
+      <div
+        class="absolute top-0 left-1/4 w-[500px] h-[500px] bg-primary-600/10 rounded-full blur-[120px] pointer-events-none -translate-y-1/2"
+      ></div>
+      <div
+        class="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-primary-container/10 rounded-full blur-[100px] pointer-events-none translate-y-1/2"
+      ></div>
+      <div class="w-full max-w-[800px] relative z-10">
+        <!-- Progress Bar Indicator -->
+        <div class="mb-lg">
+          <div class="flex justify-between items-end mb-sm">
+            <span
+              class="font-label-md text-label-md text-text-secondary uppercase tracking-wider"
+              >Step 3 of 3</span
+            >
+            <span class="font-label-md text-label-md text-primary-500"
+              >Final Touches</span
+            >
+          </div>
+          <div
+            class="w-full h-1 bg-surface-container-high rounded-full overflow-hidden flex gap-1"
+          >
+            <div class="h-full w-1/3 bg-success"></div>
+            <div class="h-full w-1/3 bg-success"></div>
+            <div class="h-full w-1/3 bg-primary-500 relative overflow-hidden">
+              <div class="absolute inset-0 bg-white/20 animate-pulse"></div>
+            </div>
+          </div>
+        </div>
+        <!-- Main Card -->
+        <div
+          class="bg-bg-surface rounded-xl border border-bg-border shadow-[0_4px_20px_rgba(30,63,204,0.16)] p-lg md:p-xl relative overflow-hidden"
+        >
+          <!-- Gold Accent Line -->
+          <div
+            class="absolute top-0 left-0 w-1 h-full bg-primary-500 shadow-[0_0_15px_rgba(45,82,232,0.6)]"
+          ></div>
+          <div class="flex flex-col h-full">
+            <!-- Header -->
+            <div class="mb-xl">
+              <h1
+                class="font-headline-lg text-headline-lg mb-sm text-text-primary"
+              >
+                Which subjects are you focused on?
+              </h1>
+              <p class="font-body-lg text-body-lg text-text-secondary">
+                Select the areas you want to master. We'll tailor your quests
+                accordingly.
+              </p>
+            </div>
+            <!-- Actions -->
+            <div class="flex justify-between items-center mb-md">
+              <span class="font-label-md text-label-md text-text-muted"
+                >Select at least one</span
+              >
+              <div class="flex gap-md">
+                <button
+                  class="font-label-md text-label-md text-primary-500 hover:text-primary-400 transition-colors"
+                >
+                  Select All
+                </button>
+                <button
+                  class="font-label-md text-label-md text-text-muted hover:text-text-primary transition-colors"
+                >
+                  Clear
+                </button>
+              </div>
+            </div>
+            <!-- Subject Grid -->
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-md mb-2xl">
+              <!-- Selected Chip -->
+              <label class="cursor-pointer group">
+                <input checked="" class="peer hidden" type="checkbox" />
+                <div
+                  class="bg-primary-600 border border-primary-500 rounded-lg p-md flex flex-col items-center justify-center gap-sm transition-all shadow-[0_0_15px_rgba(45,82,232,0.4)] peer-checked:bg-primary-600 peer-checked:border-primary-500 peer-checked:text-white"
+                >
+                  <span
+                    class="material-symbols-outlined text-3xl mb-xs"
+                    style="font-variation-settings: &quot;FILL&quot; 1"
+                    >functions</span
+                  >
+                  <span class="font-label-md text-label-md">Mathematics</span>
+                </div>
+              </label>
+              <!-- Selected Chip -->
+              <label class="cursor-pointer group">
+                <input checked="" class="peer hidden" type="checkbox" />
+                <div
+                  class="bg-primary-600 border border-primary-500 rounded-lg p-md flex flex-col items-center justify-center gap-sm transition-all shadow-[0_0_15px_rgba(45,82,232,0.4)] peer-checked:bg-primary-600 peer-checked:border-primary-500 peer-checked:text-white"
+                >
+                  <span
+                    class="material-symbols-outlined text-3xl mb-xs"
+                    style="font-variation-settings: &quot;FILL&quot; 1"
+                    >science</span
+                  >
+                  <span class="font-label-md text-label-md">Physics</span>
+                </div>
+              </label>
+              <!-- Unselected Chip -->
+              <label class="cursor-pointer group">
+                <input class="peer hidden" type="checkbox" />
+                <div
+                  class="bg-bg-deepest border border-bg-border rounded-lg p-md flex flex-col items-center justify-center gap-sm transition-all hover:bg-bg-raised hover:border-primary-500/50 text-text-muted hover:text-text-primary"
+                >
+                  <span
+                    class="material-symbols-outlined text-3xl mb-xs"
+                    style="font-variation-settings: &quot;FILL&quot; 0"
+                    >biotech</span
+                  >
+                  <span class="font-label-md text-label-md">Biology</span>
+                </div>
+              </label>
+              <!-- Unselected Chip -->
+              <label class="cursor-pointer group">
+                <input class="peer hidden" type="checkbox" />
+                <div
+                  class="bg-bg-deepest border border-bg-border rounded-lg p-md flex flex-col items-center justify-center gap-sm transition-all hover:bg-bg-raised hover:border-primary-500/50 text-text-muted hover:text-text-primary"
+                >
+                  <span
+                    class="material-symbols-outlined text-3xl mb-xs"
+                    style="font-variation-settings: &quot;FILL&quot; 0"
+                    >experiment</span
+                  >
+                  <span class="font-label-md text-label-md">Chemistry</span>
+                </div>
+              </label>
+              <!-- Unselected Chip -->
+              <label class="cursor-pointer group">
+                <input class="peer hidden" type="checkbox" />
+                <div
+                  class="bg-bg-deepest border border-bg-border rounded-lg p-md flex flex-col items-center justify-center gap-sm transition-all hover:bg-bg-raised hover:border-primary-500/50 text-text-muted hover:text-text-primary"
+                >
+                  <span
+                    class="material-symbols-outlined text-3xl mb-xs"
+                    style="font-variation-settings: &quot;FILL&quot; 0"
+                    >book</span
+                  >
+                  <span class="font-label-md text-label-md">English</span>
+                </div>
+              </label>
+              <!-- Unselected Chip -->
+              <label class="cursor-pointer group">
+                <input class="peer hidden" type="checkbox" />
+                <div
+                  class="bg-bg-deepest border border-bg-border rounded-lg p-md flex flex-col items-center justify-center gap-sm transition-all hover:bg-bg-raised hover:border-primary-500/50 text-text-muted hover:text-text-primary"
+                >
+                  <span
+                    class="material-symbols-outlined text-3xl mb-xs"
+                    style="font-variation-settings: &quot;FILL&quot; 0"
+                    >trending_up</span
+                  >
+                  <span class="font-label-md text-label-md">Economics</span>
+                </div>
+              </label>
+            </div>
+            <!-- Footer Actions -->
+            <div
+              class="flex items-center justify-between mt-auto border-t border-bg-border pt-lg"
+            >
+              <button
+                class="px-lg py-sm rounded-lg border border-bg-border text-text-primary font-label-md text-label-md hover:bg-bg-raised transition-colors flex items-center gap-sm"
+              >
+                <span class="material-symbols-outlined">arrow_back</span>
+                Back
+              </button>
+              <div class="flex items-center gap-lg">
+                <a
+                  class="font-label-md text-label-md text-text-muted hover:text-text-primary transition-colors"
+                  href="#"
+                  >Skip for now</a
+                >
+                <button
+                  class="px-xl py-sm rounded-lg bg-primary-600 text-white font-label-md text-label-md hover:bg-primary-500 transition-colors shadow-[0_0_15px_rgba(45,82,232,0.4)] flex items-center gap-sm group"
+                >
+                  Complete Setup
+                  <span
+                    class="material-symbols-outlined group-hover:translate-x-1 transition-transform"
+                    >check_circle</span
+                  >
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>
+
+--------------------------------------------------------------------------------------------------
+<!doctype html>
+
+<html class="dark" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Onboarding Wizard Step 2B - Teacher Details</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600&amp;family=Clash+Display:wght@600;700&amp;family=JetBrains+Mono:wght@400&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-primary-fixed-variant": "#0832c2",
+              "surface-container-high": "#282932",
+              "on-secondary-fixed-variant": "#653e00",
+              "coral-500": "#F4622A",
+              "gold-500": "#F59E0B",
+              surface: "#12131b",
+              "on-primary": "#00208e",
+              "surface-tint": "#bac3ff",
+              "on-surface-variant": "#c5c5d7",
+              "bg-deep": "#0F1117",
+              "inverse-on-surface": "#2f3039",
+              "primary-500": "#2D52E8",
+              outline: "#8e8fa0",
+              secondary: "#ffb95f",
+              error: "#ffb4ab",
+              "primary-fixed": "#dee0ff",
+              "on-secondary": "#472a00",
+              "primary-600": "#1E3FCC",
+              "tertiary-fixed-dim": "#ffb59f",
+              "surface-container": "#1e1f27",
+              "secondary-fixed-dim": "#ffb95f",
+              "inverse-surface": "#e2e1ed",
+              "on-error": "#690005",
+              tertiary: "#ffb59f",
+              "bg-raised": "#1A2038",
+              "bg-deepest": "#080B14",
+              "on-secondary-fixed": "#2a1700",
+              success: "#10B981",
+              "bg-surface": "#141827",
+              "bg-border": "#2A3354",
+              "on-tertiary-fixed-variant": "#852300",
+              "on-primary-fixed": "#00115a",
+              "inverse-primary": "#314fda",
+              "secondary-fixed": "#ffddb8",
+              "primary-900": "#0D1E6B",
+              "on-secondary-container": "#5b3800",
+              "surface-container-low": "#1a1b23",
+              "surface-container-lowest": "#0c0e16",
+              "tertiary-fixed": "#ffdbd1",
+              "primary-container": "#1e3fcc",
+              "outline-variant": "#444655",
+              "tertiary-container": "#972900",
+              "on-tertiary": "#5e1600",
+              "on-surface": "#e2e1ed",
+              primary: "#bac3ff",
+              "text-muted": "#5A6490",
+              "on-tertiary-fixed": "#3a0a00",
+              "surface-dim": "#12131b",
+              "text-primary": "#F0F2FF",
+              background: "#12131b",
+              "text-secondary": "#9AA3C4",
+              "primary-fixed-dim": "#bac3ff",
+              "surface-container-highest": "#33343d",
+              "surface-bright": "#383942",
+              "on-tertiary-container": "#ffb19a",
+              "on-error-container": "#ffdad6",
+              "error-container": "#93000a",
+              "on-background": "#e2e1ed",
+              "on-primary-container": "#b7c0ff",
+              "surface-variant": "#33343d",
+              "secondary-container": "#ee9800",
+              "bg-overlay": "#212840",
+            },
+            borderRadius: {
+              DEFAULT: "0.25rem",
+              lg: "0.5rem",
+              xl: "0.75rem",
+              full: "9999px",
+            },
+            spacing: {
+              md: "16px",
+              xl: "40px",
+              sm: "8px",
+              lg: "24px",
+              "margin-desktop": "32px",
+              "2xl": "64px",
+              xs: "4px",
+              gutter: "16px",
+              base: "4px",
+              "margin-mobile": "16px",
+            },
+            fontFamily: {
+              "body-lg": ["Plus Jakarta Sans"],
+              "body-md": ["Plus Jakarta Sans"],
+              "mono-sm": ["JetBrains Mono"],
+              "label-md": ["Plus Jakarta Sans"],
+              "headline-lg": ["Clash Display"],
+              "display-xl": ["Clash Display"],
+              "headline-md": ["Clash Display"],
+            },
+            fontSize: {
+              "body-lg": ["18px", { lineHeight: "1.6", fontWeight: "400" }],
+              "body-md": ["16px", { lineHeight: "1.6", fontWeight: "400" }],
+              "mono-sm": ["13px", { lineHeight: "1.5", fontWeight: "400" }],
+              "label-md": [
+                "14px",
+                {
+                  lineHeight: "1.4",
+                  letterSpacing: "0.02em",
+                  fontWeight: "600",
+                },
+              ],
+              "headline-lg": ["32px", { lineHeight: "1.2", fontWeight: "600" }],
+              "display-xl": ["48px", { lineHeight: "1.1", fontWeight: "700" }],
+              "headline-md": ["24px", { lineHeight: "1.3", fontWeight: "600" }],
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      .shadow-glow {
+        box-shadow: 0 0 20px rgba(45, 82, 232, 0.4);
+      }
+      .shadow-ambient {
+        box-shadow: 0 4px 20px rgba(30, 63, 204, 0.16);
+      }
+    </style>
+  </head>
+  <body
+    class="bg-bg-deep text-text-primary font-body-md min-h-screen flex flex-col items-center justify-center p-4 md:p-margin-desktop"
+  >
+    <!-- Main Container -->
+    <main
+      class="w-full max-w-3xl bg-bg-surface rounded-xl shadow-ambient border border-bg-border overflow-hidden"
+    >
+      <!-- Progress Header -->
+      <header class="px-8 pt-8 pb-6 border-b border-bg-border bg-bg-surface">
+        <div class="flex items-center justify-between mb-4">
+          <div
+            class="font-label-md text-text-secondary uppercase tracking-wider"
+          >
+            Step 2 of 3 — Your Details
+          </div>
+        </div>
+        <!-- Progress Bar -->
+        <div class="flex items-center gap-4">
+          <!-- Step 1: Completed -->
+          <div class="flex-1 flex flex-col gap-2">
+            <div
+              class="h-2 w-full bg-success rounded-full shadow-[0_0_10px_rgba(16,185,129,0.3)]"
+            ></div>
+          </div>
+          <!-- Step 2: Active -->
+          <div class="flex-1 flex flex-col gap-2">
+            <div
+              class="h-2 w-full bg-primary-500 rounded-full shadow-glow"
+            ></div>
+          </div>
+          <!-- Step 3: Pending -->
+          <div class="flex-1 flex flex-col gap-2">
+            <div
+              class="h-2 w-full bg-bg-raised border border-bg-border rounded-full"
+            ></div>
+          </div>
+        </div>
+      </header>
+      <!-- Form Content -->
+      <div class="p-8 md:p-12">
+        <h1 class="font-headline-lg text-text-primary mb-8">
+          Tell us about your expertise
+        </h1>
+        <!-- Form -->
+        <form class="space-y-10">
+          <!-- Subjects Taught Section -->
+          <section>
+            <label class="block font-label-md text-text-primary mb-4"
+              >Subjects taught
+              <span class="text-text-muted font-body-sm font-normal"
+                >(Select all that apply)</span
+              ></label
+            >
+            <div class="flex flex-wrap gap-3">
+              <!-- Pill: Selected -->
+              <button
+                class="px-5 py-2.5 rounded-full border border-primary-500 bg-primary-900/30 text-primary-500 font-label-md shadow-glow transition-all"
+                type="button"
+              >
+                Mathematics
+              </button>
+              <!-- Pill: Unselected -->
+              <button
+                class="px-5 py-2.5 rounded-full border border-bg-border bg-bg-raised text-text-secondary font-label-md hover:border-text-muted transition-all"
+                type="button"
+              >
+                Physics
+              </button>
+              <button
+                class="px-5 py-2.5 rounded-full border border-bg-border bg-bg-raised text-text-secondary font-label-md hover:border-text-muted transition-all"
+                type="button"
+              >
+                Chemistry
+              </button>
+              <button
+                class="px-5 py-2.5 rounded-full border border-primary-500 bg-primary-900/30 text-primary-500 font-label-md shadow-glow transition-all"
+                type="button"
+              >
+                Computer Science
+              </button>
+              <button
+                class="px-5 py-2.5 rounded-full border border-bg-border bg-bg-raised text-text-secondary font-label-md hover:border-text-muted transition-all"
+                type="button"
+              >
+                Biology
+              </button>
+              <button
+                class="px-5 py-2.5 rounded-full border border-bg-border bg-bg-raised text-text-secondary font-label-md hover:border-text-muted transition-all"
+                type="button"
+              >
+                English Literature
+              </button>
+              <button
+                class="px-5 py-2.5 rounded-full border border-bg-border bg-bg-raised text-text-secondary font-label-md hover:border-text-muted transition-all"
+                type="button"
+              >
+                History
+              </button>
+            </div>
+          </section>
+          <hr class="border-bg-border" />
+          <!-- Invite Code Section -->
+          <section class="space-y-6">
+            <!-- Toggle -->
+            <div
+              class="flex items-center justify-between p-4 rounded-lg bg-bg-raised border border-bg-border"
+            >
+              <div class="flex items-center gap-3">
+                <span
+                  class="material-symbols-outlined text-primary-500"
+                  data-icon="corporate_fare"
+                  >corporate_fare</span
+                >
+                <div>
+                  <h3 class="font-label-md text-text-primary">
+                    I have a centre invite code
+                  </h3>
+                  <p class="font-body-md text-text-muted text-sm mt-1">
+                    Join an existing educational institution
+                  </p>
+                </div>
+              </div>
+              <!-- Toggle Switch (ON State) -->
+              <button
+                aria-checked="true"
+                class="relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent bg-primary-500 transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 focus:ring-offset-bg-deep shadow-glow"
+                role="switch"
+                type="button"
+              >
+                <span
+                  class="translate-x-5 pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out"
+                ></span>
+              </button>
+            </div>
+            <!-- Input Field (Revealed by Toggle) -->
+            <div class="space-y-2 relative">
+              <label
+                class="block font-label-md text-text-primary"
+                for="invite-code"
+                >Centre Invite Code</label
+              >
+              <div class="relative">
+                <input
+                  class="w-full bg-bg-deepest border border-primary-500 rounded-lg px-4 py-3 text-text-primary font-mono-sm focus:outline-none focus:ring-1 focus:ring-primary-500 shadow-[0_0_15px_rgba(45,82,232,0.15)] placeholder:text-text-muted transition-all uppercase tracking-widest"
+                  id="invite-code"
+                  placeholder="e.g. ADJ-2024-XYZ"
+                  type="text"
+                />
+                <div
+                  class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none"
+                >
+                  <span
+                    class="material-symbols-outlined text-success text-lg"
+                    data-icon="check_circle"
+                    >check_circle</span
+                  >
+                </div>
+              </div>
+              <p
+                class="font-body-md text-success text-sm flex items-center gap-1 mt-1"
+              >
+                <span
+                  class="material-symbols-outlined text-[16px]"
+                  data-icon="verified"
+                  >verified</span
+                >
+                Valid code for <strong>Lagos Elite Academy</strong>
+              </p>
+            </div>
+          </section>
+        </form>
+      </div>
+      <!-- Footer Actions -->
+      <footer
+        class="p-8 border-t border-bg-border bg-bg-surface flex items-center justify-between mt-auto"
+      >
+        <button
+          class="px-6 py-3 rounded-lg border border-bg-border text-text-secondary font-label-md hover:bg-bg-raised hover:text-text-primary transition-colors flex items-center gap-2"
+          type="button"
+        >
+          <span
+            class="material-symbols-outlined text-[20px]"
+            data-icon="arrow_back"
+            >arrow_back</span
+          >
+          Back
+        </button>
+        <button
+          class="px-8 py-3 rounded-lg bg-primary-600 text-white font-label-md hover:bg-primary-500 transition-colors flex items-center gap-2 shadow-glow group"
+          type="button"
+        >
+          Continue
+          <span
+            class="material-symbols-outlined text-[20px] group-hover:translate-x-1 transition-transform"
+            data-icon="arrow_forward"
+            >arrow_forward</span
+          >
+        </button>
+      </footer>
+    </main>
+  </body>
+</html>
+
+--------------------------------------------------------------------------------------------------
+<!doctype html>
+
+<html class="dark" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+      name="viewport"
+    />
+    <title>ADJ EduQuest - Onboarding Step 1</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600&amp;family=Clash+Display:wght@600;700&amp;family=JetBrains+Mono:wght@400&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-primary-fixed-variant": "#0832c2",
+              "surface-container-high": "#282932",
+              "on-secondary-fixed-variant": "#653e00",
+              "coral-500": "#F4622A",
+              "gold-500": "#F59E0B",
+              surface: "#12131b",
+              "on-primary": "#00208e",
+              "surface-tint": "#bac3ff",
+              "on-surface-variant": "#c5c5d7",
+              "bg-deep": "#0F1117",
+              "inverse-on-surface": "#2f3039",
+              "primary-500": "#2D52E8",
+              outline: "#8e8fa0",
+              secondary: "#ffb95f",
+              error: "#ffb4ab",
+              "primary-fixed": "#dee0ff",
+              "on-secondary": "#472a00",
+              "primary-600": "#1E3FCC",
+              "tertiary-fixed-dim": "#ffb59f",
+              "surface-container": "#1e1f27",
+              "secondary-fixed-dim": "#ffb95f",
+              "inverse-surface": "#e2e1ed",
+              "on-error": "#690005",
+              tertiary: "#ffb59f",
+              "bg-raised": "#1A2038",
+              "bg-deepest": "#080B14",
+              "on-secondary-fixed": "#2a1700",
+              success: "#10B981",
+              "bg-surface": "#141827",
+              "bg-border": "#2A3354",
+              "on-tertiary-fixed-variant": "#852300",
+              "on-primary-fixed": "#00115a",
+              "inverse-primary": "#314fda",
+              "secondary-fixed": "#ffddb8",
+              "primary-900": "#0D1E6B",
+              "on-secondary-container": "#5b3800",
+              "surface-container-low": "#1a1b23",
+              "surface-container-lowest": "#0c0e16",
+              "tertiary-fixed": "#ffdbd1",
+              "primary-container": "#1e3fcc",
+              "outline-variant": "#444655",
+              "tertiary-container": "#972900",
+              "on-tertiary": "#5e1600",
+              "on-surface": "#e2e1ed",
+              primary: "#bac3ff",
+              "text-muted": "#5A6490",
+              "on-tertiary-fixed": "#3a0a00",
+              "surface-dim": "#12131b",
+              "text-primary": "#F0F2FF",
+              background: "#12131b",
+              "text-secondary": "#9AA3C4",
+              "primary-fixed-dim": "#bac3ff",
+              "surface-container-highest": "#33343d",
+              "surface-bright": "#383942",
+              "on-tertiary-container": "#ffb19a",
+              "on-error-container": "#ffdad6",
+              "error-container": "#93000a",
+              "on-background": "#e2e1ed",
+              "on-primary-container": "#b7c0ff",
+              "surface-variant": "#33343d",
+              "secondary-container": "#ee9800",
+              "bg-overlay": "#212840",
+            },
+            borderRadius: {
+              DEFAULT: "0.25rem",
+              lg: "0.5rem",
+              xl: "0.75rem",
+              full: "9999px",
+            },
+            spacing: {
+              md: "16px",
+              xl: "40px",
+              sm: "8px",
+              lg: "24px",
+              "margin-desktop": "32px",
+              "2xl": "64px",
+              xs: "4px",
+              gutter: "16px",
+              base: "4px",
+              "margin-mobile": "16px",
+            },
+            fontFamily: {
+              "body-lg": ["Plus Jakarta Sans"],
+              "body-md": ["Plus Jakarta Sans"],
+              "mono-sm": ["JetBrains Mono"],
+              "label-md": ["Plus Jakarta Sans"],
+              "headline-lg": ["Clash Display"],
+              "display-xl": ["Clash Display"],
+              "headline-md": ["Clash Display"],
+            },
+            fontSize: {
+              "body-lg": ["18px", { lineHeight: "1.6", fontWeight: "400" }],
+              "body-md": ["16px", { lineHeight: "1.6", fontWeight: "400" }],
+              "mono-sm": ["13px", { lineHeight: "1.5", fontWeight: "400" }],
+              "label-md": [
+                "14px",
+                {
+                  lineHeight: "1.4",
+                  letterSpacing: "0.02em",
+                  fontWeight: "600",
+                },
+              ],
+              "headline-lg": ["32px", { lineHeight: "1.2", fontWeight: "600" }],
+              "display-xl": ["48px", { lineHeight: "1.1", fontWeight: "700" }],
+              "headline-md": ["24px", { lineHeight: "1.3", fontWeight: "600" }],
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      .shadow-glow {
+        box-shadow: 0 0 20px rgba(30, 63, 204, 0.4);
+      }
+      .shadow-gold {
+        box-shadow: 0 0 15px rgba(245, 158, 11, 0.3);
+      }
+    </style>
+    <style>
+      body {
+        min-height: max(884px, 100dvh);
+      }
+    </style>
+  </head>
+  <body
+    class="bg-bg-deep text-text-primary font-body-md min-h-screen flex flex-col justify-between selection:bg-primary-500 selection:text-white pb-safe"
+  >
+    <!-- Suppressed TopAppBar & BottomNavBar due to Onboarding Intent -->
+    <!-- Main Canvas -->
+    <main
+      class="flex-1 flex flex-col px-margin-mobile pt-lg pb-md max-w-[390px] mx-auto w-full relative z-10"
+    >
+      <!-- Progress Header -->
+      <header class="mb-xl w-full">
+        <div class="flex justify-between items-center mb-sm">
+          <span class="font-label-md text-label-md text-text-secondary"
+            >Step 1 of 3</span
+          >
+          <button
+            aria-label="Cancel Onboarding"
+            class="text-text-muted hover:text-text-primary transition-colors"
+          >
+            <span class="material-symbols-outlined text-xl">close</span>
+          </button>
+        </div>
+        <div
+          class="flex gap-2 w-full h-1.5 bg-bg-surface rounded-full overflow-hidden"
+        >
+          <div class="flex-1 bg-primary-500 rounded-full shadow-glow"></div>
+          <div class="flex-1 bg-bg-border rounded-full"></div>
+          <div class="flex-1 bg-bg-border rounded-full"></div>
+        </div>
+      </header>
+      <!-- Content Area -->
+      <div class="flex-1 flex flex-col">
+        <div class="mb-lg">
+          <h1 class="font-headline-lg text-headline-lg text-text-primary mb-sm">
+            Who are you joining as?
+          </h1>
+          <p class="font-body-md text-body-md text-text-secondary">
+            Select your primary role to customize your EduQuest experience.
+          </p>
+        </div>
+        <!-- Role Selection Stack -->
+        <div class="flex flex-col gap-md">
+          <!-- Student Card (Active) -->
+          <button
+            class="relative w-full text-left bg-bg-raised border border-primary-500 rounded-xl p-md flex items-center gap-md shadow-glow transition-all active:scale-95 group"
+          >
+            <div
+              class="w-12 h-12 rounded-full bg-primary-900/50 flex items-center justify-center shrink-0"
+            >
+              <span
+                class="material-symbols-outlined text-primary-500"
+                style="font-variation-settings: &quot;FILL&quot; 1"
+                >school</span
+              >
+            </div>
+            <div class="flex-1">
+              <h2 class="font-label-md text-label-md text-text-primary mb-xs">
+                Student
+              </h2>
+              <p class="font-mono-sm text-mono-sm text-text-muted">
+                Learn, rank up, and earn rewards.
+              </p>
+            </div>
+            <!-- Gold Checkmark Badge -->
+            <div
+              class="absolute -top-2 -right-2 w-6 h-6 bg-gold-500 rounded-full flex items-center justify-center shadow-gold z-10"
+            >
+              <span
+                class="material-symbols-outlined text-bg-deepest text-[14px]"
+                style="font-variation-settings: &quot;FILL&quot; 1"
+                >check</span
+              >
+            </div>
+          </button>
+          <!-- Teacher Card (Inactive) -->
+          <button
+            class="relative w-full text-left bg-bg-surface border border-bg-border rounded-xl p-md flex items-center gap-md hover:border-outline-variant transition-all active:scale-95 group"
+          >
+            <div
+              class="w-12 h-12 rounded-full bg-surface-container-high flex items-center justify-center shrink-0 group-hover:bg-bg-border transition-colors"
+            >
+              <span class="material-symbols-outlined text-text-muted"
+                >co_present</span
+              >
+            </div>
+            <div class="flex-1">
+              <h2 class="font-label-md text-label-md text-text-primary mb-xs">
+                Teacher
+              </h2>
+              <p class="font-mono-sm text-mono-sm text-text-muted">
+                Manage classes and track progress.
+              </p>
+            </div>
+          </button>
+          <!-- Centre Admin Card (Inactive) -->
+          <button
+            class="relative w-full text-left bg-bg-surface border border-bg-border rounded-xl p-md flex items-center gap-md hover:border-outline-variant transition-all active:scale-95 group"
+          >
+            <div
+              class="w-12 h-12 rounded-full bg-surface-container-high flex items-center justify-center shrink-0 group-hover:bg-bg-border transition-colors"
+            >
+              <span class="material-symbols-outlined text-text-muted"
+                >domain</span
+              >
+            </div>
+            <div class="flex-1">
+              <h2 class="font-label-md text-label-md text-text-primary mb-xs">
+                Centre Admin
+              </h2>
+              <p class="font-mono-sm text-mono-sm text-text-muted">
+                Oversee institution analytics.
+              </p>
+            </div>
+          </button>
+        </div>
+      </div>
+      <!-- Sticky Footer Navigation -->
+      <footer class="mt-auto pt-lg flex gap-md w-full">
+        <button
+          class="flex-1 py-3 px-4 rounded-lg border border-bg-border text-text-primary font-label-md text-label-md hover:bg-bg-surface active:bg-bg-raised transition-colors flex items-center justify-center"
+        >
+          Back
+        </button>
+        <button
+          class="flex-[2] py-3 px-4 rounded-lg bg-primary-600 text-text-primary font-label-md text-label-md hover:bg-primary-500 shadow-glow active:scale-95 transition-all flex items-center justify-center gap-2"
+        >
+          Continue
+          <span class="material-symbols-outlined text-[18px]"
+            >arrow_forward</span
+          >
+        </button>
+      </footer>
+    </main>
+  </body>
+</html>
+
+------------------------------------------------------------------------------------------
+<!doctype html>
+
+<html class="dark" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>ADJ EduQuest - Onboarding Step 3</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&amp;family=Clash+Display:wght@600;700&amp;family=JetBrains+Mono:wght@400&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-primary-fixed-variant": "#0832c2",
+              "surface-container-high": "#282932",
+              "on-secondary-fixed-variant": "#653e00",
+              "coral-500": "#F4622A",
+              "gold-500": "#F59E0B",
+              surface: "#12131b",
+              "on-primary": "#00208e",
+              "surface-tint": "#bac3ff",
+              "on-surface-variant": "#c5c5d7",
+              "bg-deep": "#0F1117",
+              "inverse-on-surface": "#2f3039",
+              "primary-500": "#2D52E8",
+              outline: "#8e8fa0",
+              secondary: "#ffb95f",
+              error: "#ffb4ab",
+              "primary-fixed": "#dee0ff",
+              "on-secondary": "#472a00",
+              "primary-600": "#1E3FCC",
+              "tertiary-fixed-dim": "#ffb59f",
+              "surface-container": "#1e1f27",
+              "secondary-fixed-dim": "#ffb95f",
+              "inverse-surface": "#e2e1ed",
+              "on-error": "#690005",
+              tertiary: "#ffb59f",
+              "bg-raised": "#1A2038",
+              "bg-deepest": "#080B14",
+              "on-secondary-fixed": "#2a1700",
+              success: "#10B981",
+              "bg-surface": "#141827",
+              "bg-border": "#2A3354",
+              "on-tertiary-fixed-variant": "#852300",
+              "on-primary-fixed": "#00115a",
+              "inverse-primary": "#314fda",
+              "secondary-fixed": "#ffddb8",
+              "primary-900": "#0D1E6B",
+              "on-secondary-container": "#5b3800",
+              "surface-container-low": "#1a1b23",
+              "surface-container-lowest": "#0c0e16",
+              "tertiary-fixed": "#ffdbd1",
+              "primary-container": "#1e3fcc",
+              "outline-variant": "#444655",
+              "tertiary-container": "#972900",
+              "on-tertiary": "#5e1600",
+              "on-surface": "#e2e1ed",
+              primary: "#bac3ff",
+              "text-muted": "#5A6490",
+              "on-tertiary-fixed": "#3a0a00",
+              "surface-dim": "#12131b",
+              "text-primary": "#F0F2FF",
+              background: "#12131b",
+              "text-secondary": "#9AA3C4",
+              "primary-fixed-dim": "#bac3ff",
+              "surface-container-highest": "#33343d",
+              "surface-bright": "#383942",
+              "on-tertiary-container": "#ffb19a",
+              "on-error-container": "#ffdad6",
+              "error-container": "#93000a",
+              "on-background": "#e2e1ed",
+              "on-primary-container": "#b7c0ff",
+              "surface-variant": "#33343d",
+              "secondary-container": "#ee9800",
+              "bg-overlay": "#212840",
+            },
+            borderRadius: {
+              DEFAULT: "0.25rem",
+              lg: "0.5rem",
+              xl: "0.75rem",
+              full: "9999px",
+            },
+            spacing: {
+              md: "16px",
+              xl: "40px",
+              sm: "8px",
+              lg: "24px",
+              "margin-desktop": "32px",
+              "2xl": "64px",
+              xs: "4px",
+              gutter: "16px",
+              base: "4px",
+              "margin-mobile": "16px",
+            },
+            fontFamily: {
+              "body-lg": ["Plus Jakarta Sans"],
+              "body-md": ["Plus Jakarta Sans"],
+              "mono-sm": ["JetBrains Mono"],
+              "label-md": ["Plus Jakarta Sans"],
+              "headline-lg": ["Clash Display"],
+              "display-xl": ["Clash Display"],
+              "headline-md": ["Clash Display"],
+            },
+            fontSize: {
+              "body-lg": ["18px", { lineHeight: "1.6", fontWeight: "400" }],
+              "body-md": ["16px", { lineHeight: "1.6", fontWeight: "400" }],
+              "mono-sm": ["13px", { lineHeight: "1.5", fontWeight: "400" }],
+              "label-md": [
+                "14px",
+                {
+                  lineHeight: "1.4",
+                  letterSpacing: "0.02em",
+                  fontWeight: "600",
+                },
+              ],
+              "headline-lg": ["32px", { lineHeight: "1.2", fontWeight: "600" }],
+              "display-xl": ["48px", { lineHeight: "1.1", fontWeight: "700" }],
+              "headline-md": ["24px", { lineHeight: "1.3", fontWeight: "600" }],
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      .material-symbols-outlined {
+        font-variation-settings:
+          "FILL" 0,
+          "wght" 400,
+          "GRAD" 0,
+          "opsz" 24;
+      }
+      .material-symbols-outlined.fill {
+        font-variation-settings:
+          "FILL" 1,
+          "wght" 400,
+          "GRAD" 0,
+          "opsz" 24;
+      }
+      /* Custom scrollbar for webkit */
+      ::-webkit-scrollbar {
+        width: 4px;
+      }
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #2a3354;
+        border-radius: 4px;
+      }
+    </style>
+    <style>
+      body {
+        min-height: max(884px, 100dvh);
+      }
+    </style>
+  </head>
+  <body
+    class="bg-bg-deep text-text-primary min-h-screen flex flex-col justify-between font-body-md overflow-hidden"
+    style="max-width: 390px; margin: 0 auto; position: relative"
+  >
+    <!-- Top Navigation / Progress -->
+    <header
+      class="px-margin-mobile pt-10 pb-sm z-10 bg-bg-deep/90 backdrop-blur-md sticky top-0"
+    >
+      <div class="flex justify-between items-center mb-md">
+        <button
+          class="w-10 h-10 flex items-center justify-center rounded-full bg-bg-surface border border-bg-border text-text-secondary hover:text-text-primary transition-colors"
+        >
+          <span class="material-symbols-outlined">arrow_back</span>
+        </button>
+        <span class="font-mono-sm text-mono-sm text-text-muted"
+          >Step 3 of 3</span
+        >
+        <button
+          class="w-10 h-10 flex items-center justify-center text-text-secondary hover:text-text-primary transition-colors"
+        >
+          <span class="font-label-md text-label-md">Skip</span>
+        </button>
+      </div>
+      <!-- Progress Bar -->
+      <div
+        class="w-full h-1 bg-bg-surface rounded-full overflow-hidden flex gap-1"
+      >
+        <div
+          class="h-full bg-primary-500 w-1/3 rounded-full shadow-[0_0_8px_rgba(45,82,232,0.6)]"
+        ></div>
+        <div
+          class="h-full bg-primary-500 w-1/3 rounded-full shadow-[0_0_8px_rgba(45,82,232,0.6)]"
+        ></div>
+        <div class="h-full bg-primary-500/30 w-1/3 rounded-full relative">
+          <div
+            class="absolute inset-0 bg-primary-500 w-1/2 rounded-full shadow-[0_0_8px_rgba(45,82,232,0.6)]"
+          ></div>
+        </div>
+      </div>
+    </header>
+    <!-- Main Content Canvas -->
+    <main
+      class="flex-1 overflow-y-auto px-margin-mobile pb-2xl relative z-0 hide-scrollbar"
+    >
+      <div class="mt-lg mb-xl">
+        <h1 class="font-headline-lg text-headline-lg text-text-primary mb-sm">
+          Which subjects are you focused on?
+        </h1>
+        <p class="font-body-md text-body-md text-text-secondary">
+          Select your core subjects to personalize your learning quests and
+          daily challenges.
+        </p>
+      </div>
+      <!-- Subject Selection Grid -->
+      <div class="grid grid-cols-2 gap-sm mb-lg">
+        <!-- Mathematics (Selected) -->
+        <button
+          class="flex flex-col items-start p-md rounded-xl bg-primary-600 border border-primary-500 text-left transition-all shadow-[0_4px_16px_rgba(30,63,204,0.3)] relative overflow-hidden group"
+        >
+          <div
+            class="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-50"
+          ></div>
+          <div
+            class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center mb-md relative z-10"
+          >
+            <span class="material-symbols-outlined text-white">calculate</span>
+          </div>
+          <span class="font-label-md text-label-md text-white relative z-10"
+            >Mathematics</span
+          >
+          <div
+            class="absolute top-md right-md w-5 h-5 rounded-full bg-white flex items-center justify-center"
+          >
+            <span
+              class="material-symbols-outlined text-primary-600"
+              style="font-size: 14px; font-weight: 700"
+              >check</span
+            >
+          </div>
+        </button>
+        <!-- Physics (Selected) -->
+        <button
+          class="flex flex-col items-start p-md rounded-xl bg-primary-600 border border-primary-500 text-left transition-all shadow-[0_4px_16px_rgba(30,63,204,0.3)] relative overflow-hidden group"
+        >
+          <div
+            class="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-50"
+          ></div>
+          <div
+            class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center mb-md relative z-10"
+          >
+            <span class="material-symbols-outlined text-white">science</span>
+          </div>
+          <span class="font-label-md text-label-md text-white relative z-10"
+            >Physics</span
+          >
+          <div
+            class="absolute top-md right-md w-5 h-5 rounded-full bg-white flex items-center justify-center"
+          >
+            <span
+              class="material-symbols-outlined text-primary-600"
+              style="font-size: 14px; font-weight: 700"
+              >check</span
+            >
+          </div>
+        </button>
+        <!-- Chemistry (Unselected) -->
+        <button
+          class="flex flex-col items-start p-md rounded-xl bg-bg-surface border border-bg-border text-left transition-all hover:bg-bg-raised hover:border-primary-500/50 group"
+        >
+          <div
+            class="w-8 h-8 rounded-full bg-bg-deep flex items-center justify-center mb-md group-hover:bg-primary-500/10 transition-colors"
+          >
+            <span
+              class="material-symbols-outlined text-text-secondary group-hover:text-primary-400"
+              >experiment</span
+            >
+          </div>
+          <span
+            class="font-label-md text-label-md text-text-secondary group-hover:text-text-primary transition-colors"
+            >Chemistry</span
+          >
+        </button>
+        <!-- Biology (Unselected) -->
+        <button
+          class="flex flex-col items-start p-md rounded-xl bg-bg-surface border border-bg-border text-left transition-all hover:bg-bg-raised hover:border-primary-500/50 group"
+        >
+          <div
+            class="w-8 h-8 rounded-full bg-bg-deep flex items-center justify-center mb-md group-hover:bg-primary-500/10 transition-colors"
+          >
+            <span
+              class="material-symbols-outlined text-text-secondary group-hover:text-primary-400"
+              >biotech</span
+            >
+          </div>
+          <span
+            class="font-label-md text-label-md text-text-secondary group-hover:text-text-primary transition-colors"
+            >Biology</span
+          >
+        </button>
+        <!-- Computer Science (Unselected) -->
+        <button
+          class="flex flex-col items-start p-md rounded-xl bg-bg-surface border border-bg-border text-left transition-all hover:bg-bg-raised hover:border-primary-500/50 group"
+        >
+          <div
+            class="w-8 h-8 rounded-full bg-bg-deep flex items-center justify-center mb-md group-hover:bg-primary-500/10 transition-colors"
+          >
+            <span
+              class="material-symbols-outlined text-text-secondary group-hover:text-primary-400"
+              >computer</span
+            >
+          </div>
+          <span
+            class="font-label-md text-label-md text-text-secondary group-hover:text-text-primary transition-colors"
+            >Computer Science</span
+          >
+        </button>
+        <!-- Economics (Unselected) -->
+        <button
+          class="flex flex-col items-start p-md rounded-xl bg-bg-surface border border-bg-border text-left transition-all hover:bg-bg-raised hover:border-primary-500/50 group"
+        >
+          <div
+            class="w-8 h-8 rounded-full bg-bg-deep flex items-center justify-center mb-md group-hover:bg-primary-500/10 transition-colors"
+          >
+            <span
+              class="material-symbols-outlined text-text-secondary group-hover:text-primary-400"
+              >trending_up</span
+            >
+          </div>
+          <span
+            class="font-label-md text-label-md text-text-secondary group-hover:text-text-primary transition-colors"
+            >Economics</span
+          >
+        </button>
+        <!-- Geography (Unselected) -->
+        <button
+          class="flex flex-col items-start p-md rounded-xl bg-bg-surface border border-bg-border text-left transition-all hover:bg-bg-raised hover:border-primary-500/50 group"
+        >
+          <div
+            class="w-8 h-8 rounded-full bg-bg-deep flex items-center justify-center mb-md group-hover:bg-primary-500/10 transition-colors"
+          >
+            <span
+              class="material-symbols-outlined text-text-secondary group-hover:text-primary-400"
+              >public</span
+            >
+          </div>
+          <span
+            class="font-label-md text-label-md text-text-secondary group-hover:text-text-primary transition-colors"
+            >Geography</span
+          >
+        </button>
+        <!-- History (Unselected) -->
+        <button
+          class="flex flex-col items-start p-md rounded-xl bg-bg-surface border border-bg-border text-left transition-all hover:bg-bg-raised hover:border-primary-500/50 group"
+        >
+          <div
+            class="w-8 h-8 rounded-full bg-bg-deep flex items-center justify-center mb-md group-hover:bg-primary-500/10 transition-colors"
+          >
+            <span
+              class="material-symbols-outlined text-text-secondary group-hover:text-primary-400"
+              >history_edu</span
+            >
+          </div>
+          <span
+            class="font-label-md text-label-md text-text-secondary group-hover:text-text-primary transition-colors"
+            >History</span
+          >
+        </button>
+      </div>
+    </main>
+    <!-- Bottom Actions -->
+    <div
+      class="px-margin-mobile pb-margin-mobile pt-sm bg-bg-deep/90 backdrop-blur-md sticky bottom-0 z-20 border-t border-bg-border/50"
+    >
+      <button
+        class="w-full py-md rounded-lg bg-primary-600 hover:bg-primary-500 text-white font-label-md text-label-md flex items-center justify-center gap-sm transition-all shadow-[0_4px_16px_rgba(30,63,204,0.4)] relative overflow-hidden group"
+      >
+        <div
+          class="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]"
+        ></div>
+        Complete Setup
+        <span class="material-symbols-outlined">arrow_forward</span>
+      </button>
+    </div>
+  </body>
+</html>

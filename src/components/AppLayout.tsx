@@ -24,7 +24,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-screen bg-deep flex">
       {/* Desktop Sidebar - Collapsible, 50% narrower */}
-      <aside className={`hidden lg:flex ${isCollapsed ? 'w-16' : 'w-36'} flex-col bg-deep border-r border-border fixed h-full z-40 transition-all duration-300`}>
+      <aside className={`hidden lg:flex ${isCollapsed ? 'w-16' : 'w-36'} flex-col bg-deepest border-r border-border fixed h-full z-40 transition-all duration-300`}>
         {/* Logo & Collapse Toggle */}
         <div className="p-2 border-b border-border flex items-center justify-between">
           {!isCollapsed && (
@@ -69,7 +69,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                 title={isCollapsed ? item.label : undefined}
               >
                 <Icon name={item.icon} className="w-4 h-4 shrink-0" />
-                {!isCollapsed && <span className="text-xs font-heading font-medium">{item.label}</span>}
+                {!isCollapsed && <span className="text-xs font-mono font-medium uppercase tracking-wider">{item.label}</span>}
               </Link>
             )
           })}
@@ -80,15 +80,15 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
           {user ? (
             <div className="space-y-2">
               <div className={`flex items-center ${isCollapsed ? 'justify-center' : 'gap-2'}`}>
-                <div className="w-7 h-7 bg-gradient-to-br from-coral/30 to-coral/10 rounded-full flex items-center justify-center border border-coral/30">
+                <div className="w-7 h-7 bg-gradient-to-br from-coral/30 to-coral/10 flex items-center justify-center border border-coral/30 geo-chamfer-sm">
                   <Icon name="user" className="w-3.5 h-3.5 text-coral" />
                 </div>
                 {!isCollapsed && (
                   <div className="flex-1 min-w-0">
-                    <p className="text-xs font-heading font-medium text-text-primary truncate">
+                    <p className="text-xs font-mono font-medium text-text-primary truncate">
                       {user.email?.split('@')[0]}
                     </p>
-                    <p className="text-xs text-text-secondary font-body">Student</p>
+                    <p className="text-xs text-text-secondary font-mono uppercase tracking-wider">Student</p>
                   </div>
                 )}
               </div>
@@ -130,7 +130,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
             <button className="p-1.5 text-text-secondary hover:text-gold transition-colors">
               <Icon name="bell" className="w-4 h-4" />
             </button>
-            <div className="w-7 h-7 bg-gradient-to-br from-coral/30 to-coral/10 rounded-full flex items-center justify-center border border-coral/30">
+            <div className="w-7 h-7 bg-gradient-to-br from-coral/30 to-coral/10 geo-chamfer-sm flex items-center justify-center border border-coral/30">
               <Icon name="user" className="w-3.5 h-3.5 text-coral" />
             </div>
           </div>
@@ -165,7 +165,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                 }`}
               >
                 <Icon name={item.icon} className="w-4 h-4" />
-                <span className="text-xs font-heading font-medium">{item.label}</span>
+                <span className="text-xs font-mono font-medium uppercase tracking-wider">{item.label}</span>
               </Link>
             )
           })}

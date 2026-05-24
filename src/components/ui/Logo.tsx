@@ -25,7 +25,7 @@ export function Logo({ size = 'md', showText = true, className = '' }: LogoProps
         className={`${s.img} w-auto object-contain`}
       />
       {showText && (
-        <span className={`${s.text} font-bold text-white font-display tracking-wide`}>
+        <span className={`${s.text} font-bold text-white font-display tracking-wider uppercase`}>
           EduQuest
         </span>
       )}

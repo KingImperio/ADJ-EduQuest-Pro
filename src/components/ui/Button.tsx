@@ -1,7 +1,7 @@
 import { forwardRef, type ButtonHTMLAttributes, type ReactNode } from 'react'
 import { motion, type HTMLMotionProps } from 'framer-motion'
 
-type Variant = 'primary' | 'secondary' | 'ghost' | 'danger' | 'gold'
+type Variant = 'primary' | 'secondary' | 'ghost' | 'danger' | 'gold' | 'neon'
 type Size = 'sm' | 'md' | 'lg'
 
 interface ButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'children'> {
@@ -14,32 +14,34 @@ interface ButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'chi
 
 const variantStyles: Record<Variant, string> = {
   primary:
-    'bg-gradient-to-r from-primary-600 to-primary-700 text-white shadow-glow hover:shadow-lg hover:brightness-110',
+    'bg-gradient-to-r from-primary-600 to-primary-700 text-white border border-primary-400/30 hover:shadow-sharp-primary',
   secondary:
     'bg-surface border-2 border-border text-text-primary hover:border-primary hover:text-white',
   ghost:
-    'bg-transparent text-text-secondary hover:text-white hover:bg-raised',
+    'bg-transparent text-text-secondary hover:text-white hover:bg-raised border border-transparent hover:border-border',
   danger:
-    'bg-gradient-to-r from-coral-500 to-coral-600 text-white hover:brightness-110',
+    'bg-gradient-to-r from-coral-500 to-coral-600 text-white border border-coral-400/30 hover:shadow-sharp-coral',
   gold:
-    'bg-gradient-to-r from-gold-500 to-gold-600 text-gray-900 font-bold hover:brightness-110 shadow-gold-glow',
+    'bg-gradient-to-r from-gold-500 to-gold-600 text-gray-900 font-bold border border-gold-400/30 hover:shadow-sharp-gold',
+  neon:
+    'bg-transparent border-2 border-neon-green text-neon-green hover:bg-neon-green/10 hover:shadow-neon-glow',
 }
 
 const sizeStyles: Record<Size, string> = {
-  sm: 'py-2 px-4 text-sm gap-1.5',
-  md: 'py-3 px-6 text-sm gap-2',
-  lg: 'py-3.5 px-8 text-base gap-2.5',
+  sm: 'py-1.5 px-3 text-xs gap-1.5',
+  md: 'py-2.5 px-5 text-sm gap-2',
+  lg: 'py-3 px-7 text-base gap-2.5',
 }
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ({ variant = 'primary', size = 'md', isLoading, icon, children, className = '', disabled, ...props }, ref) => {
     const base =
-      'inline-flex items-center justify-center font-semibold rounded-lg transition-all duration-200 font-display tracking-wide disabled:opacity-50 disabled:cursor-not-allowed'
+      'inline-flex items-center justify-center font-semibold geo-chamfer-sm transition-all duration-200 font-display tracking-wider uppercase disabled:opacity-50 disabled:cursor-not-allowed'
 
     return (
       <motion.button
         ref={ref}
-        whileHover={!disabled && !isLoading ? { scale: 1.02 } : {}}
+        whileHover={!disabled && !isLoading ? { scale: 1.02, x: -1, y: -1 } : {}}
         whileTap={!disabled && !isLoading ? { scale: 0.98 } : {}}
         className={`${base} ${variantStyles[variant]} ${sizeStyles[size]} ${className}`}
         disabled={disabled || isLoading}

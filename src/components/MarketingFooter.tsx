@@ -69,7 +69,7 @@ const MarketingFooter = memo(function MarketingFooter() {
 
         {/* Bottom Bar */}
         <div className="border-t border-border pt-6 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-text-muted text-xs md:text-sm text-center md:text-left">© 2026 ADJ EduQuest · Made in Nigeria 🇳🇬</p>
+          <p className="text-text-muted text-xs md:text-sm text-center md:text-left font-mono">© 2026 ADJ EduQuest · Built in Nigeria</p>
           <div className="flex items-center gap-4">
             <span className="text-text-muted text-xs">Built for African students</span>
           </div>

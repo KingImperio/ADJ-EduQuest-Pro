@@ -12,13 +12,13 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     return (
       <div>
         {label && (
-          <label className="block text-sm font-medium text-text-secondary mb-2 font-body">
+          <label className="block text-xs font-medium text-text-secondary mb-1.5 font-mono uppercase tracking-wider">
             {label}
           </label>
         )}
         <div className="relative">
           {icon && (
-            <div className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-text-muted flex items-center justify-center pointer-events-none">
+            <div className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-text-muted flex items-center justify-center pointer-events-none">
               {icon}
             </div>
           )}
@@ -26,19 +26,19 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             ref={ref}
             className={`w-full bg-deepest border-2 ${
               error ? 'border-error' : 'border-border'
-            } rounded-lg py-3 text-text-primary placeholder:text-text-muted focus:outline-none focus:border-primary transition-colors ${
-              icon ? 'pl-12' : 'pl-4'
-            } ${rightIcon ? 'pr-12' : 'pr-4'} ${className}`}
+            } geo-chamfer-sm py-2.5 text-text-primary placeholder:text-text-muted focus:outline-none focus:border-primary transition-colors font-body ${
+              icon ? 'pl-10' : 'pl-3'
+            } ${rightIcon ? 'pr-10' : 'pr-3'} ${className}`}
             {...props}
           />
           {rightIcon && (
-            <div className="absolute right-4 top-1/2 -translate-y-1/2">
+            <div className="absolute right-3 top-1/2 -translate-y-1/2">
               {rightIcon}
             </div>
           )}
         </div>
         {error && (
-          <p className="text-error text-sm mt-1.5 font-body">{error}</p>
+          <p className="text-error text-xs mt-1 font-mono">&gt; {error}</p>
         )}
       </div>
     )

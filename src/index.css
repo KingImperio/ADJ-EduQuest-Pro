@@ -10,6 +10,8 @@
   --primary: #1e3fcc;
   --gold: #f59e0b;
   --coral: #f4622a;
+  --neon-green: #00ff88;
+  --neon-cyan: #00ffe5;
   --bg-deep: #0f1117;
   --bg-surface: #141827;
   --bg-raised: #1a2038;
@@ -34,194 +36,165 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Font utility classes — handled by Tailwind config */
-
 html {
   scroll-behavior: smooth;
 }
 
-/* Custom Styled Scrollbar - Slim, Thin, with Animated Color Transitions */
+/* ===== GEOMETRIC UTILITY CLASSES ===== */
+
+/* Chamfered containers */
+.geo-chamfer {
+  clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+}
+.geo-chamfer-sm {
+  clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
+}
+.geo-chamfer-lg {
+  clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 20px 100%, 0 calc(100% - 20px));
+}
+
+/* Hexagonal badge */
+.geo-hex {
+  clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+}
+
+/* Angular tab */
+.geo-tab {
+  clip-path: polygon(8% 0, 92% 0, 100% 100%, 0 100%);
+}
+
+/* Arrow shape */
+.geo-arrow {
+  clip-path: polygon(0 0, 90% 0, 100% 50%, 90% 100%, 0 100%, 10% 50%);
+}
+
+/* Diagonal section divider */
+.geo-divider-top {
+  clip-path: polygon(0 40px, 100% 0, 100% 100%, 0 100%);
+}
+.geo-divider-bottom {
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 40px), 0 100%);
+}
+
+/* Geometric background patterns */
+.geo-grid-dots {
+  background-image: radial-gradient(circle, rgba(79,111,239,0.08) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+.geo-grid-lines {
+  background-image:
+    linear-gradient(rgba(79,111,239,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(79,111,239,0.04) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+.geo-scanlines {
+  background-image: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.03) 2px, rgba(0,0,0,0.03) 4px);
+}
+.geo-diagonal {
+  background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(79,111,239,0.03) 10px, rgba(79,111,239,0.03) 11px);
+}
+
+/* Sharp shadow on hover */
+.geo-shadow-hover {
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+.geo-shadow-hover:hover {
+  box-shadow: 4px 4px 0px rgba(30,63,204,0.5);
+  transform: translate(-2px, -2px);
+}
+
+/* Geometric border accent — diagonal line in top-left */
+.geo-accent::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, var(--primary) 50%, transparent 50%);
+  opacity: 0.3;
+}
+
+/* Terminal-style prefix */
+.geo-terminal::before {
+  content: '>_';
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--neon-green);
+  margin-right: 8px;
+  opacity: 0.7;
+}
+
+/* ===== SCROLLBAR ===== */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
-
 ::-webkit-scrollbar-track {
   background: var(--bg-raised);
-  border-radius: 3px;
 }
-
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(
-    180deg,
-    var(--primary),
-    var(--gold),
-    var(--coral),
-    var(--primary)
-  );
+  background: linear-gradient(180deg, var(--primary), var(--gold), var(--coral), var(--primary));
   background-size: 100% 300%;
-  border-radius: 3px;
   animation: scrollbarColorShift 4s ease infinite;
 }
-
 ::-webkit-scrollbar-thumb:hover {
   animation-duration: 2s;
 }
 
 @keyframes scrollbarColorShift {
-  0%,
-  100% {
-    background-position: 0% 0%;
-  }
-  50% {
-    background-position: 0% 100%;
-  }
+  0%, 100% { background-position: 0% 0%; }
+  50% { background-position: 0% 100%; }
 }
 
-/* Firefox scrollbar */
 * {
   scrollbar-width: thin;
   scrollbar-color: var(--primary) var(--bg-raised);
 }
 
-/* Animated Grid Background */
-@keyframes gridSweep1 {
-  0%,
-  100% {
-    opacity: 0.3;
-    transform: translate(0, 0);
-  }
-  25% {
-    opacity: 0.8;
-    transform: translate(20px, 10px);
-  }
-  50% {
-    opacity: 0.4;
-    transform: translate(-10px, 20px);
-  }
-  75% {
-    opacity: 0.7;
-    transform: translate(15px, -15px);
-  }
+/* ===== ANIMATIONS ===== */
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 12px rgba(45,82,232,0.3); }
+  50% { box-shadow: 0 0 24px rgba(45,82,232,0.6); }
 }
 
-@keyframes gridSweep2 {
-  0%,
-  100% {
-    opacity: 0.4;
-    transform: translate(0, 0);
-  }
-  33% {
-    opacity: 0.9;
-    transform: translate(-25px, 15px);
-  }
-  66% {
-    opacity: 0.3;
-    transform: translate(20px, -25px);
-  }
+@keyframes scan {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100%); }
 }
 
-@keyframes waveFade {
-  0%,
-  100% {
-    opacity: 0.2;
-    transform: scale(1) translateY(0);
-  }
-  50% {
-    opacity: 0.5;
-    transform: scale(1.1) translateY(-30px);
-  }
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
 }
 
-/* Hover border color transition using CSS variable */
-.hover-border-transition {
-  transition: border-color 0.2s ease;
-}
-
-.hover-border-transition:hover {
-  border-color: var(--hover-border) !important;
-}
-
-/* Respect user preference for reduced motion */
-@media (prefers-reduced-motion: reduce) {
-  .animate-pulse {
-    animation: none;
-  }
-  
-  .animate-spin {
-    animation: none;
-  }
-  
-  .animate-gradient {
-    animation: none;
-    background-size: auto;
-  }
-  
-  .flux-background {
-    animation: none;
-    background: linear-gradient(-45deg, #0f1117, #1a2038, #1e3fcc, #141827);
-    background-size: 400% 400%;
-  }
-  
-  @keyframes gridSweep1 {
-    0%, 100% { opacity: 0.3; transform: translate(0, 0); }
-  }
-  
-  @keyframes gridSweep2 {
-    0%, 100% { opacity: 0.4; transform: translate(0, 0); }
-  }
-  
-  @keyframes waveFade {
-    0%, 100% { opacity: 0.2; transform: scale(1) translateY(0); }
-  }
-  
-  @keyframes circularOrbit {
-    from, to { transform: rotate(0deg) translateX(0) rotate(0deg); }
-  }
-}
-
-/* Flux Background Animation */
 @keyframes fluxMove {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
-.flux-background {
-  background: linear-gradient(-45deg, #0f1117, #1a2038, #1e3fcc, #141827);
-  background-size: 400% 400%;
-  animation: fluxMove 8s ease infinite;
-  will-change: background-position;
-}
-
-/* Circular orbit animation */
-@keyframes circularOrbit {
-  from {
-    transform: rotate(0deg) translateX(50px) rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg) translateX(50px) rotate(-360deg);
-  }
-}
-
-/* Gradient text animation */
 @keyframes gradientText {
-  0%,
-  100% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
 }
 
 .animate-gradient {
   background-size: 200% auto;
   animation: gradientText 3s ease infinite;
+}
+
+/* Hover border color transition */
+.hover-border-transition {
+  transition: border-color 0.2s ease;
+}
+.hover-border-transition:hover {
+  border-color: var(--hover-border) !important;
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .animate-pulse, .animate-spin, .animate-gradient {
+    animation: none;
+  }
 }

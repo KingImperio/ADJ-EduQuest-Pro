@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react'
 
-type Variant = 'default' | 'primary' | 'gold' | 'coral' | 'neon' | 'success'
+type Variant = 'default' | 'primary' | 'gold' | 'coral' | 'neon' | 'success' | 'glass'
 type Shape = 'chamfer' | 'hex' | 'pill'
 
 interface BadgeProps {
@@ -17,6 +17,7 @@ const variantStyles: Record<Variant, string> = {
   coral: 'bg-coral/20 border border-coral/40 text-coral',
   neon: 'bg-neon-green/10 border border-neon-green/30 text-neon-green',
   success: 'bg-success/20 border border-success/40 text-success',
+  glass: 'glass-light border border-white/10 text-text-secondary',
 }
 
 const shapeStyles: Record<Shape, string> = {

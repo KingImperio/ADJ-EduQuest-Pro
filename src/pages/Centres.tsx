@@ -171,7 +171,7 @@ export default function Centres() {
   if (isSubmitted) {
     return (
       <div className="min-h-screen flex items-center justify-center p-4 bg-deep">
-        <div className="w-full max-w-md bg-surface rounded-xl shadow-ambient border border-border p-8 text-center">
+        <div className="w-full max-w-md bg-surface geo-chamfer-lg shadow-ambient border border-border p-8 text-center">
           <div className="w-16 h-16 bg-success/20 rounded-full flex items-center justify-center mx-auto mb-6">
             <Icon name="checkCircle" className="w-8 h-8 text-success" />
           </div>
@@ -181,7 +181,7 @@ export default function Centres() {
           </p>
           <Link
             to="/"
-            className="block w-full py-3 bg-primary hover:bg-primary-600 text-white rounded-lg transition-colors font-medium"
+            className="block w-full py-3 bg-primary hover:bg-primary-600 text-white geo-chamfer-sm transition-colors font-medium"
           >
             Back to Home
           </Link>
@@ -230,19 +230,19 @@ export default function Centres() {
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link 
                   to="/onboarding/role" 
-                  className="px-8 py-3 bg-gradient-to-r from-primary to-gold hover:from-primary-hover hover:to-gold text-white rounded-lg font-heading font-medium transition-all duration-300 text-center shadow-gold hover:shadow-lg"
+                  className="px-8 py-3 bg-gradient-to-r from-primary to-gold hover:from-primary-hover hover:to-gold text-white geo-chamfer-sm font-heading font-medium transition-all duration-300 text-center shadow-gold hover:shadow-lg"
                 >
                   Start Free Trial
                 </Link>
                 <Link 
                   to="/pricing" 
-                  className="px-8 py-3 bg-gradient-to-r from-coral/20 to-purple/20 border border-coral/50 hover:border-coral text-coral rounded-lg font-heading font-medium transition-all duration-300 text-center"
+                  className="px-8 py-3 bg-gradient-to-r from-coral/20 to-purple/20 border border-coral/50 hover:border-coral text-coral geo-chamfer-sm font-heading font-medium transition-all duration-300 text-center"
                 >
                   View Pricing
                 </Link>
               </div>
             </div>
-            <div className="bg-gradient-to-br from-surface via-surface to-primary/5 border border-border rounded-xl p-8 shadow-ambient">
+            <div className="bg-gradient-to-br from-surface via-surface to-primary/5 border border-border geo-chamfer-lg p-8 shadow-ambient">
               <div className="grid grid-cols-2 gap-6">
                 <div className="text-center">
                   <div className="text-3xl font-bold font-heading bg-gradient-to-br from-primary to-gold bg-clip-text text-transparent mb-2">500+</div>
@@ -274,7 +274,7 @@ export default function Centres() {
           transition={{ duration: 0.5 }}
           className="max-w-4xl mx-auto text-center"
         >
-          <div className="bg-gradient-to-r from-coral/20 via-gold-500/10 to-primary/20 rounded-2xl p-8 md:p-12 relative overflow-hidden">
+          <div className="bg-gradient-to-r from-coral/20 via-gold-500/10 to-primary/20 geo-chamfer-lg p-8 md:p-12 relative overflow-hidden">
             <div className="absolute top-0 right-0 w-32 h-32 bg-gold/20 rounded-full blur-[60px]" />
             <div className="absolute bottom-0 left-0 w-32 h-32 bg-coral/20 rounded-full blur-[60px]" />
 
@@ -287,7 +287,7 @@ export default function Centres() {
               </p>
               <Link
                 to="/onboarding/role"
-                className="group inline-flex items-center gap-2 px-8 py-3 bg-gradient-to-r from-coral via-gold to-primary hover:from-coral-hover hover:via-gold/90 hover:to-primary/90 text-white rounded-lg font-heading font-medium transition-all duration-300 shadow-coral hover:shadow-lg"
+                className="group inline-flex items-center gap-2 px-8 py-3 bg-gradient-to-r from-coral via-gold to-primary hover:from-coral-hover hover:via-gold/90 hover:to-primary/90 text-white geo-chamfer-sm font-heading font-medium transition-all duration-300 shadow-coral hover:shadow-lg"
               >
                 Get Started Today
                 <Icon name="arrowRight" className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
@@ -321,11 +321,11 @@ export default function Centres() {
               ]
               const colors = colorSets[index % colorSets.length]
               return (
-                <div 
-                  key={index} 
-                  className={`bg-surface border ${colors.border} rounded-xl p-6 hover:-translate-y-1 hover:shadow-lg transition-all duration-300`}
+                <div
+                  key={index}
+                  className={`glass-light geo-chamfer-sm p-6 hover-lift hover:shadow-lg transition-all duration-300`}
                 >
-                  <div className={`w-12 h-12 ${colors.iconBg} rounded-lg flex items-center justify-center mb-4`}>
+                  <div className={`w-12 h-12 ${colors.iconBg} geo-chamfer-sm flex items-center justify-center mb-4`}>
                     <Icon name={benefit.icon} className={`w-6 h-6 ${colors.text}`} />
                   </div>
                   <h3 className={`text-lg font-semibold ${colors.text} mb-2 font-heading`}>{benefit.title}</h3>
@@ -358,9 +358,9 @@ export default function Centres() {
               ]
               const accent = accentColors[index % accentColors.length]
               return (
-                <div 
-                  key={index} 
-                  className="bg-surface border border-border rounded-xl p-6 hover:-translate-y-1 hover:shadow-lg transition-all duration-300"
+                <div
+                  key={index}
+                  className="glass-light geo-chamfer-sm p-6 hover-lift hover:shadow-lg transition-all duration-300"
                 >
                   <div className="flex items-start gap-4 mb-4">
                     <div className={`w-12 h-12 ${accent.bg} rounded-full flex items-center justify-center bg-gradient-to-br ${accent.gradient} bg-opacity-20`}>
@@ -373,7 +373,7 @@ export default function Centres() {
                     </div>
                   </div>
                   <p className="text-text-secondary text-sm mb-4 font-body">{testimonial.content}</p>
-                  <div className={`text-xs ${accent.text} font-medium ${accent.metricBg} px-2 py-1 rounded-lg inline-block font-heading`}>{testimonial.metrics}</div>
+                  <div className={`text-xs ${accent.text} font-medium ${accent.metricBg} px-2 py-1 geo-chamfer-sm inline-block font-heading`}>{testimonial.metrics}</div>
                 </div>
               )
             })}
@@ -385,7 +385,7 @@ export default function Centres() {
       <section className="px-6 py-16 relative z-10">
         <div className="absolute inset-0 bg-surface/90 backdrop-blur-sm" />
         <div className="max-w-4xl mx-auto relative z-10">
-          <div className="bg-surface border border-border rounded-xl p-8 md:p-12 shadow-2xl">
+          <div className="glass geo-chamfer-sm p-8 md:p-12 shadow-2xl">
             <h2 className="text-3xl font-bold text-text-primary text-center mb-4 font-heading">
               Ready to Transform Your Centre?
             </h2>
@@ -395,7 +395,7 @@ export default function Centres() {
 
             {/* Success Message */}
             {successMessage && (
-              <div className="mb-6 p-4 bg-success/20 border border-success/50 rounded-lg">
+              <div className="mb-6 p-4 bg-success/20 border border-success/50 geo-chamfer-sm">
                 <p className="text-success flex items-center gap-2">
                   <Icon name="checkCircle" className="w-5 h-5" />
                   {successMessage}
@@ -405,7 +405,7 @@ export default function Centres() {
 
             {/* Error Message */}
             {error && (
-              <div className="mb-6 p-4 bg-error/20 border border-error/50 rounded-lg">
+              <div className="mb-6 p-4 bg-error/20 border border-error/50 geo-chamfer-sm">
                 <p className="text-error flex items-center gap-2">
                   <Icon name="x" className="w-5 h-5" />
                   {error}
@@ -424,7 +424,7 @@ export default function Centres() {
                     name="centreName"
                     value={formData.centreName}
                     onChange={handleInputChange}
-                    className="w-full bg-deepest border border-border rounded-lg px-4 py-3 text-text-primary placeholder:text-muted focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary focus:bg-primary/5 transition-all"
+                    className="w-full bg-deepest border border-border geo-chamfer-sm px-4 py-3 text-text-primary placeholder:text-muted focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary focus:bg-primary/5 transition-all"
                     placeholder="Excel Tutorials"
                     required
                   />
@@ -438,7 +438,7 @@ export default function Centres() {
                     name="email"
                     value={formData.email}
                     onChange={handleInputChange}
-                    className="w-full bg-deepest border border-border rounded-lg px-4 py-3 text-text-primary placeholder:text-muted focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary focus:bg-primary/5 transition-all"
+                    className="w-full bg-deepest border border-border geo-chamfer-sm px-4 py-3 text-text-primary placeholder:text-muted focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary focus:bg-primary/5 transition-all"
                     placeholder="contact@excel.eduquest.adj"
                     required
                   />
@@ -455,7 +455,7 @@ export default function Centres() {
                     name="phone"
                     value={formData.phone}
                     onChange={handleInputChange}
-                    className="w-full bg-deepest border border-border rounded-lg px-4 py-3 text-text-primary placeholder:text-muted focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary focus:bg-primary/5 transition-all"
+                    className="w-full bg-deepest border border-border geo-chamfer-sm px-4 py-3 text-text-primary placeholder:text-muted focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary focus:bg-primary/5 transition-all"
                     placeholder="+234 800 000 0000"
                     required
                   />
@@ -469,7 +469,7 @@ export default function Centres() {
                     name="location"
                     value={formData.location}
                     onChange={handleInputChange}
-                    className="w-full bg-deepest border border-border rounded-lg px-4 py-3 text-text-primary placeholder:text-muted focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary focus:bg-primary/5 transition-all"
+                    className="w-full bg-deepest border border-border geo-chamfer-sm px-4 py-3 text-text-primary placeholder:text-muted focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary focus:bg-primary/5 transition-all"
                     placeholder="Lagos, Nigeria"
                     required
                   />
@@ -484,7 +484,7 @@ export default function Centres() {
                   name="studentCount"
                   value={formData.studentCount}
                   onChange={handleSelectChange}
-                  className="w-full bg-deepest border border-border rounded-lg px-4 py-3 text-text-primary focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary focus:bg-primary/5 transition-all"
+                  className="w-full bg-deepest border border-border geo-chamfer-sm px-4 py-3 text-text-primary focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary focus:bg-primary/5 transition-all"
                   required
                 >
                   <option value="">Select range</option>
@@ -504,7 +504,7 @@ export default function Centres() {
                   value={formData.message}
                   onChange={handleInputChange}
                   rows={4}
-                  className="w-full bg-deepest border border-border rounded-lg px-4 py-3 text-text-primary placeholder:text-muted focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary focus:bg-primary/5 transition-all resize-none"
+                  className="w-full bg-deepest border border-border geo-chamfer-sm px-4 py-3 text-text-primary placeholder:text-muted focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary focus:bg-primary/5 transition-all resize-none"
                   placeholder="Tell us about your centre's needs..."
                 />
               </div>
@@ -512,7 +512,7 @@ export default function Centres() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full py-3 bg-gradient-to-r from-primary via-gold to-coral hover:from-primary-hover hover:via-gold/90 hover:to-coral/90 text-white rounded-lg font-heading font-medium transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-lg hover:shadow-xl"
+                className="w-full py-3 bg-gradient-to-r from-primary via-gold to-coral hover:from-primary-hover hover:via-gold/90 hover:to-coral/90 text-white geo-chamfer-sm font-heading font-medium transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-lg hover:shadow-xl"
               >
                 {isSubmitting ? (
                   <>

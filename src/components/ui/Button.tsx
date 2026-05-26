@@ -1,7 +1,7 @@
 import { forwardRef, type ButtonHTMLAttributes, type ReactNode } from 'react'
 import { motion, type HTMLMotionProps } from 'framer-motion'
 
-type Variant = 'primary' | 'secondary' | 'ghost' | 'danger' | 'gold' | 'neon'
+type Variant = 'primary' | 'secondary' | 'ghost' | 'danger' | 'gold' | 'neon' | 'glass'
 type Size = 'sm' | 'md' | 'lg'
 
 interface ButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'children'> {
@@ -25,6 +25,8 @@ const variantStyles: Record<Variant, string> = {
     'bg-gradient-to-r from-gold-500 to-gold-600 text-gray-900 font-bold border border-gold-400/30 hover:shadow-sharp-gold',
   neon:
     'bg-transparent border-2 border-neon-green text-neon-green hover:bg-neon-green/10 hover:shadow-neon-glow',
+  glass:
+    'glass-light border border-white/10 text-text-primary hover:border-white/20 hover:bg-white/10',
 }
 
 const sizeStyles: Record<Size, string> = {

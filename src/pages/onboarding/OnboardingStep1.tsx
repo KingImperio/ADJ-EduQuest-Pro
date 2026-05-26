@@ -93,10 +93,10 @@ export default function OnboardingStep1() {
               transition={{ delay: index * 0.1 }}
               whileHover={{ scale: 1.02, x: 4 }}
               whileTap={{ scale: 0.98 }}
-              className={`w-full relative overflow-hidden rounded-lg p-5 text-left transition-all duration-300 ${
+              className={`w-full relative overflow-hidden geo-chamfer-sm p-5 text-left transition-all duration-300 ${
                 isSelected
-                  ? 'bg-gradient-to-r from-raised to-surface border-2 border-primary/50 shadow-card'
-                  : 'bg-surface/50 border-2 border-border hover:border-outline hover:bg-surface'
+                  ? 'glass-strong border-2 border-primary/50 shadow-card'
+                  : 'glass-light border-2 border-transparent hover:border-outline'
               }`}
             >
               {isSelected && (
@@ -107,7 +107,7 @@ export default function OnboardingStep1() {
               )}
 
               <div className="flex items-center gap-4">
-                <div className={`w-12 h-12 rounded-lg flex items-center justify-center transition-colors ${
+                <div className={`w-12 h-12 geo-chamfer-sm flex items-center justify-center transition-colors ${
                   isSelected ? `bg-gradient-to-br ${role.gradient} shadow-lg` : 'bg-raised'
                 }`}>
                   <Icon name={role.icon as any} className={`w-6 h-6 ${isSelected ? 'text-white' : 'text-text-muted'}`} />
@@ -145,7 +145,7 @@ export default function OnboardingStep1() {
       </div>
 
       <div className="flex items-center gap-4">
-        <button onClick={() => navigate('/')} className="px-6 py-3 rounded-lg text-text-muted hover:text-white transition-colors font-medium font-body">
+        <button onClick={() => navigate('/')} className="px-6 py-3 geo-chamfer-sm text-text-muted hover:text-white transition-colors font-medium font-body">
           Back
         </button>
         <Button onClick={handleContinue} disabled={!selectedRole} className="flex-1">

@@ -55,7 +55,7 @@ export default function ForgotPassword() {
             Reset instructions sent to:<br />
             <span className="text-white font-semibold">{email}</span>
           </p>
-          <div className="p-4 bg-surface rounded-lg border border-border">
+          <div className="p-4 glass-light geo-chamfer-sm">
             <p className="text-text-secondary text-sm font-body">
               Didn't receive it? Check your <span className="text-gold font-medium">spam folder</span> or try a different email.
             </p>

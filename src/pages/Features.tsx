@@ -180,14 +180,22 @@ export default function Features() {
             {categories.map((category, idx) => {
               const colors = ['primary', 'gold', 'coral', 'success']
               const color = colors[idx % colors.length]
+              const activeClass = color === 'primary' ? 'bg-primary text-white shadow-glow'
+                : color === 'gold' ? 'bg-gold text-deep shadow-gold-glow'
+                : color === 'coral' ? 'bg-coral text-white'
+                : 'bg-success text-white'
+              const inactiveClass = color === 'primary' ? 'hover:text-primary hover:border-primary'
+                : color === 'gold' ? 'hover:text-gold hover:border-gold'
+                : color === 'coral' ? 'hover:text-coral hover:border-coral'
+                : 'hover:text-success hover:border-success'
               return (
                 <button
                   key={category}
                   onClick={() => setSelectedCategory(category)}
                   className={`px-4 py-2 rounded-full text-sm font-medium transition-all hover:scale-105 ${
                     selectedCategory === category
-                      ? `bg-${color} text-white shadow-glow`
-                      : `bg-surface text-text-secondary hover:text-${color} hover:border-${color} border border-border`
+                      ? activeClass
+                      : `bg-surface text-text-secondary ${inactiveClass} border border-border`
                   }`}
                 >
                   {category}
@@ -217,9 +225,9 @@ export default function Features() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.5, delay: idx * 0.1 }}
-                    className={`bg-surface/60 backdrop-blur-sm border-2 ${colors.border} rounded-xl p-6 hover:border-opacity-50 transition-all group hover:-translate-y-1`}
+                    className={`glass ${colors.border} p-6 hover:border-opacity-50 transition-all group hover-lift`}
                   >
-                    <div className={`w-14 h-14 sm:w-16 sm:h-16 ${colors.bg} rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform flex-shrink-0`}>
+                    <div className={`w-14 h-14 sm:w-16 sm:h-16 ${colors.bg} geo-chamfer-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform flex-shrink-0`}>
                       <Icon name={feature.icon as any} className={`w-7 h-7 sm:w-8 sm:h-8 ${colors.text}`} />
                     </div>
                     <h3 className="text-xl font-semibold text-text-primary mb-2">{feature.title}</h3>
@@ -255,10 +263,10 @@ export default function Features() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5 }}
-                  className={`bg-surface/60 backdrop-blur-sm border border-border rounded-xl p-6 ${colors.border}/50 hover:shadow-lg transition-all cursor-pointer group hover:-translate-y-1`}
+                  className={`glass p-6 ${colors.border}/50 hover:shadow-lg transition-all cursor-pointer group hover-lift`}
                 >
                   <div className="flex items-start justify-between mb-4">
-                    <div className={`w-14 h-14 sm:w-16 sm:h-16 bg-raised rounded-xl flex items-center justify-center ${colors.iconBg} transition-colors flex-shrink-0`}>
+                    <div className={`w-14 h-14 sm:w-16 sm:h-16 bg-raised geo-chamfer-lg flex items-center justify-center ${colors.iconBg} transition-colors flex-shrink-0`}>
                       <Icon name={feature.icon} className={`w-7 h-7 sm:w-8 sm:h-8 ${colors.icon}`} />
                     </div>
                     <span className="text-xs text-muted bg-raised px-2 py-1 rounded-full">
@@ -283,7 +291,7 @@ export default function Features() {
           transition={{ duration: 0.6 }}
           className="max-w-4xl mx-auto"
         >
-          <div className="bg-gradient-to-r from-primary/20 via-gold-500/10 to-coral/20 rounded-2xl p-8 md:p-12 text-center border border-primary/30 relative overflow-hidden">
+          <div className="gradient-accent glass geo-chamfer p-8 md:p-12 text-center relative overflow-hidden">
             {/* Decorative elements */}
             <div className="absolute top-0 right-0 w-32 h-32 bg-gold/20 rounded-full blur-[60px]" />
             <div className="absolute bottom-0 left-0 w-32 h-32 bg-coral/20 rounded-full blur-[60px]" />
@@ -298,14 +306,14 @@ export default function Features() {
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link
                   to="/onboarding/role"
-                  className="group px-8 py-3 bg-primary hover:bg-primary-hover text-white rounded-lg font-medium transition-all shadow-glow hover:shadow-[0_0_30px_rgba(45,82,232,0.5)] flex items-center justify-center gap-2"
+                  className="group px-8 py-3 bg-primary hover:bg-primary-hover text-white geo-chamfer-sm font-medium transition-all shadow-glow hover:shadow-[0_0_30px_rgba(45,82,232,0.5)] flex items-center justify-center gap-2"
                 >
                   Start Free Trial
                   <Icon name="arrowRight" className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </Link>
                 <Link
                   to="/how-it-works"
-                  className="px-8 py-3 border border-border hover:border-gold text-text-primary hover:text-gold rounded-lg font-medium transition-colors"
+                  className="px-8 py-3 border border-border hover:border-gold text-text-primary hover:text-gold geo-chamfer-sm font-medium transition-colors"
                 >
                   See How It Works
                 </Link>

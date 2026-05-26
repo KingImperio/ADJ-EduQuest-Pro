@@ -60,14 +60,14 @@ export default function AdminEvaluation() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
-          className="bg-surface border-2 border-coral rounded-lg p-6 mb-6 relative group cursor-pointer"
+          className="glass border-2 border-coral p-6 mb-6 relative group cursor-pointer"
           onClick={handleCopyKey}
         >
           <div className="flex items-center justify-between gap-4">
             <code className="font-mono text-lg text-coral tracking-wider">{adminKey}</code>
             <button
               onClick={(e) => { e.stopPropagation(); handleCopyKey() }}
-              className={`p-3 rounded-lg transition-colors ${copied ? 'bg-success/20 text-success' : 'bg-raised text-text-muted hover:text-coral group-hover:bg-coral/10'}`}
+              className={`p-3 geo-chamfer-sm transition-colors ${copied ? 'bg-success/20 text-success' : 'bg-raised text-text-muted hover:text-coral group-hover:bg-coral/10'}`}
             >
               <Icon name={copied ? 'check' : 'copy'} className="w-5 h-5" />
             </button>
@@ -87,7 +87,7 @@ export default function AdminEvaluation() {
         </motion.div>
 
         {/* Important Notice */}
-        <div className="bg-gold/10 border border-gold/30 rounded-lg p-4">
+        <div className="bg-gold/10 border border-gold/30 geo-chamfer-sm p-4">
           <div className="flex items-start gap-3">
             <Icon name="bell" className="w-5 h-5 text-gold mt-0.5 flex-shrink-0" />
             <p className="text-sm text-text-secondary text-left font-body">

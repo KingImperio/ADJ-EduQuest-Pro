@@ -187,7 +187,7 @@ export default function FAQ() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.3, delay: idx * 0.05 }}
-                  className={`bg-surface/60 backdrop-blur-sm border border-border rounded-xl overflow-hidden hover:${catColors.border}/50 transition-all ${expandedFAQ === faq.id ? 'border-opacity-80' : ''}`}
+                  className={`glass-light overflow-hidden hover:border-opacity-50 transition-all ${expandedFAQ === faq.id ? 'border-opacity-80' : ''}`}
                 >
                   <button
                     onClick={() => toggleFAQ(faq.id)}
@@ -230,7 +230,7 @@ export default function FAQ() {
           transition={{ duration: 0.6 }}
           className="max-w-4xl mx-auto"
         >
-          <div className="bg-gradient-to-r from-primary/20 via-gold-500/10 to-coral/20 rounded-2xl p-8 md:p-12 text-center border border-success/30 relative overflow-hidden">
+          <div className="bg-gradient-to-r from-primary/20 via-gold-500/10 to-coral/20 geo-chamfer-lg p-8 md:p-12 text-center border border-success/30 relative overflow-hidden">
             {/* Decorative elements */}
             <div className="absolute top-0 right-0 w-32 h-32 bg-gold/20 rounded-full blur-[60px]" />
             <div className="absolute bottom-0 left-0 w-32 h-32 bg-success/20 rounded-full blur-[60px]" />
@@ -245,14 +245,14 @@ export default function FAQ() {
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link
                   to="/contact"
-                  className="group px-8 py-3 bg-success hover:bg-success-hover text-white rounded-lg font-medium transition-all shadow-glow flex items-center justify-center gap-2"
+                  className="group px-8 py-3 bg-success hover:bg-success-hover text-white geo-chamfer-sm font-medium transition-all shadow-glow flex items-center justify-center gap-2"
                 >
                   <Icon name="mail" className="w-4 h-4" />
                   Contact Support
                 </Link>
                 <Link
                   to="/how-it-works"
-                  className="px-8 py-3 border border-border hover:border-gold text-text-primary hover:text-gold rounded-lg font-medium transition-colors"
+                  className="px-8 py-3 border border-border hover:border-gold text-text-primary hover:text-gold geo-chamfer-sm font-medium transition-colors"
                 >
                   Learn More
                 </Link>

@@ -150,7 +150,7 @@ export default function ResetPassword() {
       </form>
 
       {/* Password Requirements */}
-      <div className="mt-6 p-4 bg-surface rounded-lg border border-border">
+      <div className="mt-6 p-4 glass-light geo-chamfer-sm">
         <h3 className="text-sm font-medium text-text-primary mb-2 flex items-center gap-2 font-display">
           <Icon name="settings" className="w-4 h-4 text-primary" />
           Password Requirements

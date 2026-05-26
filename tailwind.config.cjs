@@ -1,6 +1,15 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
+  safelist: [
+    // Dynamic color classes used as template literals (text-${color}, bg-${color}, etc.)
+    { pattern: /^text-(primary|gold|coral|neon-green|neon-cyan|neon-amber|success|error)(-\d+)?$/ },
+    { pattern: /^bg-(primary|gold|coral|neon-green|neon-cyan|neon-amber|success|error)(-\d+)?(\/\d+)?$/ },
+    { pattern: /^border-(primary|gold|coral|neon-green|neon-cyan|neon-amber|success|error)(-\d+)?(\/\d+)?$/ },
+    { pattern: /^from-(primary|gold|coral|neon-green|neon-cyan|neon-amber|success|error)(-\d+)?(\/\d+)?$/ },
+    { pattern: /^to-(primary|gold|coral|neon-green|neon-cyan|neon-amber|success|error)(-\d+)?(\/\d+)?$/ },
+    { pattern: /^shadow-(primary|gold|coral|neon|neon-cyan|glow|gold-glow)(-\w+)?$/ },
+  ],
   theme: {
     extend: {
       colors: {
@@ -119,6 +128,10 @@ module.exports = {
         'grid-lines': 'linear-gradient(rgba(79,111,239,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(79,111,239,0.04) 1px, transparent 1px)',
         'scanlines': 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.03) 2px, rgba(0,0,0,0.03) 4px)',
         'diagonal-lines': 'repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(79,111,239,0.03) 10px, rgba(79,111,239,0.03) 11px)',
+        // Strategic gradient presets (hero backgrounds, CTAs only)
+        'gradient-hero': 'linear-gradient(135deg, rgba(30,63,204,0.3) 0%, rgba(15,17,23,0.95) 50%, rgba(245,158,11,0.15) 100%)',
+        'gradient-cta': 'linear-gradient(135deg, rgba(30,63,204,0.2) 0%, rgba(245,158,11,0.15) 50%, rgba(244,98,42,0.1) 100%)',
+        'gradient-accent': 'linear-gradient(135deg, var(--primary) 0%, var(--gold) 50%, var(--coral) 100%)',
       },
       backgroundSize: {
         'grid-sm': '20px 20px',
@@ -129,6 +142,16 @@ module.exports = {
         'pulse-glow': 'pulse-glow 2s ease-in-out infinite',
         'scan': 'scan 4s linear infinite',
         'blink': 'blink 1s step-end infinite',
+        'fade-in-up': 'fadeInUp 0.5s ease forwards',
+        'fade-in': 'fadeIn 0.3s ease forwards',
+        'slide-in-left': 'slideInLeft 0.4s ease forwards',
+        'slide-in-right': 'slideInRight 0.4s ease forwards',
+        'type-in': 'typeIn 1s ease forwards',
+        'count-up': 'countUp 0.4s ease forwards',
+        'glow-pulse': 'glowPulse 2s ease-in-out infinite',
+        'shimmer': 'shimmer 2s linear infinite',
+        'draw-line': 'drawLine 1.5s ease forwards',
+        'scanline': 'scanline 4s linear infinite',
       },
       keyframes: {
         'pulse-glow': {
@@ -142,6 +165,46 @@ module.exports = {
         blink: {
           '0%, 100%': { opacity: '1' },
           '50%': { opacity: '0' },
+        },
+        fadeInUp: {
+          '0%': { opacity: '0', transform: 'translateY(20px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
+        },
+        fadeIn: {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
+        slideInLeft: {
+          '0%': { opacity: '0', transform: 'translateX(-30px)' },
+          '100%': { opacity: '1', transform: 'translateX(0)' },
+        },
+        slideInRight: {
+          '0%': { opacity: '0', transform: 'translateX(30px)' },
+          '100%': { opacity: '1', transform: 'translateX(0)' },
+        },
+        typeIn: {
+          '0%': { width: '0' },
+          '100%': { width: '100%' },
+        },
+        countUp: {
+          '0%': { opacity: '0', transform: 'translateY(10px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
+        },
+        glowPulse: {
+          '0%, 100%': { boxShadow: '0 0 5px rgba(30,63,204,0.2)' },
+          '50%': { boxShadow: '0 0 20px rgba(30,63,204,0.5)' },
+        },
+        shimmer: {
+          '0%': { backgroundPosition: '-200% 0' },
+          '100%': { backgroundPosition: '200% 0' },
+        },
+        drawLine: {
+          '0%': { strokeDashoffset: '1000' },
+          '100%': { strokeDashoffset: '0' },
+        },
+        scanline: {
+          '0%': { transform: 'translateY(-100%)' },
+          '100%': { transform: 'translateY(100vh)' },
         },
       },
     },

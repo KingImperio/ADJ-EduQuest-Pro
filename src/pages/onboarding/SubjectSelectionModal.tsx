@@ -175,7 +175,7 @@ export default function SubjectSelectionModal({
           initial={{ scale: 0.9, opacity: 0, y: 20 }}
           animate={{ scale: 1, opacity: 1, y: 0 }}
           exit={{ scale: 0.9, opacity: 0, y: 20 }}
-          className="w-full max-w-5xl max-h-[85vh] sm:max-h-[90vh] bg-surface rounded-xl border border-border shadow-2xl overflow-hidden flex flex-col relative mx-2 sm:mx-4"
+          className="w-full max-w-5xl max-h-[85vh] sm:max-h-[90vh] glass-strong geo-chamfer-lg border border-border shadow-2xl overflow-hidden flex flex-col relative mx-2 sm:mx-4"
           onClick={(e) => e.stopPropagation()}
         >
           {/* Floating particles inside modal */}
@@ -244,7 +244,7 @@ export default function SubjectSelectionModal({
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="Search subjects..."
-                  className="w-full bg-deep border border-border rounded-lg pl-12 pr-4 py-3 text-white placeholder:text-text-muted focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/50 transition-all"
+                  className="w-full bg-deep border border-border geo-chamfer-sm pl-12 pr-4 py-3 text-white placeholder:text-text-muted focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/50 transition-all"
                 />
                 {searchQuery && (
                   <motion.button
@@ -335,7 +335,7 @@ export default function SubjectSelectionModal({
                       whileHover={{ y: -2, scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
                       className={`
-                        relative cursor-pointer rounded-lg p-3 flex flex-col items-center justify-center gap-1.5 transition-all
+                        relative cursor-pointer geo-chamfer-sm p-3 flex flex-col items-center justify-center gap-1.5 transition-all
                         ${isSelected 
                           ? status === 'main'
                             ? 'bg-success/30 border-2 border-success shadow-[0_0_15px_rgba(16,185,129,0.4)]'
@@ -430,14 +430,14 @@ export default function SubjectSelectionModal({
                 onClick={onClose}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="px-6 py-3 rounded-lg border border-border text-text-primary font-label-md hover:bg-raised transition-colors"
+                className="px-6 py-3 geo-chamfer-sm border border-border text-text-primary font-label-md hover:bg-raised transition-colors"
               >
                 Cancel
               </motion.button>
               <ElasticButton
                 onClick={handleConfirm}
                 className={`
-                  px-6 py-3 rounded-lg font-label-md transition-all flex items-center gap-2
+                  px-6 py-3 geo-chamfer-sm font-label-md transition-all flex items-center gap-2
                   ${canConfirm 
                     ? 'bg-primary-500 text-white hover:bg-primary-600 shadow-[0_0_15px_rgba(45,82,232,0.4)]' 
                     : 'bg-bg-raised text-text-muted cursor-not-allowed'

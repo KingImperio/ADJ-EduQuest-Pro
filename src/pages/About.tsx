@@ -146,16 +146,12 @@ export default function About() {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {values.map((value, index) => (
-              <div 
-                key={index} 
-                className="bg-surface rounded-xl p-6 text-center transition-all hover:-translate-y-1 hover:shadow-lg hover-border-transition"
-                style={{ 
-                  border: `1px solid ${value.borderColor}`,
-                  '--hover-border': value.hoverBorder,
-                } as React.CSSProperties}
+              <div
+                key={index}
+                className="glass-light geo-chamfer-sm p-6 text-center transition-all hover-lift hover:shadow-lg"
               >
-                <div 
-                  className="w-12 h-12 rounded-lg flex items-center justify-center mx-auto mb-4"
+                <div
+                  className="w-12 h-12 geo-chamfer-sm flex items-center justify-center mx-auto mb-4"
                   style={{ backgroundColor: value.bgColor }}
                 >
                   <Icon name={value.icon} className={`w-6 h-6`} style={{ color: value.color }} />
@@ -181,25 +177,25 @@ export default function About() {
                 We believe that every student deserves access to the best educational resources, regardless of their location or background. Our platform bridges the gap between traditional learning and modern technology.
               </p>
             </div>
-            <div className="bg-surface border border-border rounded-xl p-8">
+            <div className="glass geo-chamfer-sm p-8">
               <h3 className="text-xl font-semibold text-primary mb-4">Our Vision</h3>
               <p className="text-text-secondary mb-6">
                 To become the leading educational technology platform in Africa, serving millions of students and transforming how education is delivered and consumed.
               </p>
               <div className="grid grid-cols-2 gap-4">
-                <div className="text-center p-4 bg-raised rounded-lg">
+                <div className="text-center p-4 bg-raised geo-chamfer-sm">
                   <div className="text-2xl font-bold text-primary mb-1">50K+</div>
                   <div className="text-text-secondary text-sm">Active Students</div>
                 </div>
-                <div className="text-center p-4 bg-raised rounded-lg">
+                <div className="text-center p-4 bg-raised geo-chamfer-sm">
                   <div className="text-2xl font-bold text-primary mb-1">500+</div>
                   <div className="text-text-secondary text-sm">Partner Centres</div>
                 </div>
-                <div className="text-center p-4 bg-raised rounded-lg">
+                <div className="text-center p-4 bg-raised geo-chamfer-sm">
                   <div className="text-2xl font-bold text-primary mb-1">40%</div>
                   <div className="text-text-secondary text-sm">Avg. Improvement</div>
                 </div>
-                <div className="text-center p-4 bg-raised rounded-lg">
+                <div className="text-center p-4 bg-raised geo-chamfer-sm">
                   <div className="text-2xl font-bold text-primary mb-1">98%</div>
                   <div className="text-text-secondary text-sm">Satisfaction</div>
                 </div>
@@ -221,7 +217,7 @@ export default function About() {
               {milestones.map((milestone, index) => (
                 <div key={index} className="relative flex items-center justify-center md:justify-start">
                   <div className="hidden md:block absolute left-1/2 -translate-x-1/2 w-4 h-4 bg-primary rounded-full border-4 border-deep" />
-                  <div className={`bg-surface border border-border rounded-lg p-6 w-full md:w-5/12 ${index % 2 === 0 ? 'md:mr-auto md:ml-0' : 'md:ml-auto md:mr-0'}`}>
+                  <div className={`bg-surface border border-border geo-chamfer-sm p-6 w-full md:w-5/12 ${index % 2 === 0 ? 'md:mr-auto md:ml-0' : 'md:ml-auto md:mr-0'}`}>
                     <div className="text-2xl font-bold text-primary mb-2">{milestone.year}</div>
                     <div className="text-text-secondary">{milestone.event}</div>
                   </div>
@@ -240,7 +236,7 @@ export default function About() {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {teamMembers.map((member, index) => (
-              <div key={index} className="bg-surface border border-border rounded-xl p-6 text-center hover:border-primary/50 transition-colors">
+              <div key={index} className="glass-light geo-chamfer-sm p-6 text-center hover:border-primary/40 transition-colors">
                 <img 
                   src={member.image} 
                   alt={member.name}
@@ -266,7 +262,7 @@ export default function About() {
           transition={{ duration: 0.6 }}
           className="max-w-4xl mx-auto text-center"
         >
-          <div className="bg-gradient-to-r from-primary/20 via-gold-500/10 to-coral/20 rounded-2xl p-8 md:p-12 relative overflow-hidden">
+          <div className="bg-gradient-to-r from-primary/20 via-gold-500/10 to-coral/20 geo-chamfer-lg p-8 md:p-12 relative overflow-hidden">
             <div className="absolute top-0 right-0 w-32 h-32 bg-gold/20 rounded-full blur-[60px]" />
             <div className="absolute bottom-0 left-0 w-32 h-32 bg-primary/20 rounded-full blur-[60px]" />
 
@@ -280,14 +276,14 @@ export default function About() {
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link
                   to="/onboarding/role"
-                  className="group px-8 py-3 bg-primary hover:bg-primary-hover text-white rounded-lg font-medium transition-all shadow-glow flex items-center justify-center gap-2"
+                  className="group px-8 py-3 bg-primary hover:bg-primary-hover text-white geo-chamfer-sm font-medium transition-all shadow-glow flex items-center justify-center gap-2"
                 >
                   Get Started
                   <Icon name="arrowRight" className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </Link>
                 <Link
                   to="/contact"
-                  className="px-8 py-3 border border-border hover:border-gold text-text-primary hover:text-gold rounded-lg font-medium transition-colors"
+                  className="px-8 py-3 border border-border hover:border-gold text-text-primary hover:text-gold geo-chamfer-sm font-medium transition-colors"
                 >
                   Contact Us
                 </Link>

@@ -123,7 +123,7 @@ export default function EmailVerification() {
         </div>
       ) : (
         <div className="space-y-6">
-          <div className="p-4 bg-surface rounded-lg border border-border">
+          <div className="p-4 glass-light geo-chamfer-sm">
             <p className="text-text-secondary text-sm mb-2 font-body">Click the link in your email to continue</p>
             <p className="text-text-muted text-xs font-body">
               Didn't receive it? Check your <span className="text-gold font-medium">spam folder</span>

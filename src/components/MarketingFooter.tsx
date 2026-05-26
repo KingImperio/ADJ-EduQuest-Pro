@@ -4,7 +4,7 @@ import { memo } from 'react'
 
 const MarketingFooter = memo(function MarketingFooter() {
   return (
-    <footer className="bg-surface/80 backdrop-blur-sm border-t border-border relative z-10">
+    <footer className="glass border-t border-border relative z-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-12">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 mb-8 md:mb-12">
           {/* Brand Column */}
@@ -34,7 +34,7 @@ const MarketingFooter = memo(function MarketingFooter() {
 
           {/* Platform Links */}
           <div>
-            <h4 className="text-text-primary font-semibold mb-3 md:mb-4 text-sm md:text-base">Platform</h4>
+            <h4 className="terminal-label text-text-primary font-semibold mb-3 md:mb-4 text-sm md:text-base">Platform</h4>
             <ul className="space-y-2 md:space-y-3">
               <li><Link to="/features" className="text-text-secondary hover:text-text-primary text-xs md:text-sm transition-colors">Features</Link></li>
               <li><Link to="/how-it-works" className="text-text-secondary hover:text-text-primary text-xs md:text-sm transition-colors">How It Works</Link></li>
@@ -46,7 +46,7 @@ const MarketingFooter = memo(function MarketingFooter() {
 
           {/* For Centres Links */}
           <div>
-            <h4 className="text-text-primary font-semibold mb-3 md:mb-4 text-sm md:text-base">For Centres</h4>
+            <h4 className="terminal-label text-text-primary font-semibold mb-3 md:mb-4 text-sm md:text-base">For Centres</h4>
             <ul className="space-y-2 md:space-y-3">
               <li><Link to="/centres" className="text-text-secondary hover:text-text-primary text-xs md:text-sm transition-colors">Set Up Centre</Link></li>
               <li><Link to="/pricing" className="text-text-secondary hover:text-text-primary text-xs md:text-sm transition-colors">Pricing</Link></li>
@@ -56,7 +56,7 @@ const MarketingFooter = memo(function MarketingFooter() {
 
           {/* Company Links */}
           <div>
-            <h4 className="text-text-primary font-semibold mb-3 md:mb-4 text-sm md:text-base">Company</h4>
+            <h4 className="terminal-label text-text-primary font-semibold mb-3 md:mb-4 text-sm md:text-base">Company</h4>
             <ul className="space-y-2 md:space-y-3">
               <li><Link to="/about" className="text-text-secondary hover:text-text-primary text-xs md:text-sm transition-colors">About</Link></li>
               <li><Link to="/testimonials" className="text-text-secondary hover:text-text-primary text-xs md:text-sm transition-colors">Testimonials</Link></li>

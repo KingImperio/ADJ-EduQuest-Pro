@@ -5,6 +5,7 @@ import { Icon } from '../components/Icon'
 import MarketingHeader from '../components/MarketingHeader'
 import MarketingFooter from '../components/MarketingFooter'
 import AnimatedGradientBackground from '../components/AnimatedGradientBackground'
+import { textColors, bgColors, borderColors, gradientFrom, gradientTo } from '../utils/colorClasses'
 
 // Hero text configurations - 3 major writeups with 3 sub-variations each
 const heroWriteups = [
@@ -392,7 +393,7 @@ export default function LandingHeroDemo() {
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                 <Link
                   to="/onboarding/role"
-                  className="bg-gradient-to-r from-primary to-primary-400 hover:from-primary-400 hover:to-primary text-white px-8 py-4 rounded-xl font-medium transition-all shadow-lg shadow-primary/25 text-center flex items-center justify-center gap-2"
+                  className="bg-gradient-to-r from-primary to-primary-400 hover:from-primary-400 hover:to-primary text-white px-8 py-4 geo-chamfer-lg font-medium transition-all shadow-lg shadow-primary/25 text-center flex items-center justify-center gap-2"
                 >
                   Start Learning Free
                   <Icon name="arrowRight" className="w-5 h-5" />
@@ -401,7 +402,7 @@ export default function LandingHeroDemo() {
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                 <Link
                   to="/centres"
-                  className="border-2 border-border/50 bg-surface/50 backdrop-blur text-text-primary px-8 py-4 rounded-xl font-medium hover:bg-surface hover:border-primary/50 transition-all text-center flex items-center justify-center gap-2 h-[58px]"
+                  className="border-2 border-border/50 bg-surface/50 backdrop-blur text-text-primary px-8 py-4 geo-chamfer-lg font-medium hover:bg-surface hover:border-primary/50 transition-all text-center flex items-center justify-center gap-2 h-[58px]"
                 >
                   For Tutorial Centres
                 </Link>
@@ -464,7 +465,7 @@ export default function LandingHeroDemo() {
                 >
                   <div className="relative w-80 h-80 mx-auto flex items-center justify-center">
                     {/* Hexagonal main card */}
-                    <div className="absolute w-64 h-64 bg-deepest border-2 border-primary/50 shadow-2xl shadow-primary/20 flex items-center justify-center" style={{ clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)' }}>
+                    <div className="absolute w-64 h-64 glass-strong border-2 border-primary/50 shadow-2xl shadow-primary/20 flex items-center justify-center" style={{ clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)' }}>
                       <div className="flex flex-col items-center justify-center">
                         <div className="w-16 h-16 rounded-full bg-gradient-to-br from-primary to-primary-400 flex items-center justify-center mb-3 shadow-lg shadow-primary/30">
                           <Icon name="target" className="w-8 h-8 text-white" />
@@ -489,11 +490,11 @@ export default function LandingHeroDemo() {
                           className="absolute"
                           style={{ left: `calc(50% + ${x}px)`, top: `calc(50% + ${y}px)`, transform: 'translate(-50%, -50%)' }}
                         >
-                          <div className={`bg-deepest border-2 border-${bar.color}/50 rounded-lg p-3 shadow-lg shadow-${bar.color}/20 w-28`}>
+                          <div className={`bg-deepest border-2 ${borderColors[bar.color] || 'border-border'} geo-chamfer-sm p-3 shadow-lg w-28`}>
                             <div className="text-xs text-text-secondary mb-1">{bar.label}</div>
-                            <div className={`text-lg font-bold text-${bar.color}`}>{bar.value}</div>
+                            <div className={`terminal-value text-lg ${textColors[bar.color] || 'text-text-primary'}`}>{bar.value}</div>
                             <div className="h-1 bg-surface rounded-full mt-1 overflow-hidden">
-                              <motion.div initial={{ width: 0 }} animate={{ width: `${bar.value}%` }} transition={{ duration: 0.5, delay: idx * 0.1 + 0.2 }} className={`h-full bg-${bar.color}`} />
+                              <motion.div initial={{ width: 0 }} animate={{ width: `${bar.value}%` }} transition={{ duration: 0.5, delay: idx * 0.1 + 0.2 }} className={`h-full ${bgColors[bar.color] || 'bg-primary'}`} />
                             </div>
                           </div>
                         </motion.div>
@@ -517,7 +518,7 @@ export default function LandingHeroDemo() {
                   <div className="bg-gradient-to-br from-surface/90 to-surface/70 backdrop-blur-xl rounded-3xl p-8 border border-border/50 shadow-2xl">
                     <div className="flex justify-between items-center mb-6">
                       <div className="flex items-center gap-4">
-                        <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary to-gold flex items-center justify-center shadow-lg shadow-primary/25 overflow-hidden">
+                        <div className="w-16 h-16 geo-chamfer-lg bg-gradient-to-br from-primary to-gold flex items-center justify-center shadow-lg shadow-primary/25 overflow-hidden">
                           <img src="/img/adj-app-icon-v2-transparent.png" alt="ADJ Logo" className="w-12 h-12 object-contain" />
                         </div>
                         <div>
@@ -525,18 +526,18 @@ export default function LandingHeroDemo() {
                           <p className="text-sm text-text-secondary">{cardVariants[currentCardVariant].subtitle}</p>
                         </div>
                       </div>
-                      <motion.div whileHover={{ scale: 1.1, rotate: 15 }} className="w-10 h-10 rounded-xl bg-deepest flex items-center justify-center cursor-pointer border border-border/50">
+                      <motion.div whileHover={{ scale: 1.1, rotate: 15 }} className="w-10 h-10 geo-chamfer-lg glass-light flex items-center justify-center cursor-pointer">
                         <Icon name="bell" className="w-5 h-5 text-text-secondary" />
                       </motion.div>
                     </div>
-                    <div className="bg-deepest/50 rounded-2xl p-6 mb-6 border border-border/50 relative overflow-hidden">
+                    <div className="glass-light geo-chamfer-sm p-6 mb-6 relative overflow-hidden">
                       <motion.div animate={{ backgroundPosition: ['0% 0%', '100% 100%', '0% 0%'] }} transition={{ duration: 3, repeat: Infinity, ease: "linear" }} className="absolute inset-0 bg-gradient-to-r from-primary/10 via-gold/10 to-primary/10 bg-[length:200%_200%]" />
                       <div className="relative z-10 flex items-center gap-6">
                         <div className="relative">
                           <motion.div animate={{ rotate: 360 }} transition={{ duration: 8, repeat: Infinity, ease: "linear" }} className="w-24 h-24 rounded-full border-4 border-primary/20" />
                           <motion.div animate={{ rotate: -360 }} transition={{ duration: 6, repeat: Infinity, ease: "linear" }} className="absolute inset-0 w-24 h-24 rounded-full border-4 border-transparent border-t-primary border-r-gold" />
                           <div className="absolute inset-0 flex items-center justify-center">
-                            <span className="text-2xl font-bold text-text-primary">{(cardVariants[currentCardVariant]!.mainContent as any)?.percentage || '0%'}</span>
+                            <span className="terminal-value text-2xl">{(cardVariants[currentCardVariant]!.mainContent as any)?.percentage || '0%'}</span>
                           </div>
                         </div>
                         <div>
@@ -551,8 +552,8 @@ export default function LandingHeroDemo() {
                     </div>
                     <div className="grid grid-cols-2 gap-4">
                       {cardVariants[currentCardVariant].stats.map((stat, idx) => (
-                        <motion.div key={idx} whileHover={{ y: -4 }} className="bg-deepest/50 rounded-xl p-4 border border-border/50">
-                          <div className={`w-10 h-10 rounded-lg bg-${stat.color}/20 flex items-center justify-center text-${stat.color} mb-3`}>
+                        <motion.div key={idx} whileHover={{ y: -4 }} className="glass-light geo-chamfer-sm p-4">
+                          <div className={`w-10 h-10 geo-chamfer-sm ${bgColors[stat.color] || 'bg-primary/10'} flex items-center justify-center ${textColors[stat.color] || 'text-primary'} mb-3`}>
                             <Icon name={stat.icon as any} className="w-5 h-5" />
                           </div>
                           <div className="text-2xl font-bold text-text-primary mb-1">{stat.value}</div>
@@ -575,34 +576,34 @@ export default function LandingHeroDemo() {
                   whileHover={{ scale: 1.02 }}
                   className="w-full max-w-lg relative z-10"
                 >
-                  <div className="bg-deepest p-6 border-2 border-border/30 shadow-2xl" style={{ clipPath: 'polygon(0 0, 100% 0, 100% 85%, 95% 100%, 0 100%)' }}>
+                  <div className="glass-strong p-6 border-2 border-border/30 shadow-2xl" style={{ clipPath: 'polygon(0 0, 100% 0, 100% 85%, 95% 100%, 0 100%)' }}>
                     <div className="flex justify-between items-center mb-6">
                       <div>
                         <h3 className="font-bold text-text-primary text-lg">{cardVariants[currentCardVariant]!.title}</h3>
                         <p className="text-sm text-text-secondary">{cardVariants[currentCardVariant]!.subtitle}</p>
                       </div>
-                      <div className="w-10 h-10 rounded-xl bg-primary/20 flex items-center justify-center">
+                      <div className="w-10 h-10 geo-chamfer-lg bg-primary/20 flex items-center justify-center">
                         <Icon name="book" className="w-5 h-5 text-primary" />
                       </div>
                     </div>
                     <div className="grid grid-cols-2 gap-3 mb-6">
                       {(cardVariants[currentCardVariant]?.mainContent?.subjects || []).map((subject, idx) => (
-                        <motion.div key={idx} whileHover={{ scale: 1.05 }} className={`bg-${subject.color}/10 border border-${subject.color}/30 rounded-lg p-3`}>
+                        <motion.div key={idx} whileHover={{ scale: 1.05 }} className={`${bgColors[subject.color] || 'bg-primary/10'} border ${borderColors[subject.color] || 'border-border'} geo-chamfer-sm p-3`}>
                           <div className="flex items-center gap-2 mb-1">
-                            <Icon name={(subject.icon || 'book') as any} className={`w-4 h-4 text-${subject.color}`} />
+                            <Icon name={(subject.icon || 'book') as any} className={`w-4 h-4 ${textColors[subject.color] || 'text-primary'}`} />
                             <div className="text-xs text-text-secondary">{subject.name}</div>
                           </div>
                           <div className="text-lg font-bold text-text-primary">{subject.progress}%</div>
                           <div className="h-1 bg-deepest rounded-full mt-2 overflow-hidden">
-                            <motion.div initial={{ width: 0 }} animate={{ width: `${subject.progress}%` }} transition={{ duration: 0.5 }} className={`h-full bg-${subject.color}`} />
+                            <motion.div initial={{ width: 0 }} animate={{ width: `${subject.progress}%` }} transition={{ duration: 0.5 }} className={`h-full ${bgColors[subject.color] || 'bg-primary'}`} />
                           </div>
                         </motion.div>
                       ))}
                     </div>
                     <div className="flex gap-4">
                       {cardVariants[currentCardVariant].stats.map((stat, idx) => (
-                        <div key={idx} className="flex-1 bg-surface/50 rounded-lg p-3 text-center">
-                          <div className={`text-${stat.color} font-bold text-xl`}>{stat.value}</div>
+                        <div key={idx} className="flex-1 bg-surface/50 geo-chamfer-sm p-3 text-center">
+                          <div className={`terminal-value text-xl ${textColors[stat.color] || 'text-text-primary'}`}>{stat.value}</div>
                           <div className="text-xs text-text-secondary">{stat.label}</div>
                         </div>
                       ))}
@@ -622,7 +623,7 @@ export default function LandingHeroDemo() {
                   whileHover={{ scale: 1.02 }}
                   className="w-full max-w-sm relative z-10"
                 >
-                  <div className="bg-surface p-6 rounded-2xl border border-border/50 shadow-2xl">
+                  <div className="bg-surface p-6 geo-chamfer-lg border border-border/50 shadow-2xl">
                     <div className="flex justify-between items-center mb-6">
                       <div>
                         <h3 className="font-bold text-text-primary text-lg">{cardVariants[currentCardVariant].title}</h3>
@@ -644,7 +645,7 @@ export default function LandingHeroDemo() {
                     <div className="flex gap-4 pt-4 border-t border-border/30">
                       {cardVariants[currentCardVariant].stats.map((stat, idx) => (
                         <div key={idx} className="flex-1 text-center">
-                          <div className={`text-${stat.color} font-bold text-lg`}>{stat.value}</div>
+                          <div className={`terminal-value text-lg ${textColors[stat.color] || 'text-text-primary'}`}>{stat.value}</div>
                           <div className="text-xs text-text-secondary">{stat.label}</div>
                         </div>
                       ))}
@@ -664,7 +665,7 @@ export default function LandingHeroDemo() {
                   whileHover={{ scale: 1.05 }}
                   className="w-full max-w-md relative z-10"
                 >
-                  <div className="bg-deepest p-6 border-2 border-primary/50 shadow-2xl shadow-primary/20 rounded-2xl">
+                  <div className="glass-strong p-6 border-2 border-primary/50 shadow-2xl shadow-primary/20 geo-chamfer-sm">
                     <div className="flex justify-between items-center mb-4">
                       <div>
                         <h3 className="font-bold text-text-primary text-lg">{cardVariants[currentCardVariant].title}</h3>
@@ -703,7 +704,7 @@ export default function LandingHeroDemo() {
                     <div className="flex gap-4 pt-4 border-t border-border/30">
                       {cardVariants[currentCardVariant].stats.map((stat, idx) => (
                         <div key={idx} className="flex-1 text-center">
-                          <div className={`text-${stat.color} font-bold text-lg`}>{stat.value}</div>
+                          <div className={`terminal-value text-lg ${textColors[stat.color] || 'text-text-primary'}`}>{stat.value}</div>
                           <div className="text-xs text-text-secondary">{stat.label}</div>
                         </div>
                       ))}
@@ -749,7 +750,7 @@ export default function LandingHeroDemo() {
                   <div className="flex justify-center gap-8 mt-4">
                     {cardVariants[currentCardVariant].stats.map((stat, idx) => (
                       <div key={idx} className="text-center">
-                        <div className={`text-${stat.color} font-bold text-xl`}>{stat.value}</div>
+                        <div className={`terminal-value text-xl ${textColors[stat.color] || 'text-text-primary'}`}>{stat.value}</div>
                         <div className="text-xs text-text-secondary">{stat.label}</div>
                       </div>
                     ))}
@@ -770,7 +771,7 @@ export default function LandingHeroDemo() {
                 >
                   <div className="flex gap-4 w-full max-w-md mx-auto">
                     {/* Left Card - Challenge */}
-                    <div className="flex-1 bg-gradient-to-br from-primary/20 to-primary/10 border-2 border-primary/50 rounded-2xl p-5 shadow-xl shadow-primary/20">
+                    <div className="flex-1 bg-gradient-to-br from-primary/20 to-primary/10 border-2 border-primary/50 geo-chamfer-lg p-5 shadow-xl shadow-primary/20">
                       <div className="flex items-center gap-2 mb-3">
                         <Icon name="zap" className="w-5 h-5 text-primary" />
                         <span className="text-sm font-bold text-primary">Daily Challenge</span>
@@ -786,7 +787,7 @@ export default function LandingHeroDemo() {
                       <div className="text-xs text-text-secondary">{(cardVariants[currentCardVariant].mainContent as any)?.topTriangle?.participants || 0} participating</div>
                     </div>
                     {/* Right Card - Leaderboard */}
-                    <div className="flex-1 bg-gradient-to-br from-gold/20 to-gold/10 border-2 border-gold/50 rounded-2xl p-4 shadow-xl shadow-gold/20">
+                    <div className="flex-1 bg-gradient-to-br from-gold/20 to-gold/10 border-2 border-gold/50 geo-chamfer-lg p-4 shadow-xl shadow-gold/20">
                       <div className="flex items-center gap-2 mb-3">
                         <Icon name="trophy" className="w-5 h-5 text-gold-500" />
                         <span className="text-sm font-bold text-gold-500">Leaderboard</span>
@@ -798,7 +799,7 @@ export default function LandingHeroDemo() {
                             initial={{ opacity: 0, x: 20 }} 
                             animate={{ opacity: 1, x: 0 }} 
                             transition={{ delay: idx * 0.08 }}
-                            className={`flex items-center gap-3 p-1.5 rounded-lg ${entry.isYou ? 'bg-gold/20 border border-gold/30' : 'hover:bg-gold/5'}`}
+                            className={`flex items-center gap-3 p-1.5 geo-chamfer-sm ${entry.isYou ? 'bg-gold/20 border border-gold/30' : 'hover:bg-gold/5'}`}
                           >
                             <div className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0 ${idx === 0 ? 'bg-gold text-deepest' : idx === 1 ? 'bg-surface text-text-primary border border-gold/50' : idx === 2 ? 'bg-primary/20 text-primary' : entry.isYou ? 'bg-gold text-deepest' : 'text-text-secondary'}`}>
                               {entry.rank}
@@ -823,7 +824,7 @@ export default function LandingHeroDemo() {
                   <div className="flex justify-center gap-8 mt-4">
                     {cardVariants[currentCardVariant].stats.map((stat, idx) => (
                       <div key={idx} className="text-center">
-                        <div className={`text-${stat.color} font-bold text-xl`}>{stat.value}</div>
+                        <div className={`terminal-value text-xl ${textColors[stat.color] || 'text-text-primary'}`}>{stat.value}</div>
                         <div className="text-xs text-text-secondary">{stat.label}</div>
                       </div>
                     ))}
@@ -870,14 +871,14 @@ export default function LandingHeroDemo() {
                       transform: 'translate(-50%, -50%)'
                     } : undefined}
                   >
-                    <div className={`bg-gradient-to-br from-${card.color}/20 to-${card.color}/5 backdrop-blur-xl rounded-2xl ${sizeClasses} border border-${card.color}/30 shadow-xl shadow-${card.color}/10`}>
+                    <div className={`glass-light geo-chamfer-lg ${sizeClasses} border ${borderColors[card.color] || 'border-border'} shadow-xl`}>
                       <div className="flex items-center gap-3">
-                        <motion.div animate={card.position?.includes('orbit') ? { rotate: 360 } : {}} transition={{ duration: 3, repeat: Infinity, ease: "linear" }} className={`w-12 h-12 rounded-xl bg-gradient-to-br from-${card.color} to-${card.color}-400 flex items-center justify-center text-white shadow-lg`}>
+                        <motion.div animate={card.position?.includes('orbit') ? { rotate: 360 } : {}} transition={{ duration: 3, repeat: Infinity, ease: "linear" }} className={`w-12 h-12 geo-chamfer-lg bg-gradient-to-br ${gradientFrom[card.color] || 'from-primary'} ${gradientTo[card.color] || 'to-primary-light'} flex items-center justify-center text-white shadow-lg`}>
                           <Icon name={card.icon as any} className={iconSize} />
                         </motion.div>
                         <div>
                           <div className="font-bold text-text-primary text-sm">{card.title}</div>
-                          <div className={`text-xs text-${card.color}`}>{card.subtitle}</div>
+                          <div className={`text-xs ${textColors[card.color] || 'text-primary'}`}>{card.subtitle}</div>
                         </div>
                       </div>
                     </div>
@@ -970,12 +971,12 @@ export default function LandingHeroDemo() {
             <div className="space-y-6">
               <motion.div
                 whileHover={{ scale: 1.02, y: -4 }}
-                className="bg-surface p-10 border border-border relative overflow-hidden group"
+                className="glass p-10 relative overflow-hidden group"
                 style={{ clipPath: 'polygon(0 0, 100% 0, 100% 85%, 95% 100%, 0 100%)' }}
               >
                 <div className="absolute top-0 right-0 w-40 h-40 bg-primary/10 rounded-full blur-3xl group-hover:bg-primary/20 transition-colors"/>
                 <div className="relative z-10">
-                  <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-primary to-primary-400 flex items-center justify-center text-white mb-5 shadow-lg shadow-primary/25 group-hover:scale-110 transition-transform">
+                  <div className="w-16 h-16 geo-chamfer-lg bg-gradient-to-br from-primary to-primary-400 flex items-center justify-center text-white mb-5 shadow-lg shadow-primary/25 group-hover:scale-110 transition-transform">
                     <Icon name="checkCircle" className="w-8 h-8" />
                   </div>
                   <h3 className="text-2xl font-semibold text-text-primary mb-3">Assessment-Verified</h3>
@@ -986,12 +987,12 @@ export default function LandingHeroDemo() {
               </motion.div>
               <motion.div
                 whileHover={{ scale: 1.02, y: -4 }}
-                className="bg-surface p-5 border border-border relative overflow-hidden group"
+                className="glass-light p-5 relative overflow-hidden group"
                 style={{ clipPath: 'polygon(0 0, 100% 0, 100% 85%, 95% 100%, 0 100%)' }}
               >
                 <div className="absolute top-0 right-0 w-24 h-24 bg-coral/10 rounded-full blur-3xl group-hover:bg-coral/20 transition-colors"/>
                 <div className="relative z-10">
-                  <div className="w-10 h-10 rounded-lg bg-coral/20 flex items-center justify-center text-coral-500 mb-3 group-hover:bg-coral group-hover:text-white transition-colors">
+                  <div className="w-10 h-10 geo-chamfer-sm bg-coral/20 flex items-center justify-center text-coral-500 mb-3 group-hover:bg-coral group-hover:text-white transition-colors">
                     <Icon name="globe" className="w-5 h-5" />
                   </div>
                   <h3 className="text-base font-semibold text-text-primary mb-2">Built for Nigeria</h3>
@@ -1005,12 +1006,12 @@ export default function LandingHeroDemo() {
             <div className="space-y-6 lg:mt-16">
               <motion.div
                 whileHover={{ scale: 1.02, y: -4 }}
-                className="bg-surface p-5 border border-border relative overflow-hidden group"
+                className="glass-light p-5 relative overflow-hidden group"
                 style={{ clipPath: 'polygon(5% 0, 100% 0, 100% 100%, 0 100%, 0 15%)' }}
               >
                 <div className="absolute top-0 left-0 w-24 h-24 bg-success/10 rounded-full blur-3xl group-hover:bg-success/20 transition-colors"/>
                 <div className="relative z-10">
-                  <div className="w-10 h-10 rounded-lg bg-success/20 flex items-center justify-center text-success mb-3 group-hover:bg-success group-hover:text-white transition-colors">
+                  <div className="w-10 h-10 geo-chamfer-sm bg-success/20 flex items-center justify-center text-success mb-3 group-hover:bg-success group-hover:text-white transition-colors">
                     <Icon name="trophy" className="w-5 h-5" />
                   </div>
                   <h3 className="text-base font-semibold text-text-primary mb-2">Gamified Progress</h3>
@@ -1021,12 +1022,12 @@ export default function LandingHeroDemo() {
               </motion.div>
               <motion.div
                 whileHover={{ scale: 1.02, y: -4 }}
-                className="bg-surface p-10 border border-border relative overflow-hidden group"
+                className="glass p-10 relative overflow-hidden group"
                 style={{ clipPath: 'polygon(5% 0, 100% 0, 100% 100%, 0 100%, 0 15%)' }}
               >
                 <div className="absolute top-0 left-0 w-40 h-40 bg-gold/10 rounded-full blur-3xl group-hover:bg-gold/20 transition-colors"/>
                 <div className="relative z-10">
-                  <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-gold to-gold-300 flex items-center justify-center text-white mb-5 shadow-lg shadow-gold/25 group-hover:scale-110 transition-transform">
+                  <div className="w-16 h-16 geo-chamfer-lg bg-gradient-to-br from-gold to-gold-300 flex items-center justify-center text-white mb-5 shadow-lg shadow-gold/25 group-hover:scale-110 transition-transform">
                     <Icon name="sparkles" className="w-8 h-8" />
                   </div>
                   <h3 className="text-2xl font-semibold text-text-primary mb-3">Personalized Learning</h3>
@@ -1142,11 +1143,11 @@ export default function LandingHeroDemo() {
             {/* Card 1 - Large, primary accent */}
             <motion.div
               whileHover={{ y: -8, scale: 1.02 }}
-              className="bg-surface/90 backdrop-blur-sm rounded-2xl p-8 border border-border/50 hover:border-primary/50 transition-all relative overflow-hidden group"
+              className="glass geo-chamfer-sm p-8 hover:border-primary/40 transition-all relative overflow-hidden group hover-lift"
             >
               <div className="absolute top-0 right-0 w-40 h-40 bg-primary/10 rounded-full blur-3xl group-hover:bg-primary/20 transition-colors"/>
               <div className="relative z-10">
-                <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-primary to-primary-400 flex items-center justify-center text-white mb-5 shadow-lg shadow-primary/25">
+                <div className="w-14 h-14 geo-chamfer-lg bg-gradient-to-br from-primary to-primary-400 flex items-center justify-center text-white mb-5 shadow-lg shadow-primary/25">
                   <Icon name="fileText" className="w-7 h-7" />
                 </div>
                 <h3 className="text-xl font-semibold text-text-primary mb-3">Practice Exams</h3>
@@ -1162,11 +1163,11 @@ export default function LandingHeroDemo() {
             {/* Card 2 - Medium, gold accent */}
             <motion.div
               whileHover={{ y: -8, scale: 1.02 }}
-              className="bg-surface/80 backdrop-blur-md rounded-2xl p-6 border border-border/50 hover:border-gold/50 transition-all relative overflow-hidden group mt-8"
+              className="glass-light geo-chamfer-sm p-6 hover:border-gold/40 transition-all relative overflow-hidden group mt-8 hover-lift"
             >
               <div className="absolute top-0 right-0 w-40 h-40 bg-gold/10 rounded-full blur-3xl group-hover:bg-gold/20 transition-colors"/>
               <div className="relative z-10">
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-gold-500 to-gold-300 flex items-center justify-center text-white mb-4 shadow-lg shadow-gold/25">
+                <div className="w-12 h-12 geo-chamfer-lg bg-gradient-to-br from-gold-500 to-gold-300 flex items-center justify-center text-white mb-4 shadow-lg shadow-gold/25">
                   <Icon name="bookOpen" className="w-6 h-6" />
                 </div>
                 <h3 className="text-lg font-semibold text-text-primary mb-2">Expert Courses</h3>
@@ -1182,11 +1183,11 @@ export default function LandingHeroDemo() {
             {/* Card 3 - Medium, coral accent */}
             <motion.div
               whileHover={{ y: -8, scale: 1.02 }}
-              className="bg-surface/85 backdrop-blur-sm rounded-2xl p-6 border border-border/50 hover:border-coral/50 transition-all relative overflow-hidden group"
+              className="glass geo-chamfer-sm p-6 hover:border-coral/40 transition-all relative overflow-hidden group hover-lift"
             >
               <div className="absolute top-0 right-0 w-40 h-40 bg-coral/10 rounded-full blur-3xl group-hover:bg-coral/20 transition-colors"/>
               <div className="relative z-10">
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-coral-500 to-coral-300 flex items-center justify-center text-white mb-4 shadow-lg shadow-coral/25">
+                <div className="w-12 h-12 geo-chamfer-lg bg-gradient-to-br from-coral-500 to-coral-300 flex items-center justify-center text-white mb-4 shadow-lg shadow-coral/25">
                   <Icon name="users" className="w-6 h-6" />
                 </div>
                 <h3 className="text-lg font-semibold text-text-primary mb-2">Compete & Learn</h3>
@@ -1202,11 +1203,11 @@ export default function LandingHeroDemo() {
             {/* Card 4 - Medium, success accent */}
             <motion.div
               whileHover={{ y: -8, scale: 1.02 }}
-              className="bg-surface/75 backdrop-blur-md rounded-2xl p-6 border border-border/50 hover:border-success/50 transition-all relative overflow-hidden group"
+              className="glass-light geo-chamfer-sm p-6 hover:border-success/40 transition-all relative overflow-hidden group hover-lift"
             >
               <div className="absolute top-0 right-0 w-40 h-40 bg-success/10 rounded-full blur-3xl group-hover:bg-success/20 transition-colors"/>
               <div className="relative z-10">
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-success to-success/70 flex items-center justify-center text-white mb-4 shadow-lg shadow-success/25">
+                <div className="w-12 h-12 geo-chamfer-lg bg-gradient-to-br from-success to-success/70 flex items-center justify-center text-white mb-4 shadow-lg shadow-success/25">
                   <Icon name="flame" className="w-6 h-6" />
                 </div>
                 <h3 className="text-lg font-semibold text-text-primary mb-2">Track Progress</h3>
@@ -1222,11 +1223,11 @@ export default function LandingHeroDemo() {
             {/* Card 5 - Medium, primary accent */}
             <motion.div
               whileHover={{ y: -8, scale: 1.02 }}
-              className="bg-surface/80 backdrop-blur-sm rounded-2xl p-6 border border-border/50 hover:border-primary/50 transition-all relative overflow-hidden group mt-8"
+              className="glass geo-chamfer-sm p-6 hover:border-primary/40 transition-all relative overflow-hidden group mt-8 hover-lift"
             >
               <div className="absolute top-0 right-0 w-40 h-40 bg-primary/10 rounded-full blur-3xl group-hover:bg-primary/20 transition-colors"/>
               <div className="relative z-10">
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary to-primary-400 flex items-center justify-center text-white mb-4 shadow-lg shadow-primary/25">
+                <div className="w-12 h-12 geo-chamfer-lg bg-gradient-to-br from-primary to-primary-400 flex items-center justify-center text-white mb-4 shadow-lg shadow-primary/25">
                   <Icon name="target" className="w-6 h-6" />
                 </div>
                 <h3 className="text-lg font-semibold text-text-primary mb-2">Target Weaknesses</h3>
@@ -1242,11 +1243,11 @@ export default function LandingHeroDemo() {
             {/* Card 6 - Medium, gold accent */}
             <motion.div
               whileHover={{ y: -8, scale: 1.02 }}
-              className="bg-surface/85 backdrop-blur-md rounded-2xl p-6 border border-border/50 hover:border-gold/50 transition-all relative overflow-hidden group"
+              className="glass-light geo-chamfer-sm p-6 hover:border-gold/40 transition-all relative overflow-hidden group hover-lift"
             >
               <div className="absolute top-0 right-0 w-40 h-40 bg-gold/10 rounded-full blur-3xl group-hover:bg-gold/20 transition-colors"/>
               <div className="relative z-10">
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-gold-500 to-gold-300 flex items-center justify-center text-white mb-4 shadow-lg shadow-gold/25">
+                <div className="w-12 h-12 geo-chamfer-lg bg-gradient-to-br from-gold-500 to-gold-300 flex items-center justify-center text-white mb-4 shadow-lg shadow-gold/25">
                   <Icon name="award" className="w-6 h-6" />
                 </div>
                 <h3 className="text-lg font-semibold text-text-primary mb-2">Earn Recognition</h3>
@@ -1314,22 +1315,22 @@ export default function LandingHeroDemo() {
               </div>
               <Link
                 to="/onboarding/role"
-                className="inline-block bg-primary hover:bg-primary-hover text-white px-6 py-3 rounded-lg font-medium transition-all"
+                className="inline-block bg-primary hover:bg-primary-hover text-white px-6 py-3 geo-chamfer-sm font-medium transition-all"
               >
                 Get Started
               </Link>
             </div>
             {/* Analytics Screen Mockup */}
-            <div className="bg-deep rounded-xl p-6 border border-border shadow-2xl">
-              <div className="flex items-center gap-2 mb-4">
-                <div className="w-3 h-3 rounded-full bg-red-500"></div>
-                <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-                <div className="w-3 h-3 rounded-full bg-green-500"></div>
-                <div className="flex-1 bg-surface rounded h-6"></div>
+            <div className="terminal-container relative overflow-hidden">
+              <div className="terminal-bar">
+                <span className="terminal-dot bg-red-500/80" />
+                <span className="terminal-dot bg-yellow-500/80" />
+                <span className="terminal-dot bg-green-500/80" />
+                <span className="terminal-label ml-2">analytics</span>
               </div>
-              <div className="space-y-4">
-                <div className="bg-surface rounded-lg p-4">
-                  <div className="text-xs text-text-secondary mb-2">Weekly Progress</div>
+              <div className="p-6 space-y-4">
+                <div className="glass-light geo-chamfer-sm p-4">
+                  <div className="terminal-label mb-2">Weekly Progress</div>
                   <div className="flex items-end gap-2 h-16">
                     <div className="flex-1 bg-primary/30 rounded-t" style={{ height: '40%' }}></div>
                     <div className="flex-1 bg-primary/40 rounded-t" style={{ height: '60%' }}></div>
@@ -1341,42 +1342,43 @@ export default function LandingHeroDemo() {
                   </div>
                 </div>
                 <div className="grid grid-cols-2 gap-4">
-                  <div className="bg-surface rounded-lg p-4">
-                    <div className="text-xs text-text-secondary mb-1">Current Streak</div>
-                    <div className="text-2xl font-bold text-gold-500">14 days</div>
+                  <div className="glass-light geo-chamfer-sm p-4">
+                    <div className="terminal-label mb-1">Current Streak</div>
+                    <div className="terminal-value text-2xl text-gold-400">14 days</div>
                   </div>
-                  <div className="bg-surface rounded-lg p-4">
-                    <div className="text-xs text-text-secondary mb-1">Avg. Score</div>
-                    <div className="text-2xl font-bold text-success">87%</div>
+                  <div className="glass-light geo-chamfer-sm p-4">
+                    <div className="terminal-label mb-1">Avg. Score</div>
+                    <div className="terminal-value text-2xl text-success">87%</div>
                   </div>
                 </div>
-                <div className="bg-surface rounded-lg p-4">
-                  <div className="text-xs text-text-secondary mb-2">Subject Performance</div>
+                <div className="glass-light geo-chamfer-sm p-4">
+                  <div className="terminal-label mb-2">Subject Performance</div>
                   <div className="space-y-2">
                     <div className="flex items-center gap-2">
-                      <div className="text-xs text-text-secondary w-16">Math</div>
+                      <div className="terminal-label text-xs w-16">Math</div>
                       <div className="flex-1 bg-deep rounded-full h-2">
                         <div className="bg-primary rounded-full h-2" style={{ width: '85%' }}></div>
                       </div>
-                      <div className="text-xs text-text-primary">85%</div>
+                      <div className="terminal-value text-xs">85%</div>
                     </div>
                     <div className="flex items-center gap-2">
-                      <div className="text-xs text-text-secondary w-16">Physics</div>
+                      <div className="terminal-label text-xs w-16">Physics</div>
                       <div className="flex-1 bg-deep rounded-full h-2">
                         <div className="bg-gold rounded-full h-2" style={{ width: '92%' }}></div>
                       </div>
-                      <div className="text-xs text-text-primary">92%</div>
+                      <div className="terminal-value text-xs">92%</div>
                     </div>
                     <div className="flex items-center gap-2">
-                      <div className="text-xs text-text-secondary w-16">Chemistry</div>
+                      <div className="terminal-label text-xs w-16">Chemistry</div>
                       <div className="flex-1 bg-deep rounded-full h-2">
                         <div className="bg-coral rounded-full h-2" style={{ width: '78%' }}></div>
                       </div>
-                      <div className="text-xs text-text-primary">78%</div>
+                      <div className="terminal-value text-xs">78%</div>
                     </div>
                   </div>
                 </div>
               </div>
+              <div className="scanline-overlay" />
             </div>
           </div>
         </div>
@@ -1393,7 +1395,7 @@ export default function LandingHeroDemo() {
               This week's focus: Mathematics Mastery
             </p>
           </div>
-          <div className="bg-gradient-to-br from-primary/20 to-gold/20 rounded-3xl p-8 md:p-12 border border-primary/30 relative overflow-hidden">
+          <div className="glass geo-chamfer-sm p-8 md:p-12 border border-primary/20 relative overflow-hidden">
             {/* Animated background elements */}
             <div className="absolute top-10 left-10 w-64 h-64 bg-primary/10 rounded-full blur-3xl animate-pulse"/>
             <div className="absolute bottom-10 right-10 w-64 h-64 bg-gold/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}/>
@@ -1415,33 +1417,33 @@ export default function LandingHeroDemo() {
                 </p>
                 <div className="flex gap-6 mb-8">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center text-primary">
+                    <div className="w-10 h-10 geo-chamfer-sm bg-primary/20 flex items-center justify-center text-primary">
                       <Icon name="fileText" className="w-5 h-5" />
                     </div>
                     <div>
-                      <div className="font-bold text-text-primary">500+</div>
-                      <div className="text-xs text-text-secondary">Questions</div>
+                      <div className="terminal-value">500+</div>
+                      <div className="terminal-label text-xs">Questions</div>
                     </div>
                   </div>
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-lg bg-gold/20 flex items-center justify-center text-gold-500">
+                    <div className="w-10 h-10 geo-chamfer-sm bg-gold/20 flex items-center justify-center text-gold-500">
                       <Icon name="users" className="w-5 h-5" />
                     </div>
                     <div>
-                      <div className="font-bold text-text-primary">2,000+</div>
-                      <div className="text-xs text-text-secondary">Students</div>
+                      <div className="terminal-value">2,000+</div>
+                      <div className="terminal-label text-xs">Students</div>
                     </div>
                   </div>
                 </div>
                 <Link
                   to="/onboarding/role"
-                  className="inline-flex items-center gap-2 bg-primary hover:bg-primary-hover text-white px-6 py-3 rounded-lg font-medium transition-all shadow-lg shadow-primary/25"
+                  className="inline-flex items-center gap-2 bg-primary hover:bg-primary-hover text-white px-6 py-3 geo-chamfer-sm font-medium transition-all shadow-lg shadow-primary/25"
                 >
                   Start Learning
                   <Icon name="arrowRight" className="w-4 h-4" />
                 </Link>
               </div>
-              <div className="bg-surface rounded-2xl p-8 border border-border relative shadow-2xl">
+              <div className="glass geo-chamfer-sm p-8 relative shadow-2xl">
                 {/* Lined paper effect */}
                 <div className="absolute inset-0 opacity-5" style={{
                   backgroundImage: 'repeating-linear-gradient(transparent, transparent 19px, #6B7280 20px)',
@@ -1452,28 +1454,28 @@ export default function LandingHeroDemo() {
                     <div className="text-text-secondary text-sm font-medium">Sample Question</div>
                     <div className="px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-medium">Algebra</div>
                   </div>
-                  <div className="bg-deep/50 rounded-xl p-6 mb-6">
+                  <div className="bg-deep/50 geo-chamfer-lg p-6 mb-6">
                     <div className="text-text-primary font-medium text-lg mb-4">
                       If x² - 5x + 6 = 0, find the values of x
                     </div>
                     <div className="space-y-3">
                       <motion.label
                         whileHover={{ scale: 1.02 }}
-                        className="flex items-center gap-3 p-3 rounded-lg bg-surface/50 border border-border/50 cursor-pointer hover:border-primary/50 transition-all"
+                        className="flex items-center gap-3 p-3 geo-chamfer-sm glass-light cursor-pointer hover:border-primary/40 transition-all"
                       >
                         <div className="w-5 h-5 rounded border-2 border-border hover:border-primary transition-colors"></div>
                         <span className="text-text-secondary">x = 2, x = 3</span>
                       </motion.label>
                       <motion.label
                         whileHover={{ scale: 1.02 }}
-                        className="flex items-center gap-3 p-3 rounded-lg bg-surface/50 border border-border/50 cursor-pointer hover:border-primary/50 transition-all"
+                        className="flex items-center gap-3 p-3 geo-chamfer-sm glass-light cursor-pointer hover:border-primary/40 transition-all"
                       >
                         <div className="w-5 h-5 rounded border-2 border-border hover:border-primary transition-colors"></div>
                         <span className="text-text-secondary">x = -2, x = -3</span>
                       </motion.label>
                       <motion.label
                         whileHover={{ scale: 1.02 }}
-                        className="flex items-center gap-3 p-3 rounded-lg bg-surface/50 border border-border/50 cursor-pointer hover:border-primary/50 transition-all"
+                        className="flex items-center gap-3 p-3 geo-chamfer-sm glass-light cursor-pointer hover:border-primary/40 transition-all"
                       >
                         <div className="w-5 h-5 rounded border-2 border-border hover:border-primary transition-colors"></div>
                         <span className="text-text-secondary">x = 1, x = 6</span>
@@ -1495,7 +1497,7 @@ export default function LandingHeroDemo() {
       </section>
 
       {/* Quick Success Quotes */}
-      <section className="py-24 bg-surface/50 relative overflow-hidden">
+      <section className="py-24 relative overflow-hidden">
         <div className="max-w-screen-2xl mx-auto px-6 md:px-12">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-text-primary mb-4">
@@ -1511,9 +1513,9 @@ export default function LandingHeroDemo() {
               whileHover={{ y: -4 }}
               className="relative"
             >
-              <div className="bg-surface rounded-2xl p-8 border border-border relative shadow-lg">
+              <div className="glass geo-chamfer-sm p-8 relative shadow-lg">
                 {/* Speech bubble tail */}
-                <div className="absolute -bottom-3 left-8 w-6 h-6 bg-surface border-b border-r border-border transform rotate-45"></div>
+                <div className="absolute -bottom-3 left-8 w-6 h-6 glass transform rotate-45"></div>
                 <div className="relative z-10">
                   <div className="flex items-start gap-4 mb-4">
                     <div className="w-14 h-14 rounded-full bg-gradient-to-br from-primary to-primary-400 flex items-center justify-center text-white flex-shrink-0 shadow-lg shadow-primary/25">
@@ -1540,11 +1542,11 @@ export default function LandingHeroDemo() {
                 </div>
               </div>
               <div className="mt-6 ml-8">
-                <div className="text-sm text-text-secondary">JAMB Score</div>
+                <div className="terminal-label text-sm">JAMB Score</div>
                 <div className="flex items-center gap-2">
                   <span className="text-text-secondary line-through">220</span>
                   <Icon name="arrowRight" className="w-4 h-4 text-success" />
-                  <span className="text-2xl font-bold text-success">290</span>
+                  <span className="terminal-value text-2xl text-success">290</span>
                 </div>
               </div>
             </motion.div>
@@ -1553,9 +1555,9 @@ export default function LandingHeroDemo() {
               whileHover={{ y: -4 }}
               className="relative"
             >
-              <div className="bg-surface rounded-2xl p-8 border border-border relative shadow-lg">
+              <div className="glass geo-chamfer-sm p-8 relative shadow-lg">
                 {/* Speech bubble tail */}
-                <div className="absolute -bottom-3 left-8 w-6 h-6 bg-surface border-b border-r border-border transform rotate-45"></div>
+                <div className="absolute -bottom-3 left-8 w-6 h-6 glass transform rotate-45"></div>
                 <div className="relative z-10">
                   <div className="flex items-start gap-4 mb-4">
                     <div className="w-14 h-14 rounded-full bg-gradient-to-br from-gold-500 to-gold-300 flex items-center justify-center text-white flex-shrink-0 shadow-lg shadow-gold/25">
@@ -1582,11 +1584,11 @@ export default function LandingHeroDemo() {
                 </div>
               </div>
               <div className="mt-6 ml-8">
-                <div className="text-sm text-text-secondary">Physics Grade</div>
+                <div className="terminal-label text-sm">Physics Grade</div>
                 <div className="flex items-center gap-2">
                   <span className="text-text-secondary line-through">C4</span>
                   <Icon name="arrowRight" className="w-4 h-4 text-success" />
-                  <span className="text-2xl font-bold text-success">A1</span>
+                  <span className="terminal-value text-2xl text-success">A1</span>
                 </div>
               </div>
             </motion.div>
@@ -1597,7 +1599,7 @@ export default function LandingHeroDemo() {
       {/* Centres Card Section */}
       <section className="py-24 relative overflow-hidden">
         <div className="max-w-screen-2xl mx-auto px-6 md:px-12">
-          <div className="bg-gradient-to-r from-primary to-gold rounded-2xl p-8 md:p-12 relative overflow-hidden">
+          <div className="bg-gradient-to-r from-primary to-gold geo-chamfer-lg p-8 md:p-12 relative overflow-hidden">
             {/* Animated Wave Effect */}
             <div className="absolute bottom-0 left-0 right-0 h-32 overflow-hidden">
               <svg className="w-full h-full" viewBox="0 0 1440 100" preserveAspectRatio="none">
@@ -1650,7 +1652,7 @@ export default function LandingHeroDemo() {
                 </div>
                 <Link
                   to="/centres/register"
-                  className="inline-block bg-white text-primary px-8 py-4 rounded-lg font-medium hover:bg-white/90 transition-all shadow-lg"
+                  className="inline-block bg-white text-primary px-8 py-4 geo-chamfer-sm font-medium hover:bg-white/90 transition-all shadow-lg"
                 >
                   Register Your Centre
                 </Link>
@@ -1658,31 +1660,31 @@ export default function LandingHeroDemo() {
               <div className="grid grid-cols-2 gap-4">
                 <motion.div
                   whileHover={{ y: -4, scale: 1.05 }}
-                  className="bg-white/10 backdrop-blur rounded-lg p-6 border border-white/20"
+                  className="glass geo-chamfer-sm p-6"
                 >
-                  <div className="text-3xl font-bold text-white mb-1">150+</div>
-                  <div className="text-sm text-white/70">Active Centres</div>
+                  <div className="terminal-value text-3xl text-white mb-1">150+</div>
+                  <div className="terminal-label text-sm text-white/70">Active Centres</div>
                 </motion.div>
                 <motion.div
                   whileHover={{ y: -4, scale: 1.05 }}
-                  className="bg-white/10 backdrop-blur rounded-lg p-6 border border-white/20"
+                  className="glass geo-chamfer-sm p-6"
                 >
-                  <div className="text-3xl font-bold text-white mb-1">50K+</div>
-                  <div className="text-sm text-white/70">Students Managed</div>
+                  <div className="terminal-value text-3xl text-white mb-1">50K+</div>
+                  <div className="terminal-label text-sm text-white/70">Students Managed</div>
                 </motion.div>
                 <motion.div
                   whileHover={{ y: -4, scale: 1.05 }}
-                  className="bg-white/10 backdrop-blur rounded-lg p-6 border border-white/20"
+                  className="glass geo-chamfer-sm p-6"
                 >
-                  <div className="text-3xl font-bold text-white mb-1">85%</div>
-                  <div className="text-sm text-white/70">Score Improvement</div>
+                  <div className="terminal-value text-3xl text-white mb-1">85%</div>
+                  <div className="terminal-label text-sm text-white/70">Score Improvement</div>
                 </motion.div>
                 <motion.div
                   whileHover={{ y: -4, scale: 1.05 }}
-                  className="bg-white/10 backdrop-blur rounded-lg p-6 border border-white/20"
+                  className="glass geo-chamfer-sm p-6"
                 >
-                  <div className="text-3xl font-bold text-white mb-1">24/7</div>
-                  <div className="text-sm text-white/70">Support</div>
+                  <div className="terminal-value text-3xl text-white mb-1">24/7</div>
+                  <div className="terminal-label text-sm text-white/70">Support</div>
                 </motion.div>
               </div>
             </div>
@@ -1690,8 +1692,8 @@ export default function LandingHeroDemo() {
         </div>
       </section>
 
-      {/* Final CTA Section */}
-      <section className="py-24 bg-surface/50 relative">
+      {/* Final CTA Section — gradient accent */}
+      <section className="py-24 gradient-accent relative">
         <div className="max-w-screen-2xl mx-auto px-6 md:px-12 text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-text-primary mb-4">
             Your Exam Success Story Starts Now
@@ -1702,13 +1704,13 @@ export default function LandingHeroDemo() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               to="/onboarding/role"
-              className="bg-primary hover:bg-primary-hover text-white px-8 py-4 rounded-lg font-medium transition-all shadow-glow text-center"
+              className="bg-primary hover:bg-primary-hover text-white px-8 py-4 geo-chamfer-sm font-medium transition-all shadow-glow text-center hover-glow"
             >
               Start Learning Free
             </Link>
             <Link
               to="/centres"
-              className="border border-border bg-surface text-text-primary px-8 py-4 rounded-lg font-medium hover:bg-raised transition-all text-center"
+              className="glass border border-white/10 text-text-primary px-8 py-4 geo-chamfer-sm font-medium hover:bg-white/10 transition-all text-center"
             >
               Explore Features
             </Link>

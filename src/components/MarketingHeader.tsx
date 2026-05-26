@@ -21,7 +21,7 @@ const MarketingHeader = memo(function MarketingHeader() {
   const isActive = (path: string) => location.pathname === path
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'backdrop-blur-xl bg-deep/90 border-b border-border shadow-sharp' : 'backdrop-blur-md bg-deep/60 border-b border-white/5'}`}>
+    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'glass-strong border-b border-border shadow-sharp' : 'backdrop-blur-md bg-deep/60 border-b border-white/5'}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-14 md:h-16">
           <Link to="/" className="flex items-center gap-2">
@@ -99,10 +99,10 @@ const MarketingHeader = memo(function MarketingHeader() {
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-              className="fixed top-0 right-0 h-screen w-full sm:w-80 bg-surface border-l border-border z-[70] lg:hidden flex flex-col overflow-hidden"
+              className="fixed top-0 right-0 h-screen w-full sm:w-80 glass-strong border-l border-border z-[70] lg:hidden flex flex-col overflow-hidden"
             >
               {/* Header */}
-              <div className="flex items-center justify-between p-4 border-b border-border bg-surface shrink-0">
+              <div className="flex items-center justify-between p-4 border-b border-border glass shrink-0">
                 <img
                   src="/img/ADJ-logo-v2-transparent.png"
                   alt="ADJ EduQuest"
@@ -120,7 +120,7 @@ const MarketingHeader = memo(function MarketingHeader() {
               </div>
 
               {/* Navigation Links */}
-              <nav className="flex-1 overflow-y-auto p-4 bg-surface min-h-0">
+              <nav className="flex-1 overflow-y-auto p-4 min-h-0">
                 <div className="space-y-1">
                   {[
                     { path: '/', label: 'Home', icon: 'layoutDashboard' },
@@ -150,7 +150,7 @@ const MarketingHeader = memo(function MarketingHeader() {
               </nav>
 
               {/* Footer CTAs */}
-              <div className="p-4 border-t border-border space-y-2 bg-surface shrink-0">
+              <div className="p-4 border-t border-border space-y-2 glass shrink-0">
                 <Link
                   to="/onboarding/role"
                   className="block w-full py-3 px-4 bg-primary hover:bg-primary-hover text-white geo-chamfer-sm font-mono uppercase tracking-wider text-center transition-all shadow-glow"

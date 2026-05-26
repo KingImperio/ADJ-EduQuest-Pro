@@ -23,7 +23,7 @@ export function AuthLayout({
     <div className="min-h-screen bg-deep flex">
       {/* Left Panel — Geometric visual */}
       <div className="hidden lg:flex lg:w-[45%] xl:w-[40%] relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-deepest via-deep to-surface">
+        <div className="absolute inset-0 gradient-accent">
           {/* Dot grid pattern */}
           <div className="absolute inset-0 geo-grid-dots opacity-60" />
 
@@ -81,8 +81,8 @@ export function AuthLayout({
                     transition={{ delay: 0.5 + i * 0.1 }}
                     className="text-center"
                   >
-                    <div className="text-2xl font-bold text-white font-mono">{stat.value}</div>
-                    <div className="text-xs text-text-muted font-mono uppercase tracking-wider mt-0.5">{stat.label}</div>
+                    <div className="terminal-value text-2xl text-white">{stat.value}</div>
+                    <div className="terminal-label text-xs mt-0.5">{stat.label}</div>
                   </motion.div>
                 ))}
               </div>
@@ -122,7 +122,7 @@ export function AuthLayout({
         </div>
 
         {/* Form Content */}
-        <div className="flex-1 flex flex-col justify-center px-6 sm:px-12 lg:px-16 xl:px-24 py-12 overflow-y-auto">
+        <div className="flex-1 flex flex-col justify-center px-6 sm:px-12 lg:px-16 xl:px-24 py-12 overflow-y-auto bg-deep/50">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}

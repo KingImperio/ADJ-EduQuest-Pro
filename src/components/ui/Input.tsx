@@ -24,9 +24,9 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           )}
           <input
             ref={ref}
-            className={`w-full bg-deepest border-2 ${
+            className={`w-full bg-deepest/80 backdrop-blur-sm border-2 ${
               error ? 'border-error' : 'border-border'
-            } geo-chamfer-sm py-2.5 text-text-primary placeholder:text-text-muted focus:outline-none focus:border-primary transition-colors font-body ${
+            } geo-chamfer-sm py-2.5 text-text-primary placeholder:text-text-muted focus:outline-none focus:border-primary focus:shadow-glow transition-all font-body ${
               icon ? 'pl-10' : 'pl-3'
             } ${rightIcon ? 'pr-10' : 'pr-3'} ${className}`}
             {...props}

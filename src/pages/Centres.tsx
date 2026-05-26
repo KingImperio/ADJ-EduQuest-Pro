@@ -274,7 +274,7 @@ export default function Centres() {
           transition={{ duration: 0.5 }}
           className="max-w-4xl mx-auto text-center"
         >
-          <div className="bg-gradient-to-r from-coral/20 via-gold-500/10 to-primary/20 geo-chamfer-lg p-8 md:p-12 relative overflow-hidden hover-glow">
+          <div className="bg-gradient-to-r from-coral/20 via-gold-500/10 to-primary/20 rounded-2xl p-8 md:p-12 relative overflow-hidden hover-glow">
             <div className="absolute top-0 right-0 w-32 h-32 bg-gold/20 rounded-full blur-[60px]" />
             <div className="absolute bottom-0 left-0 w-32 h-32 bg-coral/20 rounded-full blur-[60px]" />
 
@@ -323,7 +323,7 @@ export default function Centres() {
               return (
                 <div
                   key={index}
-                  className={`glass-light geo-chamfer p-6 hover-lift hover:shadow-lg transition-all duration-300`}
+                  className={`glass-light rounded-xl p-6 hover-lift hover:shadow-lg transition-all duration-300`}
                 >
                   <div className={`w-12 h-12 ${colors.iconBg} geo-chamfer flex items-center justify-center mb-4`}>
                     <Icon name={benefit.icon} className={`w-6 h-6 ${colors.text}`} />
@@ -360,7 +360,7 @@ export default function Centres() {
               return (
                 <div
                   key={index}
-                  className="glass-light geo-chamfer p-6 hover-lift hover:shadow-lg transition-all duration-300"
+                  className="glass-light rounded-xl p-6 hover-lift hover:shadow-lg transition-all duration-300"
                 >
                   <div className="flex items-start gap-4 mb-4">
                     <div className={`w-12 h-12 ${accent.bg} rounded-full flex items-center justify-center bg-gradient-to-br ${accent.gradient} bg-opacity-20`}>

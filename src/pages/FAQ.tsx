@@ -232,7 +232,7 @@ export default function FAQ() {
       <section className="px-6 pb-16">
         <ScrollReveal direction="up">
           <div className="max-w-4xl mx-auto">
-            <div className="bg-gradient-to-r from-primary/20 via-gold-500/10 to-coral/20 geo-chamfer-lg p-8 md:p-12 text-center border border-success/30 relative overflow-hidden hover-glow">
+            <div className="bg-gradient-to-r from-primary/20 via-gold-500/10 to-coral/20 rounded-2xl p-8 md:p-12 text-center border border-success/30 relative overflow-hidden hover-glow">
               {/* Decorative elements */}
               <div className="absolute top-0 right-0 w-32 h-32 bg-gold/20 rounded-full blur-[60px]" />
               <div className="absolute bottom-0 left-0 w-32 h-32 bg-success/20 rounded-full blur-[60px]" />

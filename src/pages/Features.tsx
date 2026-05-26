@@ -294,7 +294,7 @@ export default function Features() {
           transition={{ duration: 0.6 }}
           className="max-w-4xl mx-auto"
         >
-          <div className="gradient-accent glass geo-chamfer p-8 md:p-12 text-center relative overflow-hidden hover-glow">
+          <div className="gradient-accent glass rounded-2xl p-8 md:p-12 text-center relative overflow-hidden hover-glow">
             {/* Decorative elements */}
             <div className="absolute top-0 right-0 w-32 h-32 bg-gold/20 rounded-full blur-[60px]" />
             <div className="absolute bottom-0 left-0 w-32 h-32 bg-coral/20 rounded-full blur-[60px]" />

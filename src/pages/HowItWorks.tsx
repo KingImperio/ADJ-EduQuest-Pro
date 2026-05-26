@@ -248,7 +248,7 @@ export default function HowItWorks() {
                   </div>
 
                   {/* Step Content */}
-                  <div className={`flex-1 glass-light geo-chamfer p-4 sm:p-6 hover:border-opacity-50 transition-all hover-lift group min-w-0`}>
+                  <div className={`flex-1 glass-light rounded-xl p-4 sm:p-6 hover:border-opacity-50 transition-all hover-lift group min-w-0`}>
                     <div className="flex items-start gap-3 sm:gap-4 mb-4">
                       <div className={`w-10 h-10 sm:w-12 sm:h-12 bg-raised geo-chamfer flex items-center justify-center group-hover:${currentColors.bg}/20 transition-colors flex-shrink-0`}>
                         <Icon name={step.icon} className={`w-5 h-5 sm:w-6 sm:h-6 ${currentColors.icon}`} />
@@ -285,7 +285,7 @@ export default function HowItWorks() {
           transition={{ duration: 0.6 }}
           className="max-w-4xl mx-auto"
         >
-          <div className={`bg-gradient-to-r from-${userType === 'student' ? 'primary' : userType === 'teacher' ? 'gold' : 'coral'}/20 via-gold-500/10 to-${userType === 'student' ? 'coral' : userType === 'teacher' ? 'primary' : 'gold'}/20 geo-chamfer-lg p-8 md:p-12 text-center border border-${userType === 'student' ? 'primary' : userType === 'teacher' ? 'gold' : 'coral'}/30 relative overflow-hidden hover-glow`}>
+          <div className={`bg-gradient-to-r from-${userType === 'student' ? 'primary' : userType === 'teacher' ? 'gold' : 'coral'}/20 via-gold-500/10 to-${userType === 'student' ? 'coral' : userType === 'teacher' ? 'primary' : 'gold'}/20 rounded-2xl p-8 md:p-12 text-center border border-${userType === 'student' ? 'primary' : userType === 'teacher' ? 'gold' : 'coral'}/30 relative overflow-hidden hover-glow`}>
             {/* Decorative elements */}
             <div className="absolute top-0 right-0 w-32 h-32 bg-gold/20 rounded-full blur-[60px]" />
             <div className="absolute bottom-0 left-0 w-32 h-32 bg-primary/20 rounded-full blur-[60px]" />

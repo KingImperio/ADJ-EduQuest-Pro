@@ -204,7 +204,7 @@ export default function Testimonials() {
             <motion.div
               key={idx}
               variants={staggerItem('up')}
-              className="glass-light geo-chamfer p-6 text-center hover:border-opacity-80 transition-all hover-lift"
+              className="glass-light rounded-xl p-6 text-center hover:border-opacity-80 transition-all hover-lift"
             >
               <AnimatedCounter
                 value={stat.value}
@@ -283,7 +283,7 @@ export default function Testimonials() {
               return (
                 <div
                   key={t.id}
-                  className={`glass-light geo-chamfer p-4 w-[280px] flex-shrink-0 ${border}`}
+                  className={`glass-light rounded-xl p-4 w-[280px] flex-shrink-0 ${border}`}
                 >
                   <div className="flex items-center gap-2 mb-2">
                     <img
@@ -313,7 +313,7 @@ export default function Testimonials() {
           transition={{ duration: 0.6 }}
           className="max-w-4xl mx-auto"
         >
-          <div className="bg-gradient-to-r from-primary/20 via-gold-500/10 to-coral/20 geo-chamfer-lg p-8 md:p-12 text-center border border-primary/30 relative overflow-hidden hover-glow">
+          <div className="bg-gradient-to-r from-primary/20 via-gold-500/10 to-coral/20 rounded-2xl p-8 md:p-12 text-center border border-primary/30 relative overflow-hidden hover-glow">
             {/* Decorative elements */}
             <div className="absolute top-0 right-0 w-32 h-32 bg-gold/20 rounded-full blur-[60px]" />
             <div className="absolute bottom-0 left-0 w-32 h-32 bg-coral/20 rounded-full blur-[60px]" />

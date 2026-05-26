@@ -373,7 +373,7 @@ export default function Pricing() {
               { q: 'What payment methods do you accept?', a: 'We accept bank transfers, card payments, and mobile money. Contact us for enterprise billing options.', icon: 'creditCard' }
             ].map((faq, idx) => (
               <ScrollReveal key={idx} delay={idx * 100} direction="left">
-                <div className="glass-light geo-chamfer p-6 hover:border-opacity-80 transition-all hover-lift">
+                <div className="glass-light rounded-xl p-6 hover:border-opacity-80 transition-all hover-lift">
                   <div className="flex items-start gap-3">
                     <div className={`w-8 h-8 geo-chamfer flex items-center justify-center ${idx === 1 ? 'bg-gold/20' : idx === 2 ? 'bg-coral/20' : 'bg-primary/20'}`}>
                       <Icon name={faq.icon as any} className={`w-4 h-4 ${idx === 1 ? 'text-gold' : idx === 2 ? 'text-coral' : 'text-primary'}`} />
@@ -399,7 +399,7 @@ export default function Pricing() {
           transition={{ duration: 0.6 }}
           className="max-w-4xl mx-auto"
         >
-          <div className={`bg-gradient-to-r ${colors.bg.replace('bg-', 'from-')}/20 via-gold-500/10 to-coral/20 geo-chamfer-lg p-8 md:p-12 text-center border border-${colors.text.replace('text-', '')}/30 relative overflow-hidden hover-glow`}>
+          <div className={`bg-gradient-to-r ${colors.bg.replace('bg-', 'from-')}/20 via-gold-500/10 to-coral/20 rounded-2xl p-8 md:p-12 text-center border border-${colors.text.replace('text-', '')}/30 relative overflow-hidden hover-glow`}>
             {/* Decorative elements */}
             <div className="absolute top-0 right-0 w-32 h-32 bg-gold/20 rounded-full blur-[60px]" />
             <div className="absolute bottom-0 left-0 w-32 h-32 bg-primary/20 rounded-full blur-[60px]" />

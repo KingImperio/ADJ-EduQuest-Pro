@@ -219,7 +219,7 @@ export default function About() {
                 <ScrollReveal key={index} delay={index * 80} direction={index % 2 === 0 ? 'left' : 'right'}>
                   <div className="relative flex items-center justify-center md:justify-start">
                     <div className="hidden md:block absolute left-1/2 -translate-x-1/2 w-4 h-4 bg-primary rounded-full border-4 border-deep" />
-                    <div className={`bg-surface border border-border geo-chamfer p-6 w-full md:w-5/12 hover-lift ${index % 2 === 0 ? 'md:mr-auto md:ml-0' : 'md:ml-auto md:mr-0'}`}>
+                    <div className={`bg-surface border border-border rounded-xl p-6 w-full md:w-5/12 hover-lift ${index % 2 === 0 ? 'md:mr-auto md:ml-0' : 'md:ml-auto md:mr-0'}`}>
                       <div className="text-2xl font-bold text-primary mb-2">{milestone.year}</div>
                       <div className="text-text-secondary">{milestone.event}</div>
                     </div>
@@ -265,7 +265,7 @@ export default function About() {
           transition={{ duration: 0.6 }}
           className="max-w-4xl mx-auto text-center"
         >
-          <div className="bg-gradient-to-r from-primary/20 via-gold-500/10 to-coral/20 geo-chamfer-lg p-8 md:p-12 relative overflow-hidden hover-glow">
+          <div className="bg-gradient-to-r from-primary/20 via-gold-500/10 to-coral/20 rounded-2xl p-8 md:p-12 relative overflow-hidden hover-glow">
             <div className="absolute top-0 right-0 w-32 h-32 bg-gold/20 rounded-full blur-[60px]" />
             <div className="absolute bottom-0 left-0 w-32 h-32 bg-primary/20 rounded-full blur-[60px]" />
 

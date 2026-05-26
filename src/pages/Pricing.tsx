@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { Icon } from '../components/Icon'
+import { textColors, bgColors, borderColors } from '../utils/colorClasses'
 import MarketingHeader from '../components/MarketingHeader'
 import MarketingFooter from '../components/MarketingFooter'
 import AnimatedGradientBackground from '../components/AnimatedGradientBackground'
@@ -325,7 +326,7 @@ export default function Pricing() {
                       <h3 className="text-xl font-semibold text-text-primary mb-2">{plan.name}</h3>
                       <p className="text-text-secondary text-sm mb-4">{plan.description}</p>
                       <div className="flex items-baseline justify-center gap-1">
-                        <span className={`terminal-value text-3xl ${plan.popular ? colors.text : `text-${accent}`}`}>{plan.price}</span>
+                        <span className={`terminal-value text-3xl ${plan.popular ? colors.text : textColors[accent] || 'text-primary'}`}>{plan.price}</span>
                         <span className="terminal-label text-sm">/{plan.period}</span>
                       </div>
                     </div>
@@ -333,7 +334,7 @@ export default function Pricing() {
                     <ul className="space-y-3 mb-6">
                       {plan.features.map((feature, index) => (
                         <li key={index} className="flex items-start gap-2 text-sm text-text-secondary">
-                          <Icon name="checkCircle" className={`w-4 h-4 ${plan.popular ? colors.text : `text-${accent}`} shrink-0 mt-0.5`} />
+                          <Icon name="checkCircle" className={`w-4 h-4 ${plan.popular ? colors.text : textColors[accent] || 'text-primary'} shrink-0 mt-0.5`} />
                           {feature}
                         </li>
                       ))}
@@ -344,7 +345,7 @@ export default function Pricing() {
                       className={`group block w-full py-3 rounded-lg font-medium text-center transition-all ${
                         plan.popular
                           ? `${colors.bg} ${colors.hover} text-white ${colors.shadow}`
-                          : `bg-transparent border border-border hover:border-${accent} text-${accent}`
+                          : `bg-transparent border border-border hover:${borderColors[accent] || 'hover:border-primary'} ${textColors[accent] || 'text-primary'}`
                       }`}
                     >
                       <span className="flex items-center justify-center gap-2">

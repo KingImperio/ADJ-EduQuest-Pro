@@ -90,10 +90,11 @@ function AppRoutes() {
          fetchProfile(session.user.id)
        }
        setLoading(false)
+       useAuthStore.setState({ isInitialized: true })
      })
 
      let subscription: { data: { subscription: { unsubscribe: () => void } }; } | null = null;
-     
+
      subscription = supabase.auth.onAuthStateChange(
        (_event, session) => {
          setSession(session)

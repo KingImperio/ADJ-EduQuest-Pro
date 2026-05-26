@@ -4,6 +4,10 @@ import { Icon, IconName } from '../components/Icon'
 import MarketingHeader from '../components/MarketingHeader'
 import MarketingFooter from '../components/MarketingFooter'
 import AnimatedGradientBackground from '../components/AnimatedGradientBackground'
+import ScrollReveal from '../components/ui/ScrollReveal'
+import GlassCard from '../components/ui/GlassCard'
+import SectionHeading from '../components/ui/SectionHeading'
+import AnimatedCounter from '../components/ui/AnimatedCounter'
 
 interface TeamMember {
   name: string
@@ -138,37 +142,34 @@ export default function About() {
         </motion.div>
       </section>
 
-      {/* Values Section */}
+      {/* Values Section — ScrollReveal stagger */}
       <section className="px-6 py-4 bg-deep relative z-10">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-3xl font-bold text-primary text-center mb-12">
-            Our Core Values
-          </h2>
+          <SectionHeading title="Our Core Values" accentColor="primary" />
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {values.map((value, index) => (
-              <div
-                key={index}
-                className="glass-light geo-chamfer p-6 text-center transition-all hover-lift hover:shadow-lg"
-              >
-                <div
-                  className="w-12 h-12 geo-chamfer flex items-center justify-center mx-auto mb-4"
-                  style={{ backgroundColor: value.bgColor }}
-                >
-                  <Icon name={value.icon} className={`w-6 h-6`} style={{ color: value.color }} />
-                </div>
-                <h3 className="text-lg font-semibold mb-2" style={{ color: value.color }}>{value.title}</h3>
-                <p className="text-text-secondary text-sm">{value.description}</p>
-              </div>
+              <ScrollReveal key={index} delay={index * 100} direction="up">
+                <GlassCard variant="glass-light" chamfer hoverLift className="p-6 text-center">
+                  <div
+                    className="w-12 h-12 geo-chamfer flex items-center justify-center mx-auto mb-4"
+                    style={{ backgroundColor: value.bgColor }}
+                  >
+                    <Icon name={value.icon} className="w-6 h-6" style={{ color: value.color }} />
+                  </div>
+                  <h3 className="text-lg font-semibold mb-2" style={{ color: value.color }}>{value.title}</h3>
+                  <p className="text-text-secondary text-sm">{value.description}</p>
+                </GlassCard>
+              </ScrollReveal>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Mission Section */}
+      {/* Mission Section — ScrollReveal + AnimatedCounters */}
       <section className="px-6 py-12 bg-deep relative z-10">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
+            <ScrollReveal direction="left">
               <h2 className="text-3xl font-bold text-primary mb-6">Our Mission</h2>
               <p className="text-text-secondary mb-6">
                 To democratize access to quality education in Nigeria by providing affordable, accessible, and effective learning tools that help every student reach their full potential.
@@ -176,78 +177,80 @@ export default function About() {
               <p className="text-text-secondary">
                 We believe that every student deserves access to the best educational resources, regardless of their location or background. Our platform bridges the gap between traditional learning and modern technology.
               </p>
-            </div>
-            <div className="glass geo-chamfer p-8">
-              <h3 className="text-xl font-semibold text-primary mb-4">Our Vision</h3>
-              <p className="text-text-secondary mb-6">
-                To become the leading educational technology platform in Africa, serving millions of students and transforming how education is delivered and consumed.
-              </p>
-              <div className="grid grid-cols-2 gap-4">
-                <div className="text-center p-4 bg-raised geo-chamfer">
-                  <div className="text-2xl font-bold text-primary mb-1">50K+</div>
-                  <div className="text-text-secondary text-sm">Active Students</div>
+            </ScrollReveal>
+            <ScrollReveal direction="right">
+              <GlassCard variant="glass" chamfer glow className="p-8">
+                <h3 className="text-xl font-semibold text-primary mb-4">Our Vision</h3>
+                <p className="text-text-secondary mb-6">
+                  To become the leading educational technology platform in Africa, serving millions of students and transforming how education is delivered and consumed.
+                </p>
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="text-center p-4 bg-raised geo-chamfer">
+                    <AnimatedCounter value={50000} suffix="+" className="text-2xl font-bold text-primary mb-1" />
+                    <div className="text-text-secondary text-sm">Active Students</div>
+                  </div>
+                  <div className="text-center p-4 bg-raised geo-chamfer">
+                    <AnimatedCounter value={500} suffix="+" className="text-2xl font-bold text-primary mb-1" />
+                    <div className="text-text-secondary text-sm">Partner Centres</div>
+                  </div>
+                  <div className="text-center p-4 bg-raised geo-chamfer">
+                    <AnimatedCounter value={40} suffix="%" className="text-2xl font-bold text-primary mb-1" />
+                    <div className="text-text-secondary text-sm">Avg. Improvement</div>
+                  </div>
+                  <div className="text-center p-4 bg-raised geo-chamfer">
+                    <AnimatedCounter value={98} suffix="%" className="text-2xl font-bold text-primary mb-1" />
+                    <div className="text-text-secondary text-sm">Satisfaction</div>
+                  </div>
                 </div>
-                <div className="text-center p-4 bg-raised geo-chamfer">
-                  <div className="text-2xl font-bold text-primary mb-1">500+</div>
-                  <div className="text-text-secondary text-sm">Partner Centres</div>
-                </div>
-                <div className="text-center p-4 bg-raised geo-chamfer">
-                  <div className="text-2xl font-bold text-primary mb-1">40%</div>
-                  <div className="text-text-secondary text-sm">Avg. Improvement</div>
-                </div>
-                <div className="text-center p-4 bg-raised geo-chamfer">
-                  <div className="text-2xl font-bold text-primary mb-1">98%</div>
-                  <div className="text-text-secondary text-sm">Satisfaction</div>
-                </div>
-              </div>
-            </div>
+              </GlassCard>
+            </ScrollReveal>
           </div>
         </div>
       </section>
 
-      {/* Timeline Section */}
+      {/* Timeline Section — ScrollReveal stagger */}
       <section className="px-6 py-16 bg-surface/50">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-3xl font-bold text-primary text-center mb-12">
-            Our Journey
-          </h2>
+          <SectionHeading title="Our Journey" accentColor="primary" />
           <div className="relative">
             <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-border hidden md:block" />
             <div className="space-y-8">
               {milestones.map((milestone, index) => (
-                <div key={index} className="relative flex items-center justify-center md:justify-start">
-                  <div className="hidden md:block absolute left-1/2 -translate-x-1/2 w-4 h-4 bg-primary rounded-full border-4 border-deep" />
-                  <div className={`bg-surface border border-border geo-chamfer p-6 w-full md:w-5/12 ${index % 2 === 0 ? 'md:mr-auto md:ml-0' : 'md:ml-auto md:mr-0'}`}>
-                    <div className="text-2xl font-bold text-primary mb-2">{milestone.year}</div>
-                    <div className="text-text-secondary">{milestone.event}</div>
+                <ScrollReveal key={index} delay={index * 80} direction={index % 2 === 0 ? 'left' : 'right'}>
+                  <div className="relative flex items-center justify-center md:justify-start">
+                    <div className="hidden md:block absolute left-1/2 -translate-x-1/2 w-4 h-4 bg-primary rounded-full border-4 border-deep" />
+                    <div className={`bg-surface border border-border geo-chamfer p-6 w-full md:w-5/12 hover-lift ${index % 2 === 0 ? 'md:mr-auto md:ml-0' : 'md:ml-auto md:mr-0'}`}>
+                      <div className="text-2xl font-bold text-primary mb-2">{milestone.year}</div>
+                      <div className="text-text-secondary">{milestone.event}</div>
+                    </div>
                   </div>
-                </div>
+                </ScrollReveal>
               ))}
             </div>
           </div>
         </div>
       </section>
 
-      {/* Team Section */}
+      {/* Team Section — ScrollReveal stagger */}
       <section className="px-6 py-16 bg-deep relative z-10">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-3xl font-bold text-primary text-center mb-12">
-            Meet Our Team
-          </h2>
+          <SectionHeading title="Meet Our Team" accentColor="gold" />
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {teamMembers.map((member, index) => (
-              <div key={index} className="glass-light geo-chamfer p-6 text-center hover:border-primary/40 transition-colors">
-                <img 
-                  src={member.image} 
-                  alt={member.name}
-                  loading="lazy"
-                  decoding="async"
-                  className="w-24 h-24 rounded-full mx-auto mb-4 object-cover"
-                />
-                <h3 className="text-lg font-semibold text-primary mb-1">{member.name}</h3>
-                <p className="text-primary text-sm mb-3">{member.role}</p>
-                <p className="text-text-secondary text-sm">{member.bio}</p>
-              </div>
+              <ScrollReveal key={index} delay={index * 100} direction="up">
+                <GlassCard variant="glass-light" chamfer hoverLift accent="primary" className="p-6 text-center">
+                  <img
+                    src={member.image}
+                    alt={member.name}
+                    loading="lazy"
+                    decoding="async"
+                    className="w-24 h-24 rounded-full mx-auto mb-4 object-cover"
+                  />
+                  <h3 className="text-lg font-semibold text-primary mb-1">{member.name}</h3>
+                  <p className="text-primary text-sm mb-3">{member.role}</p>
+                  <p className="text-text-secondary text-sm">{member.bio}</p>
+                </GlassCard>
+              </ScrollReveal>
             ))}
           </div>
         </div>
@@ -262,7 +265,7 @@ export default function About() {
           transition={{ duration: 0.6 }}
           className="max-w-4xl mx-auto text-center"
         >
-          <div className="bg-gradient-to-r from-primary/20 via-gold-500/10 to-coral/20 geo-chamfer-lg p-8 md:p-12 relative overflow-hidden">
+          <div className="bg-gradient-to-r from-primary/20 via-gold-500/10 to-coral/20 geo-chamfer-lg p-8 md:p-12 relative overflow-hidden hover-glow">
             <div className="absolute top-0 right-0 w-32 h-32 bg-gold/20 rounded-full blur-[60px]" />
             <div className="absolute bottom-0 left-0 w-32 h-32 bg-primary/20 rounded-full blur-[60px]" />
 

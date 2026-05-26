@@ -5,6 +5,9 @@ import { Icon } from '../components/Icon'
 import MarketingHeader from '../components/MarketingHeader'
 import MarketingFooter from '../components/MarketingFooter'
 import AnimatedGradientBackground from '../components/AnimatedGradientBackground'
+import ScrollReveal from '../components/ui/ScrollReveal'
+import GlassCard from '../components/ui/GlassCard'
+import SectionHeading from '../components/ui/SectionHeading'
 
 interface Plan {
   id: string
@@ -293,106 +296,95 @@ export default function Pricing() {
         </motion.div>
       </section>
 
-      {/* Pricing Cards */}
+      {/* Pricing Cards — ScrollReveal + GlassCard */}
       <section className="px-6 pb-16">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {plans.map((plan, idx) => {
-              const planColors = [
-                { border: 'border-primary', icon: 'text-primary', badge: 'bg-primary', bg: 'bg-primary/10' },
-                { border: 'border-gold', icon: 'text-gold', badge: 'bg-gold', bg: 'bg-gold/10' },
-                { border: 'border-coral', icon: 'text-coral', badge: 'bg-coral', bg: 'bg-coral/10' }
-              ]
-              const pColor = planColors[idx]
+              const planAccents = ['primary' as const, 'gold' as const, 'coral' as const]
+              const accent = planAccents[idx]
               return (
-                <motion.div
-                  key={plan.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: idx * 0.1 }}
-                  className={`relative glass-light geo-chamfer p-6 ${
-                    plan.popular
-                      ? `${colors.border} ${colors.shadow} scale-105`
-                      : `${pColor.border} hover:border-opacity-80`
-                  } transition-all hover:-translate-y-1`}
-                >
-                  {plan.popular && (
-                    <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                      <span className={`${colors.bg} text-white text-xs font-medium px-3 py-1 rounded-full`}>
-                        Most Popular
-                      </span>
-                    </div>
-                  )}
-
-                  <div className="text-center mb-6">
-                    <h3 className="text-xl font-semibold text-text-primary mb-2">{plan.name}</h3>
-                    <p className="text-text-secondary text-sm mb-4">{plan.description}</p>
-                    <div className="flex items-baseline justify-center gap-1">
-                      <span className={`terminal-value text-3xl ${plan.popular ? colors.text : pColor.icon}`}>{plan.price}</span>
-                      <span className="terminal-label text-sm">/{plan.period}</span>
-                    </div>
-                  </div>
-
-                  <ul className="space-y-3 mb-6">
-                    {plan.features.map((feature, index) => (
-                      <li key={index} className="flex items-start gap-2 text-sm text-text-secondary">
-                        <Icon name="checkCircle" className={`w-4 h-4 ${plan.popular ? colors.text : pColor.icon} shrink-0 mt-0.5`} />
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
-
-                  <Link
-                    to="/onboarding/role"
-                    className={`group block w-full py-3 rounded-lg font-medium text-center transition-all ${
-                      plan.popular
-                        ? `${colors.bg} ${colors.hover} text-white ${colors.shadow}`
-                        : `bg-transparent border border-border hover:${plan.popular ? colors.border : pColor.border} ${plan.popular ? colors.text : pColor.icon}`
-                    }`}
+                <ScrollReveal key={plan.id} delay={idx * 100} direction="up">
+                  <GlassCard
+                    variant="glass-light"
+                    accent={accent}
+                    hoverLift
+                    glow={plan.popular}
+                    chamfer
+                    className={`p-6 relative ${plan.popular ? 'scale-105' : ''}`}
                   >
-                    <span className="flex items-center justify-center gap-2">
-                      {plan.cta}
-                      {plan.popular && <Icon name="arrowRight" className="w-4 h-4 group-hover:translate-x-1 transition-transform" />}
-                    </span>
-                  </Link>
-                </motion.div>
+                    {plan.popular && (
+                      <div className="absolute -top-3 left-1/2 -translate-x-1/2">
+                        <span className={`${colors.bg} text-white text-xs font-medium px-3 py-1 rounded-full`}>
+                          Most Popular
+                        </span>
+                      </div>
+                    )}
+
+                    <div className="text-center mb-6">
+                      <h3 className="text-xl font-semibold text-text-primary mb-2">{plan.name}</h3>
+                      <p className="text-text-secondary text-sm mb-4">{plan.description}</p>
+                      <div className="flex items-baseline justify-center gap-1">
+                        <span className={`terminal-value text-3xl ${plan.popular ? colors.text : `text-${accent}`}`}>{plan.price}</span>
+                        <span className="terminal-label text-sm">/{plan.period}</span>
+                      </div>
+                    </div>
+
+                    <ul className="space-y-3 mb-6">
+                      {plan.features.map((feature, index) => (
+                        <li key={index} className="flex items-start gap-2 text-sm text-text-secondary">
+                          <Icon name="checkCircle" className={`w-4 h-4 ${plan.popular ? colors.text : `text-${accent}`} shrink-0 mt-0.5`} />
+                          {feature}
+                        </li>
+                      ))}
+                    </ul>
+
+                    <Link
+                      to="/onboarding/role"
+                      className={`group block w-full py-3 rounded-lg font-medium text-center transition-all ${
+                        plan.popular
+                          ? `${colors.bg} ${colors.hover} text-white ${colors.shadow}`
+                          : `bg-transparent border border-border hover:border-${accent} text-${accent}`
+                      }`}
+                    >
+                      <span className="flex items-center justify-center gap-2">
+                        {plan.cta}
+                        {plan.popular && <Icon name="arrowRight" className="w-4 h-4 group-hover:translate-x-1 transition-transform" />}
+                      </span>
+                    </Link>
+                  </GlassCard>
+                </ScrollReveal>
               )
             })}
           </div>
         </div>
       </section>
 
-      {/* FAQ Section */}
+      {/* FAQ Section — ScrollReveal */}
       <section className="px-6 pb-16">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-2xl font-bold text-text-primary text-center mb-8">
-            Frequently Asked <span className={colors.text}>Questions</span>
-          </h2>
+          <SectionHeading
+            title={<>Frequently Asked <span className={colors.text}>Questions</span></>}
+          />
           <div className="space-y-4">
             {[
               { q: 'Can I change my plan later?', a: 'Yes, you can upgrade or downgrade your plan at any time. Changes take effect immediately.', icon: 'arrowRight' },
               { q: 'Is there a free trial?', a: 'Yes, all paid plans come with a 7-day free trial. No credit card required.', icon: 'sparkles' },
               { q: 'What payment methods do you accept?', a: 'We accept bank transfers, card payments, and mobile money. Contact us for enterprise billing options.', icon: 'creditCard' }
             ].map((faq, idx) => (
-              <motion.div
-                key={idx}
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: idx * 0.1 }}
-                className="glass-light geo-chamfer p-6 hover:border-opacity-80 transition-all"
-              >
-                <div className="flex items-start gap-3">
-                  <div className={`w-8 h-8 geo-chamfer flex items-center justify-center ${idx === 1 ? 'bg-gold/20' : idx === 2 ? 'bg-coral/20' : 'bg-primary/20'}`}>
-                    <Icon name={faq.icon as any} className={`w-4 h-4 ${idx === 1 ? 'text-gold' : idx === 2 ? 'text-coral' : 'text-primary'}`} />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-text-primary mb-2">{faq.q}</h3>
-                    <p className="text-text-secondary text-sm">{faq.a}</p>
+              <ScrollReveal key={idx} delay={idx * 100} direction="left">
+                <div className="glass-light geo-chamfer p-6 hover:border-opacity-80 transition-all hover-lift">
+                  <div className="flex items-start gap-3">
+                    <div className={`w-8 h-8 geo-chamfer flex items-center justify-center ${idx === 1 ? 'bg-gold/20' : idx === 2 ? 'bg-coral/20' : 'bg-primary/20'}`}>
+                      <Icon name={faq.icon as any} className={`w-4 h-4 ${idx === 1 ? 'text-gold' : idx === 2 ? 'text-coral' : 'text-primary'}`} />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-text-primary mb-2">{faq.q}</h3>
+                      <p className="text-text-secondary text-sm">{faq.a}</p>
+                    </div>
                   </div>
                 </div>
-              </motion.div>
+              </ScrollReveal>
             ))}
           </div>
         </div>
@@ -407,7 +399,7 @@ export default function Pricing() {
           transition={{ duration: 0.6 }}
           className="max-w-4xl mx-auto"
         >
-          <div className={`bg-gradient-to-r ${colors.bg.replace('bg-', 'from-')}/20 via-gold-500/10 to-coral/20 geo-chamfer-lg p-8 md:p-12 text-center border border-${colors.text.replace('text-', '')}/30 relative overflow-hidden`}>
+          <div className={`bg-gradient-to-r ${colors.bg.replace('bg-', 'from-')}/20 via-gold-500/10 to-coral/20 geo-chamfer-lg p-8 md:p-12 text-center border border-${colors.text.replace('text-', '')}/30 relative overflow-hidden hover-glow`}>
             {/* Decorative elements */}
             <div className="absolute top-0 right-0 w-32 h-32 bg-gold/20 rounded-full blur-[60px]" />
             <div className="absolute bottom-0 left-0 w-32 h-32 bg-primary/20 rounded-full blur-[60px]" />

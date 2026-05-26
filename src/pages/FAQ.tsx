@@ -5,6 +5,8 @@ import { Icon } from '../components/Icon'
 import MarketingHeader from '../components/MarketingHeader'
 import MarketingFooter from '../components/MarketingFooter'
 import AnimatedGradientBackground from '../components/AnimatedGradientBackground'
+import ScrollReveal from '../components/ui/ScrollReveal'
+import GlassCard from '../components/ui/GlassCard'
 
 interface FAQ {
   id: string
@@ -174,92 +176,93 @@ export default function FAQ() {
         </motion.div>
       </section>
 
-      {/* FAQ List */}
+      {/* FAQ List — ScrollReveal stagger */}
       <section className="px-6 pb-16">
         <div className="max-w-4xl mx-auto">
           <div className="space-y-4">
             {filteredFAQs.map((faq, idx) => {
               const catColors = categoryColors[faq.category] || categoryColors['All']
               return (
-                <motion.div
-                  key={faq.id}
-                  initial={{ opacity: 0, y: 10 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.3, delay: idx * 0.05 }}
-                  className={`glass-light overflow-hidden hover:border-opacity-50 transition-all ${expandedFAQ === faq.id ? 'border-opacity-80' : ''}`}
-                >
-                  <button
-                    onClick={() => toggleFAQ(faq.id)}
-                    className="w-full flex items-center justify-between p-6 text-left"
+                <ScrollReveal key={faq.id} delay={idx * 50} direction="left">
+                  <GlassCard
+                    variant="glass-light"
+                    chamfer
+                    className={`overflow-hidden ${expandedFAQ === faq.id ? 'border-opacity-80' : ''}`}
                   >
-                    <div className="flex-1">
-                      <div className="flex items-center gap-3 mb-2">
-                        <span className={`text-xs ${catColors.text} bg-raised px-2 py-1 rounded-full flex items-center gap-1`}>
-                          <Icon name={catColors.icon as any} className="w-3 h-3" />
-                          {faq.category}
-                        </span>
+                    <button
+                      onClick={() => toggleFAQ(faq.id)}
+                      className="w-full flex items-center justify-between p-6 text-left"
+                    >
+                      <div className="flex-1">
+                        <div className="flex items-center gap-3 mb-2">
+                          <span className={`text-xs ${catColors.text} bg-raised px-2 py-1 rounded-full flex items-center gap-1`}>
+                            <Icon name={catColors.icon as any} className="w-3 h-3" />
+                            {faq.category}
+                          </span>
+                        </div>
+                        <h3 className="text-lg font-semibold text-text-primary">{faq.question}</h3>
                       </div>
-                      <h3 className="text-lg font-semibold text-text-primary">{faq.question}</h3>
+                      <Icon
+                        name="chevronRight"
+                        className={`w-5 h-5 ${catColors.text} transition-transform ${
+                          expandedFAQ === faq.id ? 'rotate-90' : ''
+                        }`}
+                      />
+                    </button>
+                    <div
+                      className="overflow-hidden transition-all duration-300"
+                      style={{
+                        maxHeight: expandedFAQ === faq.id ? '200px' : '0px',
+                        opacity: expandedFAQ === faq.id ? 1 : 0,
+                      }}
+                    >
+                      <div className="px-6 pb-6 pt-0 border-t border-border/50">
+                        <p className="text-text-secondary">{faq.answer}</p>
+                      </div>
                     </div>
-                    <Icon
-                      name="chevronRight"
-                      className={`w-5 h-5 ${catColors.text} transition-transform ${
-                        expandedFAQ === faq.id ? 'rotate-90' : ''
-                      }`}
-                    />
-                  </button>
-                  {expandedFAQ === faq.id && (
-                    <div className="px-6 pb-6 pt-0 border-t border-border/50">
-                      <p className="text-text-secondary">{faq.answer}</p>
-                    </div>
-                  )}
-                </motion.div>
+                  </GlassCard>
+                </ScrollReveal>
               )
             })}
           </div>
         </div>
       </section>
 
-      {/* Still Have Questions */}
+      {/* Still Have Questions — ScrollReveal */}
       <section className="px-6 pb-16">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="max-w-4xl mx-auto"
-        >
-          <div className="bg-gradient-to-r from-primary/20 via-gold-500/10 to-coral/20 geo-chamfer-lg p-8 md:p-12 text-center border border-success/30 relative overflow-hidden">
-            {/* Decorative elements */}
-            <div className="absolute top-0 right-0 w-32 h-32 bg-gold/20 rounded-full blur-[60px]" />
-            <div className="absolute bottom-0 left-0 w-32 h-32 bg-success/20 rounded-full blur-[60px]" />
+        <ScrollReveal direction="up">
+          <div className="max-w-4xl mx-auto">
+            <div className="bg-gradient-to-r from-primary/20 via-gold-500/10 to-coral/20 geo-chamfer-lg p-8 md:p-12 text-center border border-success/30 relative overflow-hidden hover-glow">
+              {/* Decorative elements */}
+              <div className="absolute top-0 right-0 w-32 h-32 bg-gold/20 rounded-full blur-[60px]" />
+              <div className="absolute bottom-0 left-0 w-32 h-32 bg-success/20 rounded-full blur-[60px]" />
 
-            <div className="relative">
-              <h2 className="text-3xl font-bold text-text-primary mb-4">
-                Still Have Questions?
-              </h2>
-              <p className="text-text-secondary mb-8 max-w-2xl mx-auto">
-                Can't find what you're looking for? Our support team is here to help
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link
-                  to="/contact"
-                  className="group px-8 py-3 bg-success hover:bg-success-hover text-white rounded-lg font-medium transition-all shadow-glow flex items-center justify-center gap-2"
-                >
-                  <Icon name="mail" className="w-4 h-4" />
-                  Contact Support
-                </Link>
-                <Link
-                  to="/how-it-works"
-                  className="px-8 py-3 border border-border hover:border-gold text-text-primary hover:text-gold rounded-lg font-medium transition-colors"
-                >
-                  Learn More
-                </Link>
+              <div className="relative">
+                <h2 className="text-3xl font-bold text-text-primary mb-4">
+                  Still Have Questions?
+                </h2>
+                <p className="text-text-secondary mb-8 max-w-2xl mx-auto">
+                  Can't find what you're looking for? Our support team is here to help
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                  <Link
+                    to="/contact"
+                    className="group px-8 py-3 bg-success hover:bg-success-hover text-white rounded-lg font-medium transition-all shadow-glow flex items-center justify-center gap-2"
+                  >
+                    <Icon name="mail" className="w-4 h-4" />
+                    Contact Support
+                  </Link>
+                  <Link
+                    to="/how-it-works"
+                    className="px-8 py-3 border border-border hover:border-gold text-text-primary hover:text-gold rounded-lg font-medium transition-colors"
+                  >
+                    Learn More
+                  </Link>
+                </div>
               </div>
             </div>
           </div>
-        </motion.div>
+        </ScrollReveal>
       </section>
 
       <MarketingFooter />

@@ -5,6 +5,7 @@ import { Icon, IconName } from '../components/Icon'
 import MarketingHeader from '../components/MarketingHeader'
 import MarketingFooter from '../components/MarketingFooter'
 import AnimatedGradientBackground from '../components/AnimatedGradientBackground'
+import { staggerContainer, staggerItem } from '../hooks/useStaggeredAnimation'
 
 interface Feature {
   id: string
@@ -206,80 +207,82 @@ export default function Features() {
         </div>
       </section>
 
-      {/* Highlight Features */}
+      {/* Highlight Features — Staggered reveal */}
       {selectedCategory === 'All' && (
         <section className="px-6 mb-16">
-          <div className="max-w-7xl mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {highlightFeatures.map((feature, idx) => {
-                const accentColors = [
-                  { border: 'border-primary', bg: 'bg-primary/20', text: 'text-primary', gradient: 'from-primary/20 to-gold-500/20' },
-                  { border: 'border-gold', bg: 'bg-gold/20', text: 'text-gold', gradient: 'from-gold/20 to-primary-500/20' },
-                  { border: 'border-coral', bg: 'bg-coral/20', text: 'text-coral', gradient: 'from-coral/20 to-gold-500/20' }
-                ]
-                const colors = accentColors[idx]
-                return (
-                  <motion.div
-                    key={feature.id}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: idx * 0.1 }}
-                    className={`glass ${colors.border} p-6 hover:border-opacity-50 transition-all group hover-lift`}
-                  >
-                    <div className={`w-14 h-14 sm:w-16 sm:h-16 ${colors.bg} geo-chamfer-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform flex-shrink-0`}>
-                      <Icon name={feature.icon as any} className={`w-7 h-7 sm:w-8 sm:h-8 ${colors.text}`} />
-                    </div>
-                    <h3 className="text-xl font-semibold text-text-primary mb-2">{feature.title}</h3>
-                    <p className="text-text-secondary">{feature.description}</p>
-                    <div className={`mt-4 flex items-center gap-2 ${colors.text} text-sm font-medium`}>
-                      <span>Learn more</span>
-                      <Icon name="arrowRight" className="w-4 h-4" />
-                    </div>
-                  </motion.div>
-                )
-              })}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* All Features Grid */}
-      <section className="px-6 pb-16">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredFeatures.map((feature, idx) => {
+          <motion.div
+            variants={staggerContainer(0.12)}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true }}
+            className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6"
+          >
+            {highlightFeatures.map((feature, idx) => {
               const accentColors = [
-                { border: 'hover:border-primary', iconBg: 'group-hover:bg-primary/20', icon: 'text-primary' },
-                { border: 'hover:border-gold', iconBg: 'group-hover:bg-gold/20', icon: 'text-gold' },
-                { border: 'hover:border-coral', iconBg: 'group-hover:bg-coral/20', icon: 'text-coral' },
-                { border: 'hover:border-success', iconBg: 'group-hover:bg-success/20', icon: 'text-success' }
+                { border: 'border-primary', bg: 'bg-primary/20', text: 'text-primary', gradient: 'from-primary/20 to-gold-500/20' },
+                { border: 'border-gold', bg: 'bg-gold/20', text: 'text-gold', gradient: 'from-gold/20 to-primary-500/20' },
+                { border: 'border-coral', bg: 'bg-coral/20', text: 'text-coral', gradient: 'from-coral/20 to-gold-500/20' }
               ]
-              const colors = accentColors[idx % accentColors.length]
+              const colors = accentColors[idx]
               return (
                 <motion.div
                   key={feature.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5 }}
-                  className={`glass p-6 ${colors.border}/50 hover:shadow-lg transition-all cursor-pointer group hover-lift`}
+                  variants={staggerItem('up')}
+                  className={`glass ${colors.border} p-6 hover:border-opacity-50 transition-all group hover-lift`}
                 >
-                  <div className="flex items-start justify-between mb-4">
-                    <div className={`w-14 h-14 sm:w-16 sm:h-16 bg-raised geo-chamfer-lg flex items-center justify-center ${colors.iconBg} transition-colors flex-shrink-0`}>
-                      <Icon name={feature.icon} className={`w-7 h-7 sm:w-8 sm:h-8 ${colors.icon}`} />
-                    </div>
-                    <span className="text-xs text-muted bg-raised px-2 py-1 rounded-full">
-                      {feature.category}
-                    </span>
+                  <div className={`w-14 h-14 sm:w-16 sm:h-16 ${colors.bg} geo-chamfer-sm flex items-center justify-center mb-4 group-hover:scale-110 transition-transform flex-shrink-0`}>
+                    <Icon name={feature.icon as any} className={`w-7 h-7 sm:w-8 sm:h-8 ${colors.text}`} />
                   </div>
-                  <h3 className="text-lg font-semibold text-text-primary mb-2">{feature.title}</h3>
-                  <p className="text-text-secondary text-sm">{feature.description}</p>
+                  <h3 className="text-xl font-semibold text-text-primary mb-2">{feature.title}</h3>
+                  <p className="text-text-secondary">{feature.description}</p>
+                  <div className={`mt-4 flex items-center gap-2 ${colors.text} text-sm font-medium`}>
+                    <span>Learn more</span>
+                    <Icon name="arrowRight" className="w-4 h-4" />
+                  </div>
                 </motion.div>
               )
             })}
-          </div>
-        </div>
+          </motion.div>
+        </section>
+      )}
+
+      {/* All Features Grid — Staggered reveal */}
+      <section className="px-6 pb-16">
+        <motion.div
+          variants={staggerContainer(0.06)}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true }}
+          className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+        >
+          {filteredFeatures.map((feature, idx) => {
+            const accentColors = [
+              { border: 'hover:border-primary', iconBg: 'group-hover:bg-primary/20', icon: 'text-primary' },
+              { border: 'hover:border-gold', iconBg: 'group-hover:bg-gold/20', icon: 'text-gold' },
+              { border: 'hover:border-coral', iconBg: 'group-hover:bg-coral/20', icon: 'text-coral' },
+              { border: 'hover:border-success', iconBg: 'group-hover:bg-success/20', icon: 'text-success' }
+            ]
+            const colors = accentColors[idx % accentColors.length]
+            return (
+              <motion.div
+                key={feature.id}
+                variants={staggerItem('up')}
+                className={`glass p-6 ${colors.border}/50 hover:shadow-lg transition-all cursor-pointer group hover-lift`}
+              >
+                <div className="flex items-start justify-between mb-4">
+                  <div className={`w-14 h-14 sm:w-16 sm:h-16 bg-raised geo-chamfer-lg flex items-center justify-center ${colors.iconBg} transition-colors flex-shrink-0`}>
+                    <Icon name={feature.icon} className={`w-7 h-7 sm:w-8 sm:h-8 ${colors.icon}`} />
+                  </div>
+                  <span className="text-xs text-muted bg-raised px-2 py-1 rounded-full">
+                    {feature.category}
+                  </span>
+                </div>
+                <h3 className="text-lg font-semibold text-text-primary mb-2">{feature.title}</h3>
+                <p className="text-text-secondary text-sm">{feature.description}</p>
+              </motion.div>
+            )
+          })}
+        </motion.div>
       </section>
 
       {/* CTA Section */}
@@ -291,7 +294,7 @@ export default function Features() {
           transition={{ duration: 0.6 }}
           className="max-w-4xl mx-auto"
         >
-          <div className="gradient-accent glass geo-chamfer p-8 md:p-12 text-center relative overflow-hidden">
+          <div className="gradient-accent glass geo-chamfer p-8 md:p-12 text-center relative overflow-hidden hover-glow">
             {/* Decorative elements */}
             <div className="absolute top-0 right-0 w-32 h-32 bg-gold/20 rounded-full blur-[60px]" />
             <div className="absolute bottom-0 left-0 w-32 h-32 bg-coral/20 rounded-full blur-[60px]" />

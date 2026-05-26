@@ -242,7 +242,7 @@ export default function Centres() {
                 </Link>
               </div>
             </div>
-            <div className="bg-gradient-to-br from-surface via-surface to-primary/5 border border-border geo-chamfer-lg p-8 shadow-ambient">
+            <div className="bg-gradient-to-br from-surface via-surface to-primary/5 border border-border geo-chamfer-lg p-8 shadow-ambient hover-lift">
               <div className="grid grid-cols-2 gap-6">
                 <div className="text-center">
                   <div className="text-3xl font-bold font-heading bg-gradient-to-br from-primary to-gold bg-clip-text text-transparent mb-2">500+</div>
@@ -274,7 +274,7 @@ export default function Centres() {
           transition={{ duration: 0.5 }}
           className="max-w-4xl mx-auto text-center"
         >
-          <div className="bg-gradient-to-r from-coral/20 via-gold-500/10 to-primary/20 geo-chamfer-lg p-8 md:p-12 relative overflow-hidden">
+          <div className="bg-gradient-to-r from-coral/20 via-gold-500/10 to-primary/20 geo-chamfer-lg p-8 md:p-12 relative overflow-hidden hover-glow">
             <div className="absolute top-0 right-0 w-32 h-32 bg-gold/20 rounded-full blur-[60px]" />
             <div className="absolute bottom-0 left-0 w-32 h-32 bg-coral/20 rounded-full blur-[60px]" />
 

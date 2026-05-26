@@ -44,7 +44,7 @@ export function staggerItem(direction: 'up' | 'left' | 'right' = 'up') {
       opacity: 1,
       x: 0,
       y: 0,
-      transition: { duration: 0.4, ease: 'easeOut' },
+      transition: { duration: 0.4, ease: 'easeOut' as const },
     },
   };
 }

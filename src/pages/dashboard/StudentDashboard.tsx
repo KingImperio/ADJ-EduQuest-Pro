@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { motion } from 'framer-motion'
 import { Icon } from '../../components/Icon'
 import { DashboardSkeleton } from '../../components/Skeleton'
 import { Badge } from '../../components/ui/Badge'
@@ -6,6 +7,8 @@ import { Progress } from '../../components/ui/Progress'
 import { Card } from '../../components/ui/Card'
 import { Button } from '../../components/ui/Button'
 import { useAuthStore } from '../../stores/authStore'
+import AnimatedCounter from '../../components/ui/AnimatedCounter'
+import { staggerContainer, staggerItem } from '../../hooks/useStaggeredAnimation'
 
 /* ------------------------------------------------------------------ */
 /*  Static data — would come from Supabase in production              */
@@ -152,45 +155,50 @@ export default function StudentDashboard() {
         </div>
 
         {/* ============================================================ */}
-        {/*  STATS HUD — angular badges + progress rings                 */}
+        {/*  STATS HUD — animated counters + progress rings              */}
         {/* ============================================================ */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+        <motion.div
+          variants={staggerContainer(0.08)}
+          initial="hidden"
+          animate="show"
+          className="grid grid-cols-2 md:grid-cols-4 gap-3"
+        >
           {/* XP */}
-          <div className="bg-surface border border-border geo-chamfer p-3 flex flex-col items-center text-center">
+          <motion.div variants={staggerItem('up')} className="bg-surface border border-border geo-chamfer p-3 flex flex-col items-center text-center">
             <div className="w-10 h-10 flex items-center justify-center mb-2">
               <Progress value={xpTotal} max={nextRankXP} variant="ring" size="sm" color="gold" showValue={false} />
             </div>
-            <p className="font-mono text-lg font-bold text-gold">{xpTotal.toLocaleString()}</p>
+            <AnimatedCounter value={xpTotal} className="font-mono text-lg font-bold text-gold" duration={2000} />
             <p className="text-xs text-text-muted font-mono uppercase tracking-wider">XP Total</p>
-          </div>
+          </motion.div>
 
           {/* EduCoins */}
-          <div className="bg-surface border border-border geo-chamfer p-3 flex flex-col items-center text-center">
+          <motion.div variants={staggerItem('up')} className="bg-surface border border-border geo-chamfer p-3 flex flex-col items-center text-center">
             <div className="w-10 h-10 flex items-center justify-center mb-2">
               <Progress value={eduCoins} max={5000} variant="ring" size="sm" color="neon" showValue={false} />
             </div>
-            <p className="font-mono text-lg font-bold text-neon-green">{eduCoins.toLocaleString()}</p>
+            <AnimatedCounter value={eduCoins} className="font-mono text-lg font-bold text-neon-green" duration={2000} />
             <p className="text-xs text-text-muted font-mono uppercase tracking-wider">EduCoins</p>
-          </div>
+          </motion.div>
 
           {/* Study Hours Today */}
-          <div className="bg-surface border border-border geo-chamfer p-3 flex flex-col items-center text-center">
+          <motion.div variants={staggerItem('up')} className="bg-surface border border-border geo-chamfer p-3 flex flex-col items-center text-center">
             <div className="w-10 h-10 flex items-center justify-center mb-2">
               <Progress value={studyHoursToday} max={6} variant="ring" size="sm" color="coral" showValue={false} />
             </div>
-            <p className="font-mono text-lg font-bold text-coral">{studyHoursToday}h</p>
+            <AnimatedCounter value={studyHoursToday} suffix="h" className="font-mono text-lg font-bold text-coral" duration={2000} />
             <p className="text-xs text-text-muted font-mono uppercase tracking-wider">Study Today</p>
-          </div>
+          </motion.div>
 
           {/* Quiz Average */}
-          <div className="bg-surface border border-border geo-chamfer p-3 flex flex-col items-center text-center">
+          <motion.div variants={staggerItem('up')} className="bg-surface border border-border geo-chamfer p-3 flex flex-col items-center text-center">
             <div className="w-10 h-10 flex items-center justify-center mb-2">
               <Progress value={quizAvg} max={100} variant="ring" size="sm" color="primary" showValue={false} />
             </div>
-            <p className="font-mono text-lg font-bold text-primary-light">{quizAvg}%</p>
+            <AnimatedCounter value={quizAvg} suffix="%" className="font-mono text-lg font-bold text-primary-light" duration={2000} />
             <p className="text-xs text-text-muted font-mono uppercase tracking-wider">Quiz Avg</p>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
         {/* ============================================================ */}
         {/*  QUICK ACTIONS — angular buttons, sharp hover shadows         */}

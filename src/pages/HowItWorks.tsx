@@ -285,7 +285,7 @@ export default function HowItWorks() {
           transition={{ duration: 0.6 }}
           className="max-w-4xl mx-auto"
         >
-          <div className={`bg-gradient-to-r from-${userType === 'student' ? 'primary' : userType === 'teacher' ? 'gold' : 'coral'}/20 via-gold-500/10 to-${userType === 'student' ? 'coral' : userType === 'teacher' ? 'primary' : 'gold'}/20 geo-chamfer-lg p-8 md:p-12 text-center border border-${userType === 'student' ? 'primary' : userType === 'teacher' ? 'gold' : 'coral'}/30 relative overflow-hidden`}>
+          <div className={`bg-gradient-to-r from-${userType === 'student' ? 'primary' : userType === 'teacher' ? 'gold' : 'coral'}/20 via-gold-500/10 to-${userType === 'student' ? 'coral' : userType === 'teacher' ? 'primary' : 'gold'}/20 geo-chamfer-lg p-8 md:p-12 text-center border border-${userType === 'student' ? 'primary' : userType === 'teacher' ? 'gold' : 'coral'}/30 relative overflow-hidden hover-glow`}>
             {/* Decorative elements */}
             <div className="absolute top-0 right-0 w-32 h-32 bg-gold/20 rounded-full blur-[60px]" />
             <div className="absolute bottom-0 left-0 w-32 h-32 bg-primary/20 rounded-full blur-[60px]" />

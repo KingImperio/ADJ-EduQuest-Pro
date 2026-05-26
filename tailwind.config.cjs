@@ -152,6 +152,8 @@ module.exports = {
         'shimmer': 'shimmer 2s linear infinite',
         'draw-line': 'drawLine 1.5s ease forwards',
         'scanline': 'scanline 4s linear infinite',
+        'marquee': 'marquee 30s linear infinite',
+        'marquee-reverse': 'marquee-reverse 30s linear infinite',
       },
       keyframes: {
         'pulse-glow': {
@@ -205,6 +207,14 @@ module.exports = {
         scanline: {
           '0%': { transform: 'translateY(-100%)' },
           '100%': { transform: 'translateY(100vh)' },
+        },
+        marquee: {
+          '0%': { transform: 'translateX(0)' },
+          '100%': { transform: 'translateX(-50%)' },
+        },
+        'marquee-reverse': {
+          '0%': { transform: 'translateX(-50%)' },
+          '100%': { transform: 'translateX(0)' },
         },
       },
     },

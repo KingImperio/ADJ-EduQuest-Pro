@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
 import { Icon } from '../components/Icon'
+import AnimatedCounter from '../components/ui/AnimatedCounter'
 import MarketingHeader from '../components/MarketingHeader'
 import MarketingFooter from '../components/MarketingFooter'
 import AnimatedGradientBackground from '../components/AnimatedGradientBackground'
@@ -1075,7 +1076,9 @@ export default function LandingHeroDemo() {
               viewport={{ once: true }}
               className="text-center"
             >
-              <div className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-primary to-primary-400 bg-clip-text text-transparent mb-2">+45</div>
+              <div className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-primary to-primary-400 bg-clip-text text-transparent mb-2">
+                <AnimatedCounter value={45} prefix="+" className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-primary to-primary-400 bg-clip-text text-transparent" />
+              </div>
               <div className="text-sm text-text-secondary">Avg. JAMB score improvement</div>
             </motion.div>
             <motion.div
@@ -1085,7 +1088,9 @@ export default function LandingHeroDemo() {
               transition={{ delay: 0.1 }}
               className="text-center"
             >
-              <div className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-gold-500 to-gold-300 bg-clip-text text-transparent mb-2">78%</div>
+              <div className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-gold-500 to-gold-300 bg-clip-text text-transparent mb-2">
+                <AnimatedCounter value={78} suffix="%" className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-gold-500 to-gold-300 bg-clip-text text-transparent" />
+              </div>
               <div className="text-sm text-text-secondary">Hit target score</div>
             </motion.div>
             <motion.div
@@ -1095,7 +1100,9 @@ export default function LandingHeroDemo() {
               transition={{ delay: 0.2 }}
               className="text-center"
             >
-              <div className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-coral-500 to-coral-300 bg-clip-text text-transparent mb-2">150+</div>
+              <div className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-coral-500 to-coral-300 bg-clip-text text-transparent mb-2">
+                <AnimatedCounter value={150} suffix="+" className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-coral-500 to-coral-300 bg-clip-text text-transparent" />
+              </div>
               <div className="text-sm text-text-secondary">Active tutorial centres</div>
             </motion.div>
             <motion.div
@@ -1105,7 +1112,9 @@ export default function LandingHeroDemo() {
               transition={{ delay: 0.3 }}
               className="text-center"
             >
-              <div className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-success to-success/70 bg-clip-text text-transparent mb-2">2.5M+</div>
+              <div className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-success to-success/70 bg-clip-text text-transparent mb-2">
+                <AnimatedCounter value={2500000} suffix="+" className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-success to-success/70 bg-clip-text text-transparent" />
+              </div>
               <div className="text-sm text-text-secondary">Questions answered</div>
             </motion.div>
           </div>

@@ -5,6 +5,12 @@ import { Icon } from '../components/Icon'
 import MarketingHeader from '../components/MarketingHeader'
 import MarketingFooter from '../components/MarketingFooter'
 import AnimatedGradientBackground from '../components/AnimatedGradientBackground'
+import CoverflowCarousel from '../components/ui/CoverflowCarousel'
+import MarqueeCarousel from '../components/ui/MarqueeCarousel'
+import AnimatedCounter from '../components/ui/AnimatedCounter'
+import GlassCard from '../components/ui/GlassCard'
+import SectionHeading from '../components/ui/SectionHeading'
+import { staggerContainer, staggerItem } from '../hooks/useStaggeredAnimation'
 
 interface Testimonial {
   id: string
@@ -180,80 +186,121 @@ export default function Testimonials() {
         </motion.div>
       </section>
 
-      {/* Stats Section */}
+      {/* Stats Section — Animated Counters */}
       <section className="px-6 pb-16">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {[
-              { value: '50K+', label: 'Active Students', color: 'text-primary' },
-              { value: '500+', label: 'Partner Centres', color: 'text-gold' },
-              { value: '40%', label: 'Avg. Improvement', color: 'text-coral' },
-              { value: '98%', label: 'Satisfaction', color: 'text-success' }
-            ].map((stat, idx) => (
-              <motion.div
-                key={idx}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: idx * 0.1 }}
-                className="glass-light geo-chamfer p-6 text-center hover:border-opacity-80 transition-all"
-              >
-                <div className={`terminal-value text-3xl mb-2 ${stat.color}`}>{stat.value}</div>
-                <div className="terminal-label text-sm">{stat.label}</div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
+        <motion.div
+          variants={staggerContainer(0.1)}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true }}
+          className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6"
+        >
+          {[
+            { value: 50000, suffix: '+', label: 'Active Students', color: 'text-primary', prefix: '' },
+            { value: 500, suffix: '+', label: 'Partner Centres', color: 'text-gold', prefix: '' },
+            { value: 40, suffix: '%', label: 'Avg. Improvement', color: 'text-coral', prefix: '' },
+            { value: 98, suffix: '%', label: 'Satisfaction', color: 'text-success', prefix: '' }
+          ].map((stat, idx) => (
+            <motion.div
+              key={idx}
+              variants={staggerItem('up')}
+              className="glass-light geo-chamfer p-6 text-center hover:border-opacity-80 transition-all hover-lift"
+            >
+              <AnimatedCounter
+                value={stat.value}
+                suffix={stat.suffix}
+                className={`text-3xl mb-2 ${stat.color}`}
+                duration={2500}
+              />
+              <div className="terminal-label text-sm">{stat.label}</div>
+            </motion.div>
+          ))}
+        </motion.div>
       </section>
 
-      {/* Testimonials Grid */}
-      <section className="px-6 pb-16">
+      {/* Coverflow Carousel — 3D rotating testimonials */}
+      <section className="px-6 pb-8">
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredTestimonials.map((testimonial, idx) => {
-              const accentColors = [
-                { border: 'hover:border-primary', icon: 'text-primary' },
-                { border: 'hover:border-gold', icon: 'text-gold' },
-                { border: 'hover:border-coral', icon: 'text-coral' }
-              ]
-              const colors = accentColors[idx % accentColors.length]
+          <SectionHeading
+            label="Featured"
+            title="What People Are Saying"
+            subtitle="Swipe through our top success stories"
+            accentColor="gold"
+          />
+          <CoverflowCarousel autoAdvanceMs={5000}>
+            {filteredTestimonials.map((t, idx) => {
+              const accentColors = ['border-primary/30', 'border-gold/30', 'border-coral/30']
+              const textColors = ['text-primary', 'text-gold', 'text-coral']
+              const border = accentColors[idx % accentColors.length]
+              const textColor = textColors[idx % textColors.length]
               return (
-                <motion.div
-                  key={testimonial.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5 }}
-                  className={`glass-light geo-chamfer p-6 ${colors.border}/50 transition-all hover:-translate-y-1`}
+                <GlassCard
+                  key={t.id}
+                  variant="glass-light"
+                  className={`p-5 h-full ${border}`}
                 >
-                  <div className="flex items-start gap-4 mb-4">
+                  <div className="flex items-center gap-3 mb-3">
                     <img
-                      src={testimonial.image}
-                      alt={testimonial.name}
-                      loading="lazy"
-                      decoding="async"
-                      className="w-14 h-14 rounded-full object-cover border-2 border-border"
+                      src={t.image}
+                      alt={t.name}
+                      className="w-10 h-10 rounded-full object-cover border border-border"
                     />
                     <div>
-                      <h3 className="font-semibold text-text-primary">{testimonial.name}</h3>
-                      <p className="text-text-secondary text-sm">{testimonial.role}</p>
+                      <p className="font-semibold text-sm text-text-primary">{t.name}</p>
+                      <p className="text-xs text-text-muted">{t.role}</p>
                     </div>
                   </div>
-
-                  <p className="text-text-secondary text-sm mb-6 italic">"{testimonial.quote}"</p>
-
-                  <div className="space-y-2 border-t border-border/50 pt-4">
-                    {testimonial.metrics.map((metric, index) => (
-                      <div key={index} className="flex justify-between items-center text-sm">
-                        <span className="text-text-secondary">{metric.label}</span>
-                        <span className={`${colors.icon} font-medium`}>{metric.value}</span>
+                  <p className="text-xs text-text-secondary italic mb-3 line-clamp-3">"{t.quote}"</p>
+                  <div className="space-y-1">
+                    {t.metrics.map((m, mi) => (
+                      <div key={mi} className="flex justify-between text-xs">
+                        <span className="text-text-muted">{m.label}</span>
+                        <span className={`font-mono font-bold ${textColor}`}>{m.value}</span>
                       </div>
                     ))}
                   </div>
-                </motion.div>
+                </GlassCard>
               )
             })}
-          </div>
+          </CoverflowCarousel>
+        </div>
+      </section>
+
+      {/* Infinite Marquee — auto-scrolling testimonial strip */}
+      <section className="px-6 pb-16">
+        <div className="max-w-7xl mx-auto">
+          <SectionHeading
+            label="All Voices"
+            title="From Our Community"
+            subtitle="Endless scrolling testimonials — hover to pause"
+            accentColor="coral"
+            align="left"
+          />
+          <MarqueeCarousel speed={35} pauseOnHover>
+            {testimonials.map((t, idx) => {
+              const accentColors = ['border-primary/20', 'border-gold/20', 'border-coral/20']
+              const border = accentColors[idx % accentColors.length]
+              return (
+                <div
+                  key={t.id}
+                  className={`glass-light geo-chamfer p-4 w-[280px] flex-shrink-0 ${border}`}
+                >
+                  <div className="flex items-center gap-2 mb-2">
+                    <img
+                      src={t.image}
+                      alt={t.name}
+                      className="w-8 h-8 rounded-full object-cover border border-border"
+                    />
+                    <div>
+                      <p className="text-xs font-semibold text-text-primary">{t.name}</p>
+                      <p className="text-[10px] text-text-muted">{t.role}</p>
+                    </div>
+                  </div>
+                  <p className="text-xs text-text-secondary italic line-clamp-2">"{t.quote}"</p>
+                </div>
+              )
+            })}
+          </MarqueeCarousel>
         </div>
       </section>
 
@@ -266,7 +313,7 @@ export default function Testimonials() {
           transition={{ duration: 0.6 }}
           className="max-w-4xl mx-auto"
         >
-          <div className="bg-gradient-to-r from-primary/20 via-gold-500/10 to-coral/20 geo-chamfer-lg p-8 md:p-12 text-center border border-primary/30 relative overflow-hidden">
+          <div className="bg-gradient-to-r from-primary/20 via-gold-500/10 to-coral/20 geo-chamfer-lg p-8 md:p-12 text-center border border-primary/30 relative overflow-hidden hover-glow">
             {/* Decorative elements */}
             <div className="absolute top-0 right-0 w-32 h-32 bg-gold/20 rounded-full blur-[60px]" />
             <div className="absolute bottom-0 left-0 w-32 h-32 bg-coral/20 rounded-full blur-[60px]" />

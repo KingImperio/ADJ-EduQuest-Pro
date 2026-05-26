@@ -3,6 +3,7 @@ import { Badge } from '../components/ui/Badge'
 import { Progress } from '../components/ui/Progress'
 import { Button } from '../components/ui/Button'
 import { useAuthStore } from '../stores/authStore'
+import { textColors, bgColors, borderColors } from '../utils/colorClasses'
 
 // Hexagonal avatar via clip-path
 const hexClip = 'polygon(50% 0%, 93% 25%, 93% 75%, 50% 100%, 7% 75%, 7% 25%)'
@@ -33,7 +34,7 @@ function StatRing({
         />
         {/* Centered icon overlay */}
         <div className="absolute inset-0 flex items-center justify-center">
-          <Icon name={icon as any} size={18} className={`text-${color}`} />
+          <Icon name={icon as any} size={18} className={textColors[color] || 'text-primary'} />
         </div>
       </div>
       <div className="text-center">
@@ -71,9 +72,9 @@ function SettingRow({
     >
       <div className="flex items-center gap-3">
         <div
-          className={`w-8 h-8 flex items-center justify-center bg-${accent}/10 border border-${accent}/20 geo-chamfer-sm`}
+          className={`w-8 h-8 flex items-center justify-center ${bgColors[accent] || 'bg-primary/10'} border ${borderColors[accent] || 'border-primary/20'} geo-chamfer-sm`}
         >
-          <Icon name={icon as any} size={14} className={`text-${accent}`} />
+          <Icon name={icon as any} size={14} className={textColors[accent] || 'text-primary'} />
         </div>
         <span className="text-sm text-text-primary font-body group-hover:text-white transition-colors">
           {label}

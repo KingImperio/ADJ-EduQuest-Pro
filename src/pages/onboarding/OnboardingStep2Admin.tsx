@@ -53,7 +53,7 @@ export default function OnboardingStep2Admin() {
       stepIndicator={{ current: 1, total: 3 }}
       footer={
         <div className="flex items-center gap-4">
-          <button onClick={() => navigate('/onboarding/role')} className="px-6 py-3 geo-chamfer-sm text-text-muted hover:text-white transition-colors font-medium font-body">
+          <button onClick={() => navigate('/onboarding/role')} className="px-6 py-3 rounded-lg text-text-muted hover:text-white transition-colors font-medium font-body">
             Back
           </button>
           <Button variant="danger" onClick={() => { if (canProceed) navigate('/onboarding/evaluation') }} disabled={!canProceed} className="flex-1">
@@ -85,7 +85,7 @@ export default function OnboardingStep2Admin() {
             <select
               value={state}
               onChange={(e) => { setState(e.target.value); saveData({ state: e.target.value }) }}
-              className="w-full bg-deepest border-2 border-border geo-chamfer-sm py-3 pl-4 pr-10 text-text-primary focus:outline-none focus:border-primary transition-colors appearance-none cursor-pointer font-body"
+              className="w-full bg-deepest border-2 border-border rounded-lg py-3 pl-4 pr-10 text-text-primary focus:outline-none focus:border-primary transition-colors appearance-none cursor-pointer font-body"
             >
               <option value="" disabled className="bg-raised">Select your state</option>
               {nigerianStates.map(s => (

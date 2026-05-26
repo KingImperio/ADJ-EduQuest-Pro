@@ -67,7 +67,7 @@ export default function AdminEvaluation() {
             <code className="font-mono text-lg text-coral tracking-wider">{adminKey}</code>
             <button
               onClick={(e) => { e.stopPropagation(); handleCopyKey() }}
-              className={`p-3 geo-chamfer-sm transition-colors ${copied ? 'bg-success/20 text-success' : 'bg-raised text-text-muted hover:text-coral group-hover:bg-coral/10'}`}
+              className={`p-3 rounded-lg transition-colors ${copied ? 'bg-success/20 text-success' : 'bg-raised text-text-muted hover:text-coral group-hover:bg-coral/10'}`}
             >
               <Icon name={copied ? 'check' : 'copy'} className="w-5 h-5" />
             </button>
@@ -87,7 +87,7 @@ export default function AdminEvaluation() {
         </motion.div>
 
         {/* Important Notice */}
-        <div className="bg-gold/10 border border-gold/30 geo-chamfer-sm p-4">
+        <div className="bg-gold/10 border border-gold/30 geo-chamfer p-4">
           <div className="flex items-start gap-3">
             <Icon name="bell" className="w-5 h-5 text-gold mt-0.5 flex-shrink-0" />
             <p className="text-sm text-text-secondary text-left font-body">

@@ -306,14 +306,14 @@ export default function Features() {
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link
                   to="/onboarding/role"
-                  className="group px-8 py-3 bg-primary hover:bg-primary-hover text-white geo-chamfer-sm font-medium transition-all shadow-glow hover:shadow-[0_0_30px_rgba(45,82,232,0.5)] flex items-center justify-center gap-2"
+                  className="group px-8 py-3 bg-primary hover:bg-primary-hover text-white rounded-lg font-medium transition-all shadow-glow hover:shadow-[0_0_30px_rgba(45,82,232,0.5)] flex items-center justify-center gap-2"
                 >
                   Start Free Trial
                   <Icon name="arrowRight" className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </Link>
                 <Link
                   to="/how-it-works"
-                  className="px-8 py-3 border border-border hover:border-gold text-text-primary hover:text-gold geo-chamfer-sm font-medium transition-colors"
+                  className="px-8 py-3 border border-border hover:border-gold text-text-primary hover:text-gold rounded-lg font-medium transition-colors"
                 >
                   See How It Works
                 </Link>

@@ -182,7 +182,7 @@ export default function HowItWorks() {
           <div className="flex flex-wrap justify-center gap-4 mb-12">
             <button
               onClick={() => setUserType('student')}
-              className={`px-4 sm:px-6 py-2 sm:py-3 geo-chamfer-sm font-medium transition-all hover:scale-105 ${
+              className={`px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-medium transition-all hover:scale-105 ${
                 userType === 'student'
                   ? 'bg-primary text-white shadow-glow'
                   : 'bg-surface text-text-secondary hover:text-primary border border-border hover:border-primary'
@@ -195,7 +195,7 @@ export default function HowItWorks() {
             </button>
             <button
               onClick={() => setUserType('teacher')}
-              className={`px-4 sm:px-6 py-2 sm:py-3 geo-chamfer-sm font-medium transition-all hover:scale-105 ${
+              className={`px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-medium transition-all hover:scale-105 ${
                 userType === 'teacher'
                   ? 'bg-gold text-deep shadow-gold'
                   : 'bg-surface text-text-secondary hover:text-gold border border-border hover:border-gold'
@@ -208,7 +208,7 @@ export default function HowItWorks() {
             </button>
             <button
               onClick={() => setUserType('centre')}
-              className={`px-4 sm:px-6 py-2 sm:py-3 geo-chamfer-sm font-medium transition-all hover:scale-105 ${
+              className={`px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-medium transition-all hover:scale-105 ${
                 userType === 'centre'
                   ? 'bg-coral text-white shadow-coral'
                   : 'bg-surface text-text-secondary hover:text-coral border border-border hover:border-coral'
@@ -248,9 +248,9 @@ export default function HowItWorks() {
                   </div>
 
                   {/* Step Content */}
-                  <div className={`flex-1 glass-light geo-chamfer-sm p-4 sm:p-6 hover:border-opacity-50 transition-all hover-lift group min-w-0`}>
+                  <div className={`flex-1 glass-light geo-chamfer p-4 sm:p-6 hover:border-opacity-50 transition-all hover-lift group min-w-0`}>
                     <div className="flex items-start gap-3 sm:gap-4 mb-4">
-                      <div className={`w-10 h-10 sm:w-12 sm:h-12 bg-raised geo-chamfer-sm flex items-center justify-center group-hover:${currentColors.bg}/20 transition-colors flex-shrink-0`}>
+                      <div className={`w-10 h-10 sm:w-12 sm:h-12 bg-raised geo-chamfer flex items-center justify-center group-hover:${currentColors.bg}/20 transition-colors flex-shrink-0`}>
                         <Icon name={step.icon} className={`w-5 h-5 sm:w-6 sm:h-6 ${currentColors.icon}`} />
                       </div>
                       <div className="min-w-0">
@@ -299,7 +299,7 @@ export default function HowItWorks() {
               </p>
               <Link
                 to="/onboarding/role"
-                className={`group inline-flex items-center gap-2 px-8 py-3 ${currentColors.bg} hover:${currentColors.hover} text-white geo-chamfer-sm font-medium transition-all ${currentColors.shadow} hover:shadow-[0_0_30px_rgba(45,82,232,0.5)]`}
+                className={`group inline-flex items-center gap-2 px-8 py-3 ${currentColors.bg} hover:${currentColors.hover} text-white geo-chamfer font-medium transition-all ${currentColors.shadow} hover:shadow-[0_0_30px_rgba(45,82,232,0.5)]`}
               >
                 Create Your Account
                 <Icon name="arrowRight" className="w-4 h-4 group-hover:translate-x-1 transition-transform" />

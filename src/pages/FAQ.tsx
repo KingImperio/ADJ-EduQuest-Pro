@@ -245,14 +245,14 @@ export default function FAQ() {
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link
                   to="/contact"
-                  className="group px-8 py-3 bg-success hover:bg-success-hover text-white geo-chamfer-sm font-medium transition-all shadow-glow flex items-center justify-center gap-2"
+                  className="group px-8 py-3 bg-success hover:bg-success-hover text-white rounded-lg font-medium transition-all shadow-glow flex items-center justify-center gap-2"
                 >
                   <Icon name="mail" className="w-4 h-4" />
                   Contact Support
                 </Link>
                 <Link
                   to="/how-it-works"
-                  className="px-8 py-3 border border-border hover:border-gold text-text-primary hover:text-gold geo-chamfer-sm font-medium transition-colors"
+                  className="px-8 py-3 border border-border hover:border-gold text-text-primary hover:text-gold rounded-lg font-medium transition-colors"
                 >
                   Learn More
                 </Link>

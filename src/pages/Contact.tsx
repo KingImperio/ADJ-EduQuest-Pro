@@ -112,7 +112,7 @@ export default function Contact() {
   if (isSubmitted) {
     return (
       <div className="min-h-screen flex items-center justify-center p-4 bg-deep">
-        <div className="w-full max-w-md glass geo-chamfer-sm shadow-ambient border border-success/30 p-8 text-center">
+        <div className="w-full max-w-md glass geo-chamfer shadow-ambient border border-success/30 p-8 text-center">
           <div className="w-16 h-16 bg-gradient-to-br from-success/30 to-success/10 rounded-full flex items-center justify-center mx-auto mb-6 border border-success/30">
             <Icon name="checkCircle" className="w-8 h-8 text-success" />
           </div>
@@ -122,7 +122,7 @@ export default function Contact() {
           </p>
           <Link
             to="/"
-            className="block w-full py-3 bg-gradient-to-r from-primary via-gold to-coral hover:from-primary-hover hover:via-gold/90 hover:to-coral/90 text-white geo-chamfer-sm font-heading font-medium transition-all duration-300 shadow-lg"
+            className="block w-full py-3 bg-gradient-to-r from-primary via-gold to-coral hover:from-primary-hover hover:via-gold/90 hover:to-coral/90 text-white geo-chamfer font-heading font-medium transition-all duration-300 shadow-lg"
           >
             Back to Home
           </Link>
@@ -186,9 +186,9 @@ export default function Contact() {
                   ]
                   const color = colorSets[index % colorSets.length]
                   return (
-                    <div key={index} className={`glass-light geo-chamfer-sm p-6`}>
+                    <div key={index} className={`glass-light geo-chamfer p-6`}>
                       <div className="flex items-center gap-3 mb-3">
-                        <div className={`w-10 h-10 ${color.iconBg} geo-chamfer-sm flex items-center justify-center`}>
+                        <div className={`w-10 h-10 ${color.iconBg} geo-chamfer flex items-center justify-center`}>
                           <Icon name={info.icon} className={`w-5 h-5 ${color.text}`} />
                         </div>
                         <h3 className={`font-semibold ${color.text} font-heading`}>{info.title}</h3>
@@ -199,7 +199,7 @@ export default function Contact() {
                     </div>
                   )
                 })}
-                <div className="glass-light geo-chamfer-sm p-6">
+                <div className="glass-light geo-chamfer p-6">
                   <h3 className="font-semibold text-text-primary mb-3">Business Hours</h3>
                   <div className="space-y-2 text-sm text-text-secondary">
                     <div className="flex justify-between">
@@ -217,16 +217,16 @@ export default function Contact() {
                   </div>
                 </div>
 
-                <div className="glass-light geo-chamfer-sm p-6">
+                <div className="glass-light geo-chamfer p-6">
                   <h3 className="font-semibold text-text-primary mb-3">Follow Us</h3>
                   <div className="flex gap-4">
-                    <a href="#" className="w-10 h-10 bg-gradient-to-br from-primary/20 to-primary/5 geo-chamfer-sm flex items-center justify-center hover:from-primary/40 hover:to-primary/20 transition-all border border-primary/30">
+                    <a href="#" className="w-10 h-10 bg-gradient-to-br from-primary/20 to-primary/5 geo-chamfer flex items-center justify-center hover:from-primary/40 hover:to-primary/20 transition-all border border-primary/30">
                       <Icon name="globe" className="w-5 h-5 text-text-primary" />
                     </a>
-                    <a href="#" className="w-10 h-10 bg-gradient-to-br from-gold/20 to-gold/5 geo-chamfer-sm flex items-center justify-center hover:from-gold/40 hover:to-gold/20 transition-all border border-gold/30">
+                    <a href="#" className="w-10 h-10 bg-gradient-to-br from-gold/20 to-gold/5 geo-chamfer flex items-center justify-center hover:from-gold/40 hover:to-gold/20 transition-all border border-gold/30">
                       <Icon name="mail" className="w-5 h-5 text-gold" />
                     </a>
-                    <a href="#" className="w-10 h-10 bg-gradient-to-br from-coral/20 to-coral/5 geo-chamfer-sm flex items-center justify-center hover:from-coral/40 hover:to-coral/20 transition-all border border-coral/30">
+                    <a href="#" className="w-10 h-10 bg-gradient-to-br from-coral/20 to-coral/5 geo-chamfer flex items-center justify-center hover:from-coral/40 hover:to-coral/20 transition-all border border-coral/30">
                       <Icon name="user" className="w-5 h-5 text-coral" />
                     </a>
                   </div>
@@ -235,12 +235,12 @@ export default function Contact() {
 
               {/* Contact Form */}
               <div className="lg:col-span-2">
-                <div className="glass geo-chamfer-sm p-8">
+                <div className="glass geo-chamfer p-8">
                   <h2 className="text-2xl font-bold text-text-primary mb-6">Send us a Message</h2>
 
                   {/* Success Message */}
                   {successMessage && (
-                    <div className="mb-6 p-4 bg-success/20 border border-success/50 geo-chamfer-sm">
+                    <div className="mb-6 p-4 bg-success/20 border border-success/50 geo-chamfer">
                       <p className="text-success flex items-center gap-2">
                         <Icon name="checkCircle" className="w-5 h-5" />
                         {successMessage}
@@ -250,7 +250,7 @@ export default function Contact() {
 
                   {/* Error Message */}
                   {error && (
-                    <div className="mb-6 p-4 bg-error/20 border border-error/50 geo-chamfer-sm">
+                    <div className="mb-6 p-4 bg-error/20 border border-error/50 geo-chamfer">
                       <p className="text-error flex items-center gap-2">
                         <Icon name="x" className="w-5 h-5" />
                         {error}
@@ -269,7 +269,7 @@ export default function Contact() {
                           name="name"
                           value={formData.name}
                           onChange={handleInputChange}
-                          className="w-full bg-deepest border border-border geo-chamfer-sm px-4 py-3 text-text-primary placeholder:text-text-muted focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary focus:bg-primary/5 transition-all"
+                          className="w-full bg-deepest border border-border rounded-lg px-4 py-3 text-text-primary placeholder:text-text-muted focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary focus:bg-primary/5 transition-all"
                           placeholder="John Doe"
                           required
                         />
@@ -283,7 +283,7 @@ export default function Contact() {
                           name="email"
                           value={formData.email}
                           onChange={handleInputChange}
-                          className="w-full bg-deepest border border-border geo-chamfer-sm px-4 py-3 text-text-primary placeholder:text-text-muted focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary focus:bg-primary/5 transition-all"
+                          className="w-full bg-deepest border border-border rounded-lg px-4 py-3 text-text-primary placeholder:text-text-muted focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary focus:bg-primary/5 transition-all"
                           placeholder="john@example.com"
                           required
                         />
@@ -298,7 +298,7 @@ export default function Contact() {
                         name="subject"
                         value={formData.subject}
                         onChange={handleInputChange}
-                        className="w-full bg-deepest border border-border geo-chamfer-sm px-4 py-3 text-text-primary focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary focus:bg-primary/5 transition-all"
+                        className="w-full bg-deepest border border-border rounded-lg px-4 py-3 text-text-primary focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary focus:bg-primary/5 transition-all"
                         required
                       >
                         <option value="">Select a subject</option>
@@ -319,7 +319,7 @@ export default function Contact() {
                         value={formData.message}
                         onChange={handleInputChange}
                         rows={6}
-                        className="w-full bg-deepest border border-border geo-chamfer-sm px-4 py-3 text-text-primary placeholder:text-text-muted focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary focus:bg-primary/5 transition-all resize-none"
+                        className="w-full bg-deepest border border-border rounded-lg px-4 py-3 text-text-primary placeholder:text-text-muted focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary focus:bg-primary/5 transition-all resize-none"
                         placeholder="How can we help you?"
                         required
                       />
@@ -328,7 +328,7 @@ export default function Contact() {
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className="w-full py-3 bg-gradient-to-r from-primary via-gold to-coral hover:from-primary-hover hover:via-gold/90 hover:to-coral/90 text-white geo-chamfer-sm font-heading font-medium transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-lg hover:shadow-xl"
+                      className="w-full py-3 bg-gradient-to-r from-primary via-gold to-coral hover:from-primary-hover hover:via-gold/90 hover:to-coral/90 text-white rounded-lg font-heading font-medium transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-lg hover:shadow-xl"
                     >
                       {isSubmitting ? (
                         <>
@@ -358,7 +358,7 @@ export default function Contact() {
               </p>
               <Link 
                 to="/faq"
-                className="inline-block px-6 py-2 bg-transparent border border-border hover:border-primary text-text-primary geo-chamfer-sm font-medium transition-colors"
+                className="inline-block px-6 py-2 bg-transparent border border-border hover:border-primary text-text-primary geo-chamfer font-medium transition-colors"
               >
                 View FAQ
               </Link>

@@ -77,7 +77,7 @@ export default function OnboardingStep2Student() {
       stepIndicator={{ current: 1, total: 3 }}
       footer={
         <div className="flex items-center gap-4">
-          <button onClick={() => navigate('/onboarding/role')} className="px-6 py-3 geo-chamfer-sm text-text-muted hover:text-white transition-colors font-medium font-body">
+          <button onClick={() => navigate('/onboarding/role')} className="px-6 py-3 rounded-lg text-text-muted hover:text-white transition-colors font-medium font-body">
             Back
           </button>
           <Button onClick={() => { if (canProceed) navigate('/onboarding/subjects') }} disabled={!canProceed} className="flex-1">
@@ -99,7 +99,7 @@ export default function OnboardingStep2Student() {
             <select
               value={classLevel}
               onChange={(e) => handleClassChange(e.target.value)}
-              className="w-full bg-deepest border-2 border-border geo-chamfer-sm py-3 px-4 text-text-primary focus:outline-none focus:border-primary transition-colors appearance-none cursor-pointer font-body"
+              className="w-full bg-deepest border-2 border-border rounded-lg py-3 px-4 text-text-primary focus:outline-none focus:border-primary transition-colors appearance-none cursor-pointer font-body"
             >
               <option value="" disabled>Select your class</option>
               {classLevels.map(group => (
@@ -125,13 +125,13 @@ export default function OnboardingStep2Student() {
                   key={dept.id}
                   type="button"
                   onClick={() => handleDepartmentSelect(dept.id)}
-                  className={`relative overflow-hidden geo-chamfer-sm p-4 text-left transition-all duration-300 ${
+                  className={`relative overflow-hidden geo-chamfer p-4 text-left transition-all duration-300 ${
                     isSelected ? 'glass-strong border-2 border-primary/50' : 'glass-light border-2 border-transparent hover:border-outline'
                   }`}
                 >
                   {isSelected && <div className={`absolute inset-0 opacity-10 bg-gradient-to-br ${dept.color}`} />}
                   <div className="relative z-10">
-                    <div className={`w-10 h-10 geo-chamfer-sm flex items-center justify-center mb-2 ${isSelected ? `bg-gradient-to-br ${dept.color}` : 'bg-raised'}`}>
+                    <div className={`w-10 h-10 geo-chamfer flex items-center justify-center mb-2 ${isSelected ? `bg-gradient-to-br ${dept.color}` : 'bg-raised'}`}>
                       <Icon name={dept.icon as any} className={`w-5 h-5 ${isSelected ? 'text-white' : 'text-text-muted'}`} />
                     </div>
                     <span className={`text-sm font-medium font-body ${isSelected ? 'text-white' : 'text-text-muted'}`}>{dept.name}</span>

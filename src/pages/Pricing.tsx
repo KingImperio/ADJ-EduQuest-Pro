@@ -228,7 +228,7 @@ export default function Pricing() {
           <div className="flex flex-wrap justify-center gap-4 mb-8">
             <button
               onClick={() => setUserType('student')}
-              className={`px-6 py-3 geo-chamfer-sm font-medium transition-all hover:scale-105 ${
+              className={`px-6 py-3 rounded-lg font-medium transition-all hover:scale-105 ${
                 userType === 'student'
                   ? 'bg-primary text-white shadow-glow'
                   : 'bg-surface text-text-secondary hover:text-primary border border-border hover:border-primary'
@@ -241,7 +241,7 @@ export default function Pricing() {
             </button>
             <button
               onClick={() => setUserType('teacher')}
-              className={`px-6 py-3 geo-chamfer-sm font-medium transition-all hover:scale-105 ${
+              className={`px-6 py-3 rounded-lg font-medium transition-all hover:scale-105 ${
                 userType === 'teacher'
                   ? 'bg-gold text-deep shadow-gold'
                   : 'bg-surface text-text-secondary hover:text-gold border border-border hover:border-gold'
@@ -254,7 +254,7 @@ export default function Pricing() {
             </button>
             <button
               onClick={() => setUserType('centre')}
-              className={`px-6 py-3 geo-chamfer-sm font-medium transition-all hover:scale-105 ${
+              className={`px-6 py-3 rounded-lg font-medium transition-all hover:scale-105 ${
                 userType === 'centre'
                   ? 'bg-coral text-white shadow-coral'
                   : 'bg-surface text-text-secondary hover:text-coral border border-border hover:border-coral'
@@ -311,7 +311,7 @@ export default function Pricing() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: idx * 0.1 }}
-                  className={`relative glass-light geo-chamfer-sm p-6 ${
+                  className={`relative glass-light geo-chamfer p-6 ${
                     plan.popular
                       ? `${colors.border} ${colors.shadow} scale-105`
                       : `${pColor.border} hover:border-opacity-80`
@@ -345,7 +345,7 @@ export default function Pricing() {
 
                   <Link
                     to="/onboarding/role"
-                    className={`group block w-full py-3 geo-chamfer-sm font-medium text-center transition-all ${
+                    className={`group block w-full py-3 rounded-lg font-medium text-center transition-all ${
                       plan.popular
                         ? `${colors.bg} ${colors.hover} text-white ${colors.shadow}`
                         : `bg-transparent border border-border hover:${plan.popular ? colors.border : pColor.border} ${plan.popular ? colors.text : pColor.icon}`
@@ -381,10 +381,10 @@ export default function Pricing() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: idx * 0.1 }}
-                className="glass-light geo-chamfer-sm p-6 hover:border-opacity-80 transition-all"
+                className="glass-light geo-chamfer p-6 hover:border-opacity-80 transition-all"
               >
                 <div className="flex items-start gap-3">
-                  <div className={`w-8 h-8 geo-chamfer-sm flex items-center justify-center ${idx === 1 ? 'bg-gold/20' : idx === 2 ? 'bg-coral/20' : 'bg-primary/20'}`}>
+                  <div className={`w-8 h-8 geo-chamfer flex items-center justify-center ${idx === 1 ? 'bg-gold/20' : idx === 2 ? 'bg-coral/20' : 'bg-primary/20'}`}>
                     <Icon name={faq.icon as any} className={`w-4 h-4 ${idx === 1 ? 'text-gold' : idx === 2 ? 'text-coral' : 'text-primary'}`} />
                   </div>
                   <div>
@@ -421,7 +421,7 @@ export default function Pricing() {
               </p>
               <Link
                 to="/contact"
-                className={`group inline-flex items-center gap-2 px-8 py-3 ${colors.bg} ${colors.hover} text-white geo-chamfer-sm font-medium transition-all ${colors.shadow}`}
+                className={`group inline-flex items-center gap-2 px-8 py-3 ${colors.bg} ${colors.hover} text-white geo-chamfer font-medium transition-all ${colors.shadow}`}
               >
                 Contact Us
                 <Icon name="arrowRight" className="w-4 h-4 group-hover:translate-x-1 transition-transform" />

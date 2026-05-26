@@ -61,7 +61,7 @@ export default function OnboardingStep2Teacher() {
       stepIndicator={{ current: 1, total: 3 }}
       footer={
         <div className="flex items-center gap-4">
-          <button onClick={() => navigate('/onboarding/role')} className="px-6 py-3 geo-chamfer-sm text-text-muted hover:text-white transition-colors font-medium font-body">
+          <button onClick={() => navigate('/onboarding/role')} className="px-6 py-3 rounded-lg text-text-muted hover:text-white transition-colors font-medium font-body">
             Back
           </button>
           <Button onClick={handleContinue} disabled={!canProceed} className="flex-1">
@@ -83,7 +83,7 @@ export default function OnboardingStep2Teacher() {
             <button
               type="button"
               onClick={() => handleInviteChoice(true)}
-              className={`py-4 px-4 geo-chamfer-sm text-center transition-all font-body ${
+              className={`py-4 px-4 rounded-lg text-center transition-all font-body ${
                 hasInviteCode === true
                   ? 'bg-amber-500/20 border-2 border-amber-500/50 text-amber-400'
                   : 'glass-light border-2 border-transparent hover:border-outline text-text-muted'
@@ -95,7 +95,7 @@ export default function OnboardingStep2Teacher() {
             <button
               type="button"
               onClick={() => handleInviteChoice(false)}
-              className={`py-4 px-4 geo-chamfer-sm text-center transition-all font-body ${
+              className={`py-4 px-4 rounded-lg text-center transition-all font-body ${
                 hasInviteCode === false
                   ? 'bg-orange-500/20 border-2 border-orange-500/50 text-orange-400'
                   : 'glass-light border-2 border-transparent hover:border-outline text-text-muted'
@@ -136,7 +136,7 @@ export default function OnboardingStep2Teacher() {
                 onClick={() => navigate('/onboarding/subjects')}
                 className="w-full p-4 glass-light border-2 border-transparent hover:border-orange-500/30 transition-all text-left flex items-center gap-4 group"
               >
-                <div className="w-12 h-12 geo-chamfer-sm bg-orange-500/20 flex items-center justify-center group-hover:bg-orange-500/30 transition-colors">
+                <div className="w-12 h-12 geo-chamfer bg-orange-500/20 flex items-center justify-center group-hover:bg-orange-500/30 transition-colors">
                   <Icon name="building2" className="w-6 h-6 text-orange-400" />
                 </div>
                 <div className="flex-1">
@@ -151,7 +151,7 @@ export default function OnboardingStep2Teacher() {
                 onClick={handleIndependentTeacher}
                 className="w-full p-4 glass-light border-2 border-transparent hover:border-primary/30 transition-all text-left flex items-center gap-4 group"
               >
-                <div className="w-12 h-12 geo-chamfer-sm bg-primary/20 flex items-center justify-center group-hover:bg-primary/30 transition-colors">
+                <div className="w-12 h-12 geo-chamfer bg-primary/20 flex items-center justify-center group-hover:bg-primary/30 transition-colors">
                   <Icon name="graduationCap" className="w-6 h-6 text-primary-light" />
                 </div>
                 <div className="flex-1">

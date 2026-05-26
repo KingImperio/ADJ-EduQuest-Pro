@@ -120,7 +120,7 @@ export default function OnboardingStep3() {
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         exit={{ opacity: 0, scale: 0.9 }}
-        className={`flex items-center gap-3 px-4 py-3 geo-chamfer-sm border-2 ${
+        className={`flex items-center gap-3 px-4 py-3 rounded-lg border-2 ${
           isMain ? 'bg-success/10 border-success/50' : isSupplementary ? 'bg-gold/10 border-gold/50' : 'bg-primary/10 border-primary/50'
         }`}
       >
@@ -164,11 +164,11 @@ export default function OnboardingStep3() {
       stepIndicator={{ current: 2, total: 3 }}
       footer={
         <div className="flex items-center gap-4">
-          <button onClick={handleBack} className="px-6 py-3 geo-chamfer-sm text-text-muted hover:text-white transition-colors font-medium font-body">
+          <button onClick={handleBack} className="px-6 py-3 rounded-lg text-text-muted hover:text-white transition-colors font-medium font-body">
             Back
           </button>
           {role === 'student' && (
-            <button onClick={handleSkip} className="px-6 py-3 geo-chamfer-sm text-text-muted hover:text-text-secondary transition-colors text-sm font-body">
+            <button onClick={handleSkip} className="px-6 py-3 rounded-lg text-text-muted hover:text-text-secondary transition-colors text-sm font-body">
               Skip for now
             </button>
           )}
@@ -205,7 +205,7 @@ export default function OnboardingStep3() {
         ) : (
           <button
             onClick={() => setIsModalOpen(true)}
-            className="w-full p-8 geo-chamfer-sm border-2 border-dashed border-border hover:border-outline transition-colors text-center"
+            className="w-full p-8 rounded-lg border-2 border-dashed border-border hover:border-outline transition-colors text-center"
           >
             <Icon name="bookOpen" className="w-10 h-10 text-border mx-auto mb-3" />
             <p className="text-text-muted mb-1 font-body">No subjects selected</p>

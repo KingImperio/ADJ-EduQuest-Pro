@@ -5,6 +5,7 @@ import { Icon, IconName } from '../components/Icon'
 import MarketingHeader from '../components/MarketingHeader'
 import MarketingFooter from '../components/MarketingFooter'
 import AnimatedGradientBackground from '../components/AnimatedGradientBackground'
+import ScrollReveal from '../components/ui/ScrollReveal'
 
 interface Step {
   id: number
@@ -231,46 +232,47 @@ export default function HowItWorks() {
             <div className={`absolute left-5 sm:left-6 top-0 bottom-0 w-0.5 hidden md:block bg-gradient-to-b ${currentColors.gradient}`} />
 
             {steps.map((step, idx) => (
-              <motion.div
-                key={step.id}
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: idx * 0.1 }}
-                className="relative mb-12 last:mb-0"
-              >
-                {/* Step Number */}
-                <div className="flex items-start gap-4 sm:gap-6">
-                  <div className="relative z-10 flex-shrink-0">
-                    <div className={`w-10 h-10 sm:w-12 sm:h-12 ${currentColors.bg} rounded-full flex items-center justify-center text-white font-bold text-sm sm:text-base ${currentColors.shadow} transition-all hover:scale-110`}>
-                      {step.id}
-                    </div>
-                  </div>
-
-                  {/* Step Content */}
-                  <div className={`flex-1 glass-light rounded-xl p-4 sm:p-6 hover:border-opacity-50 transition-all hover-lift group min-w-0`}>
-                    <div className="flex items-start gap-3 sm:gap-4 mb-4">
-                      <div className={`w-10 h-10 sm:w-12 sm:h-12 bg-raised geo-chamfer flex items-center justify-center group-hover:${currentColors.bg}/20 transition-colors flex-shrink-0`}>
-                        <Icon name={step.icon} className={`w-5 h-5 sm:w-6 sm:h-6 ${currentColors.icon}`} />
-                      </div>
-                      <div className="min-w-0">
-                        <h3 className="text-lg sm:text-xl font-semibold text-text-primary mb-1 sm:mb-2">{step.title}</h3>
-                        <p className="text-text-secondary text-sm sm:text-base">{step.description}</p>
+              <ScrollReveal key={step.id} delay={idx * 100} direction="left">
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: idx * 0.1 }}
+                  className="relative mb-12 last:mb-0"
+                >
+                  {/* Step Number */}
+                  <div className="flex items-start gap-4 sm:gap-6">
+                    <div className="relative z-10 flex-shrink-0">
+                      <div className={`w-10 h-10 sm:w-12 sm:h-12 ${currentColors.bg} rounded-full flex items-center justify-center text-white font-bold text-sm sm:text-base ${currentColors.shadow} transition-all hover:scale-110`}>
+                        {step.id}
                       </div>
                     </div>
 
-                    {/* Step Details */}
-                    <ul className="space-y-2">
-                      {step.details.map((detail, detailIndex) => (
-                        <li key={detailIndex} className="flex items-center gap-2 text-sm text-text-secondary">
-                          <Icon name="checkCircle" className={`w-4 h-4 ${currentColors.icon} shrink-0`} />
-                          {detail}
-                        </li>
-                      ))}
-                    </ul>
+                    {/* Step Content */}
+                    <div className={`flex-1 glass-light rounded-xl p-4 sm:p-6 hover:border-opacity-50 transition-all hover-lift group min-w-0`}>
+                      <div className="flex items-start gap-3 sm:gap-4 mb-4">
+                        <div className={`w-10 h-10 sm:w-12 sm:h-12 bg-raised geo-chamfer flex items-center justify-center group-hover:${currentColors.bg}/20 transition-colors flex-shrink-0`}>
+                          <Icon name={step.icon} className={`w-5 h-5 sm:w-6 sm:h-6 ${currentColors.icon}`} />
+                        </div>
+                        <div className="min-w-0">
+                          <h3 className="text-lg sm:text-xl font-semibold text-text-primary mb-1 sm:mb-2">{step.title}</h3>
+                          <p className="text-text-secondary text-sm sm:text-base">{step.description}</p>
+                        </div>
+                      </div>
+
+                      {/* Step Details */}
+                      <ul className="space-y-2">
+                        {step.details.map((detail, detailIndex) => (
+                          <li key={detailIndex} className="flex items-center gap-2 text-sm text-text-secondary">
+                            <Icon name="checkCircle" className={`w-4 h-4 ${currentColors.icon} shrink-0`} />
+                            {detail}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
                   </div>
-                </div>
-              </motion.div>
+                </motion.div>
+              </ScrollReveal>
             ))}
           </div>
         </div>

@@ -5,6 +5,7 @@ import { Icon, IconName } from '../components/Icon'
 import MarketingHeader from '../components/MarketingHeader'
 import MarketingFooter from '../components/MarketingFooter'
 import AnimatedGradientBackground from '../components/AnimatedGradientBackground'
+import ScrollReveal from '../components/ui/ScrollReveal'
 
 interface CentreBenefit {
   icon: IconName
@@ -321,16 +322,17 @@ export default function Centres() {
               ]
               const colors = colorSets[index % colorSets.length]
               return (
-                <div
-                  key={index}
-                  className={`glass-light rounded-xl p-6 hover-lift hover:shadow-lg transition-all duration-300`}
-                >
-                  <div className={`w-12 h-12 ${colors.iconBg} geo-chamfer flex items-center justify-center mb-4`}>
-                    <Icon name={benefit.icon} className={`w-6 h-6 ${colors.text}`} />
+                <ScrollReveal key={index} delay={index * 80}>
+                  <div
+                    className={`glass-light rounded-xl p-6 hover-lift hover:shadow-lg transition-all duration-300`}
+                  >
+                    <div className={`w-12 h-12 ${colors.iconBg} geo-chamfer flex items-center justify-center mb-4`}>
+                      <Icon name={benefit.icon} className={`w-6 h-6 ${colors.text}`} />
+                    </div>
+                    <h3 className={`text-lg font-semibold ${colors.text} mb-2 font-heading`}>{benefit.title}</h3>
+                    <p className="text-text-secondary text-sm font-body">{benefit.description}</p>
                   </div>
-                  <h3 className={`text-lg font-semibold ${colors.text} mb-2 font-heading`}>{benefit.title}</h3>
-                  <p className="text-text-secondary text-sm font-body">{benefit.description}</p>
-                </div>
+                </ScrollReveal>
               )
             })}
           </div>
@@ -358,23 +360,24 @@ export default function Centres() {
               ]
               const accent = accentColors[index % accentColors.length]
               return (
-                <div
-                  key={index}
-                  className="glass-light rounded-xl p-6 hover-lift hover:shadow-lg transition-all duration-300"
-                >
-                  <div className="flex items-start gap-4 mb-4">
-                    <div className={`w-12 h-12 ${accent.bg} rounded-full flex items-center justify-center bg-gradient-to-br ${accent.gradient} bg-opacity-20`}>
-                      <Icon name="user" className={`w-6 h-6 ${accent.text}`} />
+                <ScrollReveal key={index} delay={index * 80}>
+                  <div
+                    className="glass-light rounded-xl p-6 hover-lift hover:shadow-lg transition-all duration-300"
+                  >
+                    <div className="flex items-start gap-4 mb-4">
+                      <div className={`w-12 h-12 ${accent.bg} rounded-full flex items-center justify-center bg-gradient-to-br ${accent.gradient} bg-opacity-20`}>
+                        <Icon name="user" className={`w-6 h-6 ${accent.text}`} />
+                      </div>
+                      <div>
+                        <h3 className={`font-semibold ${accent.text} font-heading`}>{testimonial.name}</h3>
+                        <p className="text-text-secondary text-sm font-body">{testimonial.role}</p>
+                        <p className="text-text-secondary text-xs font-body">{testimonial.centre}</p>
+                      </div>
                     </div>
-                    <div>
-                      <h3 className={`font-semibold ${accent.text} font-heading`}>{testimonial.name}</h3>
-                      <p className="text-text-secondary text-sm font-body">{testimonial.role}</p>
-                      <p className="text-text-secondary text-xs font-body">{testimonial.centre}</p>
-                    </div>
+                    <p className="text-text-secondary text-sm mb-4 font-body">{testimonial.content}</p>
+                    <div className={`text-xs ${accent.text} font-medium ${accent.metricBg} px-2 py-1 geo-chamfer inline-block font-heading`}>{testimonial.metrics}</div>
                   </div>
-                  <p className="text-text-secondary text-sm mb-4 font-body">{testimonial.content}</p>
-                  <div className={`text-xs ${accent.text} font-medium ${accent.metricBg} px-2 py-1 geo-chamfer inline-block font-heading`}>{testimonial.metrics}</div>
-                </div>
+                </ScrollReveal>
               )
             })}
           </div>

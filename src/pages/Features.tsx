@@ -5,6 +5,7 @@ import { Icon, IconName } from '../components/Icon'
 import MarketingHeader from '../components/MarketingHeader'
 import MarketingFooter from '../components/MarketingFooter'
 import AnimatedGradientBackground from '../components/AnimatedGradientBackground'
+import ScrollReveal from '../components/ui/ScrollReveal'
 import { staggerContainer, staggerItem } from '../hooks/useStaggeredAnimation'
 
 interface Feature {
@@ -264,22 +265,23 @@ export default function Features() {
             ]
             const colors = accentColors[idx % accentColors.length]
             return (
-              <motion.div
-                key={feature.id}
-                variants={staggerItem('up')}
-                className={`glass p-6 ${colors.border}/50 hover:shadow-lg transition-all cursor-pointer group hover-lift`}
-              >
-                <div className="flex items-start justify-between mb-4">
-                  <div className={`w-14 h-14 sm:w-16 sm:h-16 bg-raised geo-chamfer-lg flex items-center justify-center ${colors.iconBg} transition-colors flex-shrink-0`}>
-                    <Icon name={feature.icon} className={`w-7 h-7 sm:w-8 sm:h-8 ${colors.icon}`} />
+              <ScrollReveal key={feature.id} delay={idx * 80}>
+                <motion.div
+                  variants={staggerItem('up')}
+                  className={`glass p-6 ${colors.border}/50 hover:shadow-lg transition-all cursor-pointer group hover-lift`}
+                >
+                  <div className="flex items-start justify-between mb-4">
+                    <div className={`w-14 h-14 sm:w-16 sm:h-16 bg-raised geo-chamfer-lg flex items-center justify-center ${colors.iconBg} transition-colors flex-shrink-0`}>
+                      <Icon name={feature.icon} className={`w-7 h-7 sm:w-8 sm:h-8 ${colors.icon}`} />
+                    </div>
+                    <span className="text-xs text-muted bg-raised px-2 py-1 rounded-full">
+                      {feature.category}
+                    </span>
                   </div>
-                  <span className="text-xs text-muted bg-raised px-2 py-1 rounded-full">
-                    {feature.category}
-                  </span>
-                </div>
-                <h3 className="text-lg font-semibold text-text-primary mb-2">{feature.title}</h3>
-                <p className="text-text-secondary text-sm">{feature.description}</p>
-              </motion.div>
+                  <h3 className="text-lg font-semibold text-text-primary mb-2">{feature.title}</h3>
+                  <p className="text-text-secondary text-sm">{feature.description}</p>
+                </motion.div>
+              </ScrollReveal>
             )
           })}
         </motion.div>

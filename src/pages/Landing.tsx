@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
 import { Icon } from '../components/Icon'
 import AnimatedCounter from '../components/ui/AnimatedCounter'
+import ScrollReveal from '../components/ui/ScrollReveal'
 import MarketingHeader from '../components/MarketingHeader'
 import MarketingFooter from '../components/MarketingFooter'
 import AnimatedGradientBackground from '../components/AnimatedGradientBackground'
@@ -1150,6 +1151,7 @@ export default function LandingHeroDemo() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {/* Card 1 - Large, primary accent */}
+            <ScrollReveal delay={0} direction="up">
             <motion.div
               whileHover={{ y: -8, scale: 1.02 }}
               className="glass geo-chamfer p-8 hover:border-primary/40 transition-all relative overflow-hidden group hover-lift"
@@ -1169,7 +1171,9 @@ export default function LandingHeroDemo() {
                 </div>
               </div>
             </motion.div>
+            </ScrollReveal>
             {/* Card 2 - Medium, gold accent */}
+            <ScrollReveal delay={80} direction="up">
             <motion.div
               whileHover={{ y: -8, scale: 1.02 }}
               className="glass-light geo-chamfer p-6 hover:border-gold/40 transition-all relative overflow-hidden group mt-8 hover-lift"
@@ -1189,7 +1193,9 @@ export default function LandingHeroDemo() {
                 </div>
               </div>
             </motion.div>
+            </ScrollReveal>
             {/* Card 3 - Medium, coral accent */}
+            <ScrollReveal delay={160} direction="up">
             <motion.div
               whileHover={{ y: -8, scale: 1.02 }}
               className="glass geo-chamfer p-6 hover:border-coral/40 transition-all relative overflow-hidden group hover-lift"
@@ -1209,7 +1215,9 @@ export default function LandingHeroDemo() {
                 </div>
               </div>
             </motion.div>
+            </ScrollReveal>
             {/* Card 4 - Medium, success accent */}
+            <ScrollReveal delay={240} direction="up">
             <motion.div
               whileHover={{ y: -8, scale: 1.02 }}
               className="glass-light geo-chamfer p-6 hover:border-success/40 transition-all relative overflow-hidden group hover-lift"
@@ -1229,7 +1237,9 @@ export default function LandingHeroDemo() {
                 </div>
               </div>
             </motion.div>
+            </ScrollReveal>
             {/* Card 5 - Medium, primary accent */}
+            <ScrollReveal delay={320} direction="up">
             <motion.div
               whileHover={{ y: -8, scale: 1.02 }}
               className="glass geo-chamfer p-6 hover:border-primary/40 transition-all relative overflow-hidden group mt-8 hover-lift"
@@ -1249,7 +1259,9 @@ export default function LandingHeroDemo() {
                 </div>
               </div>
             </motion.div>
+            </ScrollReveal>
             {/* Card 6 - Medium, gold accent */}
+            <ScrollReveal delay={400} direction="up">
             <motion.div
               whileHover={{ y: -8, scale: 1.02 }}
               className="glass-light geo-chamfer p-6 hover:border-gold/40 transition-all relative overflow-hidden group hover-lift"
@@ -1269,6 +1281,7 @@ export default function LandingHeroDemo() {
                 </div>
               </div>
             </motion.div>
+            </ScrollReveal>
           </div>
         </div>
       </section>

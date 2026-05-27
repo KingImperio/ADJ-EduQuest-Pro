@@ -5,6 +5,7 @@ import { Icon, IconName } from '../components/Icon'
 import MarketingHeader from '../components/MarketingHeader'
 import MarketingFooter from '../components/MarketingFooter'
 import AnimatedGradientBackground from '../components/AnimatedGradientBackground'
+import ScrollReveal from '../components/ui/ScrollReveal'
 
 interface ContactInfo {
   icon: IconName
@@ -186,17 +187,19 @@ export default function Contact() {
                   ]
                   const color = colorSets[index % colorSets.length]
                   return (
-                    <div key={index} className={`glass-light rounded-xl p-6 hover-lift`}>
-                      <div className="flex items-center gap-3 mb-3">
-                        <div className={`w-10 h-10 ${color.iconBg} geo-chamfer flex items-center justify-center`}>
-                          <Icon name={info.icon} className={`w-5 h-5 ${color.text}`} />
+                    <ScrollReveal key={index} delay={index * 100} direction="left">
+                      <div className={`glass-light rounded-xl p-6 hover-lift`}>
+                        <div className="flex items-center gap-3 mb-3">
+                          <div className={`w-10 h-10 ${color.iconBg} geo-chamfer flex items-center justify-center`}>
+                            <Icon name={info.icon} className={`w-5 h-5 ${color.text}`} />
+                          </div>
+                          <h3 className={`font-semibold ${color.text} font-heading`}>{info.title}</h3>
                         </div>
-                        <h3 className={`font-semibold ${color.text} font-heading`}>{info.title}</h3>
+                        {info.details.map((detail, detailIndex) => (
+                          <p key={detailIndex} className="text-text-secondary font-body">{detail}</p>
+                        ))}
                       </div>
-                      {info.details.map((detail, detailIndex) => (
-                        <p key={detailIndex} className="text-text-secondary font-body">{detail}</p>
-                      ))}
-                    </div>
+                    </ScrollReveal>
                   )
                 })}
                 <div className="glass-light rounded-xl p-6 hover-lift">

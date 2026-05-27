@@ -75,6 +75,7 @@ const queryClient = new QueryClient({
 function AppRoutes() {
   const { setUser, setSession, setLoading,
           fetchProfile } = useAuthStore()
+  const setIsInitialized = (val: boolean) => useAuthStore.setState({ isInitialized: val })
 
   // Initialize web vitals tracking
   useEffect(() => {
@@ -83,14 +84,25 @@ function AppRoutes() {
   }, [])
 
    useEffect(() => {
+     // Mark initialized after getSession resolves or after 3s timeout (whichever first)
+     const initTimeout = setTimeout(() => {
+       setLoading(false)
+       setIsInitialized(true)
+     }, 3000)
+
      supabase.auth.getSession().then(({ data: { session } }) => {
+       clearTimeout(initTimeout)
        setSession(session)
        setUser(session?.user ?? null)
        if (session?.user) {
          fetchProfile(session.user.id)
        }
        setLoading(false)
-       useAuthStore.setState({ isInitialized: true })
+       setIsInitialized(true)
+     }).catch(() => {
+       clearTimeout(initTimeout)
+       setLoading(false)
+       setIsInitialized(true)
      })
 
      let subscription: { data: { subscription: { unsubscribe: () => void } }; } | null = null;
@@ -103,10 +115,12 @@ function AppRoutes() {
            fetchProfile(session.user.id)
          }
          setLoading(false)
+         setIsInitialized(true)
        }
      )
 
      return () => {
+       clearTimeout(initTimeout)
        subscription?.data.subscription.unsubscribe()
      }
    }, [])

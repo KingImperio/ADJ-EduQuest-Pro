@@ -37,7 +37,7 @@ export default function AdminEvaluation() {
         subtitle="Your centre has passed initial evaluation."
         stepIndicator={{ current: 2, total: 3 }}
         footer={
-          <Button variant="danger" className="w-full" onClick={() => navigate('/auth/signup/admin')} icon={<Icon name="arrowRight" className="w-5 h-5" />}>
+          <Button variant="danger" className="w-full" onClick={() => navigate('/onboarding/subjects')} icon={<Icon name="arrowRight" className="w-5 h-5" />}>
             Complete Registration
           </Button>
         }

@@ -23,6 +23,7 @@ const SignUp = lazy(() => import('./pages/auth/SignUp'))
 const ForgotPassword = lazy(() => import('./pages/auth/ForgotPassword'))
 const ResetPassword = lazy(() => import('./pages/auth/ResetPassword'))
 const EmailVerification = lazy(() => import('./pages/auth/EmailVerification'))
+const AuthCallback = lazy(() => import('./pages/auth/AuthCallback'))
 
 // Onboarding pages
 const OnboardingStep1 = lazy(() => import('./pages/onboarding/OnboardingStep1'))
@@ -83,27 +84,30 @@ function AppRoutes() {
     observeResources()
   }, [])
 
-   useEffect(() => {
-     // Mark initialized after getSession resolves or after 3s timeout (whichever first)
-     const initTimeout = setTimeout(() => {
-       setLoading(false)
-       setIsInitialized(true)
-     }, 3000)
+    useEffect(() => {
+      // Mark initialized after getSession resolves or after 3s timeout (whichever first)
+      const initTimeout = setTimeout(() => {
+        setLoading(false)
+        setIsInitialized(true)
+      }, 3000)
 
-     supabase.auth.getSession().then(({ data: { session } }) => {
-       clearTimeout(initTimeout)
-       setSession(session)
-       setUser(session?.user ?? null)
-       if (session?.user) {
-         fetchProfile(session.user.id)
-       }
-       setLoading(false)
-       setIsInitialized(true)
-     }).catch(() => {
-       clearTimeout(initTimeout)
-       setLoading(false)
-       setIsInitialized(true)
-     })
+      supabase.auth.getSession().then(({ data: { session } }) => {
+        clearTimeout(initTimeout)
+        setSession(session)
+        setUser(session?.user ?? null)
+        if (session?.user) {
+          fetchProfile(session.user.id)
+        }
+        setLoading(false)
+        setIsInitialized(true)
+      }).catch((err) => {
+        clearTimeout(initTimeout)
+        console.error('[App] getSession failed:', err)
+        setLoading(false)
+        setIsInitialized(true)
+        setSession(null)
+        setUser(null)
+      })
 
      let subscription: { data: { subscription: { unsubscribe: () => void } }; } | null = null;
 
@@ -160,12 +164,13 @@ function AppRoutes() {
       <Route path="/onboarding/evaluation" element={<AdminEvaluation />} />
       <Route path="/onboarding/subjects" element={<OnboardingStep3 />} />
       
-      {/* Auth Routes */}
-      <Route path="/auth/signin" element={<SignIn />} />
-      <Route path="/auth/signup" element={<SignUp />} />
-      <Route path="/auth/forgot-password" element={<ForgotPassword />} />
-      <Route path="/auth/reset-password" element={<ResetPassword />} />
-      <Route path="/auth/email-verification" element={<EmailVerification />} />
+       {/* Auth Routes */}
+       <Route path="/auth/signin" element={<SignIn />} />
+       <Route path="/auth/signup" element={<SignUp />} />
+       <Route path="/auth/forgot-password" element={<ForgotPassword />} />
+       <Route path="/auth/reset-password" element={<ResetPassword />} />
+       <Route path="/auth/email-verification" element={<EmailVerification />} />
+       <Route path="/auth/callback" element={<AuthCallback />} />
       
       {/* Authenticated Routes with Layout */}
       <Route element={<ProtectedRoute><AuthenticatedLayout /></ProtectedRoute>}>
@@ -192,6 +197,21 @@ export default function App() {
           <AppRoutes />
         </BrowserRouter>
       </QueryClientProvider>
+      {/* Code by Oracule — fixed bottom-left attribution per project standing rule */}
+      <aside
+        className="fixed bottom-4 left-4 z-[100] font-display select-none"
+        aria-label="Attribution"
+        style={{
+          fontSize: '11px',
+          letterSpacing: '0.08em',
+          textTransform: 'uppercase',
+          color: 'rgba(255,255,255,0.12)',
+          lineHeight: 1,
+          pointerEvents: 'none',
+        }}
+      >
+        Code by Oracule
+      </aside>
     </ErrorBoundary>
   )
 }

@@ -319,6 +319,21 @@ html {
   50% { background-position: 100% 50%; }
 }
 
+/* Grid sweep — referenced by AnimatedGridBackground */
+@keyframes gridSweep1 {
+  0%, 100% { opacity: 0; transform: translateY(0); }
+  25% { opacity: 1; }
+  50% { opacity: 0; transform: translateY(60px); }
+  75% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(0); }
+}
+
+/* Wave fade — referenced by AnimatedGridBackground */
+@keyframes waveFade {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
 .animate-gradient {
   background-size: 200% auto;
   animation: gradientText 3s ease infinite;

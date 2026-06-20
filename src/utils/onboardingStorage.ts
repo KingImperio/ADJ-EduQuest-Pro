@@ -1,8 +1,7 @@
 // Onboarding Data Persistence Utility
 // Uses localStorage to maintain state between onboarding steps
 
-// User role type (aligned with database schema)
-export type UserRole = 'student' | 'teacher' | 'admin'
+import type { UserRole } from '../types'
 
 export interface OnboardingData {
   // Step 1: Role Selection
@@ -161,7 +160,7 @@ export const getRoleTheme = (role: UserRole | null) => {
       accentBorder: 'border-gold',
       gradient: 'from-primary via-gold to-coral',
     },
-    admin: {
+    centre_admin: {
       primary: 'text-primary',
       bg: 'bg-primary',
       border: 'border-primary',
@@ -170,10 +169,37 @@ export const getRoleTheme = (role: UserRole | null) => {
       accentBorder: 'border-coral',
       gradient: 'from-primary via-coral to-purple-500',
     },
+    school_admin: {
+      primary: 'text-primary',
+      bg: 'bg-primary',
+      border: 'border-primary',
+      accent: 'text-coral',
+      accentBg: 'bg-coral',
+      accentBorder: 'border-coral',
+      gradient: 'from-primary via-coral to-purple-500',
+    },
+    platform_admin: {
+      primary: 'text-primary',
+      bg: 'bg-primary',
+      border: 'border-primary',
+      accent: 'text-coral',
+      accentBg: 'bg-coral',
+      accentBorder: 'border-coral',
+      gradient: 'from-primary via-coral to-purple-500',
+    },
+    parent: {
+      primary: 'text-primary',
+      bg: 'bg-primary',
+      border: 'border-primary',
+      accent: 'text-gold',
+      accentBg: 'bg-gold',
+      accentBorder: 'border-gold',
+      gradient: 'from-primary via-gold to-coral',
+    },
   }
-  
+
   if (!role) return themes.student
-  return themes[role] as typeof themes.student
+  return themes[role] ?? themes.student
 }
 
 // Validate if can proceed to next step

@@ -218,12 +218,12 @@ export default function StudentDashboard() {
                 Continue Study
               </Button>
             </Link>
-            <Link to="/leaderboard">
+            <Link to="/exam/sample">
               <Button variant="secondary" size="md" className="w-full" icon={<Icon name="trophy" size={16} />}>
                 Leaderboard
               </Button>
             </Link>
-            <Link to="/achievements">
+            <Link to="/profile">
               <Button variant="ghost" size="md" className="w-full" icon={<Icon name="award" size={16} />}>
                 Achievements
               </Button>
